@@ -1,37 +1,33 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import './App.css'
+import Home from "./pages/Home"
+import About from "./pages/About"
+import Cart from "./pages/Cart"
+import Orders from "./pages/Orders"
+import PlaceOrder from "./pages/PlaceOrder"
+import Contact from "./pages/Contact"
+import Collections from "./pages/Collections"
+import Login from "./pages/Login"
 import Header from "./components/Header"
-import Home from "./pages/Home";
-import Product from "./pages/Product";
-import Cart from "./pages/Cart";
-import Order from "./components/Order";
-import MyOrderS from "./pages/MyOrders";
-import Verify from "./pages/Verify";
-import Shop from "./pages/Shop";
+import Product from "./pages/Product"
 
 const  App = () => {
 
   return (
-      <BrowserRouter>
-        <Header />
-
-        <Routes>
-
-          <Route path="/" element={<Home />} />
-
-          <Route path="/product" element={<Product />}>
-            <Route path=":productID" element={<Product />} />
-          </Route>
-
-          <Route path="/shop" element={<Shop />} />
-
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/order" element={<Order />} />
-          <Route path="/myorders" element={<MyOrderS />} />
-          <Route path="/verify" element={<Verify />} />
-        </Routes>
-
-      </BrowserRouter>
+    <>
+    <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/place-order" element={<PlaceOrder />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/collections" element={<Collections />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/product/:productId" element={<Product />} />
+      </Routes>
+    </>
   )
 }
 
