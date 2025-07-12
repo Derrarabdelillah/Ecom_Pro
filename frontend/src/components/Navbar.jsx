@@ -1,26 +1,24 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { FaBars, FaSearch, FaUser  } from "react-icons/fa";
-import { FaBasketShopping } from "react-icons/fa6";
+import { assets } from "../assets/frontend_assets/assets";
+import { productsContext } from "../context/ProductsContext";
 
 const Navbar = () => {
     
     const [ isMenuOpen, setIsMenuOpen ] = useState(false);
+    const { search, setSearch, showSearch, setShowSearch } = useContext(productsContext);
 
     const nav = [
-        {id: 1, href: "/", classname: "hover:text-main font-bold hover:ps-2", text: "Home"},
-        {id: 2, href: "/", classname: "hover:text-main font-bold hover:ps-2", text: "Collections"},
-        {id: 3, href: "/", classname: "hover:text-main font-bold hover:ps-2", text: "About Us"},
-        {id: 4, href: "/", classname: "hover:text-main font-bold hover:ps-2", text: "Contact"},
+        {id: 1, to: "/", classname: "hover:text-main font-bold hover:ps-2", text: "Home"},
+        {id: 2, to: "/collections", classname: "hover:text-main font-bold hover:ps-2", text: "Collections"},
+        {id: 3, to: "/about", classname: "hover:text-main font-bold hover:ps-2", text: "About Us"},
+        {id: 4, to: "/contact", classname: "hover:text-main font-bold hover:ps-2", text: "Contact"},
     ];
 
-    const navList = nav.map( (item) => { return <Link key={item.id}  className={item.classname}> {item.text} </Link> } );
+    const navList = nav.map( (item) => { return <Link key={item.id}  className={item.classname} to={item.to} > {item.text} </Link> } );
 
-    const [box, setBox] = useState(false);
-    const handlBox = () => {
-        setBox(true);
-    }
+
     return (
         <>
             <header className="sticky bg-white border-b border-grayBorder top-0 shadow-xl z-9999">
@@ -28,7 +26,7 @@ const Navbar = () => {
                 <div className="container w-full flex items-center justify-between text-black font-bold">
 
                         <div>
-                                <Link href="/">
+                                <Link to="/">
                                     <span className="text-2xl text-main">Ecom Pro</span>
                                 </Link>
                         </div>
@@ -42,7 +40,7 @@ const Navbar = () => {
                         {/* User Dropdown */}
                         <div className="relative group">
                             <div className="p-2 cursor-pointer">
-                                <FaUser className=" text-xl" />
+                                <img src={assets.profile_icon} className="w-5" />
                             </div>
 
                             {/* Dropdown Content */}
@@ -57,18 +55,22 @@ const Navbar = () => {
 
                             <div className="relative">
                                 <Link to={"/cart"} >
-                                    <FaBasketShopping className=" text-2xl cursor-pointer" />
+                                    <img src={assets.cart_icon} className="w-5" />
                                 </Link>
                                 <span className="absolute bg-main w-[5px] h-[5px] rounded-full -top-1 right-0"></span>
                             </div>
-                                <Link to={"/search"} >
-                                    <FaSearch className=" text-2xl cursor-pointer" />
+
+                                <Link to={"/collections"} >
+                                    <img 
+                                    onClick={ () => setShowSearch(true) }
+                                    src={assets.search_icon} 
+                                    className="w-5" />
                                 </Link>
                             {isMenuOpen ? 
                             <IoClose  className="md:hidden text-3xl cursor-pointer" 
                             onClick={ () => setIsMenuOpen(!isMenuOpen) }/> 
                             :  
-                            <FaBars className=" md:hidden text-2xl cursor-pointer" onClick={ () => setIsMenuOpen(!isMenuOpen) }/>}
+                            <img src={assets.menu_icon} className=" md:hidden w-4 cursor-pointer" onClick={ () => setIsMenuOpen(!isMenuOpen) }/>}
                         </div>
 
                 </div>

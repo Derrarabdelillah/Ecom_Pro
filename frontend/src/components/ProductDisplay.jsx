@@ -6,7 +6,9 @@ import Item from "./Item";
 
 
 const ProductDisplay = () => {
-    const products = useContext(productsContext);
+    const { products } = useContext(productsContext);
+    const { currency } = useContext(productsContext);
+    const { delivery_fee } = useContext(productsContext);
 
     const bestSellers = products.filter( (product) => product.bestseller === true )
   
@@ -21,7 +23,8 @@ const ProductDisplay = () => {
             {products.map( (product) => {
         return (
             <div >
-                <Item key={product._id} product={product} />
+                <Item key={product._id} product={product} currency={currency} 
+                />
             </div>
         )
     } )}

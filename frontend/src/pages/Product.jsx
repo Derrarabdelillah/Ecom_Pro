@@ -1,9 +1,12 @@
+import { products } from "../assets/frontend_assets/assets"
 
 
 const Product = () => {
   return (
     <div>
-      product page
+      {products.map((product) => {
+        <h1>{product.name}</h1>
+      })}
     </div>
   )
 }
