@@ -5,7 +5,7 @@ const Hero = () => {
     const img = assets.hero_img;
     return (
         <>
-            <section className="h-dvh">
+            <section className="h-[500px]">
                 <div className="relative md:top-24 flex flex-col gap-2 md:flex-row justify-center items-center">
                 
                 <div className=" flex flex-col  md:w-1/2">

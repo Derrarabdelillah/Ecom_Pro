@@ -62,8 +62,6 @@ html {
 
 p {
   color: var(--color-grayText);
-  font-size: 14px;
-  font-weight: 400;
   line-height: 25px;
 }
 

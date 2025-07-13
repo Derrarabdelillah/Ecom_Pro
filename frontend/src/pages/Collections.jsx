@@ -26,7 +26,7 @@ const Collections = () => {
   }
   
   // SubCategory Toogle Funciton to store the clicked checkbox on the SubCategory useState
-  const toggleSubCategory = (e) => {
+  const toggleSubCategory = (e) => {  
     if ( subCategory.includes(e.target.value) ) {
       setSubCategory( prev => prev.filter( item => item !== e.target.value ) )
     } else {

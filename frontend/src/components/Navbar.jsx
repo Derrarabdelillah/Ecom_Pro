@@ -7,8 +7,9 @@ import { productsContext } from "../context/ProductsContext";
 const Navbar = () => {
     
     const [ isMenuOpen, setIsMenuOpen ] = useState(false);
-    const { search, setSearch, showSearch, setShowSearch } = useContext(productsContext);
-
+    const { setShowSearch, getCartCount, cartItems} = useContext(productsContext);
+    const count = getCartCount();
+    
     const nav = [
         {id: 1, to: "/", classname: "hover:text-main font-bold hover:ps-2", text: "Home"},
         {id: 2, to: "/collections", classname: "hover:text-main font-bold hover:ps-2", text: "Collections"},
@@ -57,7 +58,12 @@ const Navbar = () => {
                                 <Link to={"/cart"} >
                                     <img src={assets.cart_icon} className="w-5" />
                                 </Link>
-                                <span className="absolute bg-main w-[5px] h-[5px] rounded-full -top-1 right-0"></span>
+                                {cartItems ? (
+                                    <span className="  text-white font-bold">
+                                        <span className="absolute -top-4 -right-2 bg-main rounded-full text-xs px-1 ">{count}</span>
+                                    </span>
+                                ) : ''
+                            }
                             </div>
 
                                 <Link to={"/collections"} >
