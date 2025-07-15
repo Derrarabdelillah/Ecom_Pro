@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const Cart = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { products, currency, cartItems, updateQuantity } = useContext(productsContext);
   const [cartData, setCartData] = useState([]);
   useEffect( () => {
