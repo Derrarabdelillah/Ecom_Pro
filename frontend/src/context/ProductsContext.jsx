@@ -1,6 +1,7 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { products } from "../assets/frontend_assets/assets";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const productsContext = createContext();
 
@@ -12,13 +13,19 @@ const ProductsContext = ({children}) => {
     const [showSearch, setShowSearch] = useState(false);
     const [cartItems, setCartItems] = useState({});
 
-const addToCart = async (itemId, size) => {
+    const navigate = useNavigate();
+    const addToCart = async (itemId, size) => {
 
     if ( !size ) {
         toast.error('Please Select The Size');
         return;
     } else {
-        toast.success('The Product Have been added to your cart')
+        toast.success('The Product Have been added to your cart');
+        
+        setTimeout(() => {
+            navigate('/cart');
+        }, 3000);
+        
     }
 
     // 1. Create a deep copy of the current cart items
@@ -46,6 +53,7 @@ const addToCart = async (itemId, size) => {
     setCartItems(cartData);
 }
 
+// This function will get the total amount of the cart items.
 const getCartCount = () => {
 
     let totalCount = 0;
@@ -61,9 +69,29 @@ const getCartCount = () => {
 
 }
 
-    useEffect( () => {
-        console.log(cartItems)
-    },[cartItems] )
+const updateQuantity = async (itemId, size, quantity) => {
+    let cartData = structuredClone(cartItems);
+    cartData[itemId][size] = quantity;
+    setCartItems(cartData);
+}
+
+const getCartAmount = () => {
+    let totalAmount = 0;
+    for ( const items in cartItems ) {
+        let productInfo = products.find( (product) => product._id === items);
+
+        for ( const item in cartItems[items] ) {
+            try {
+                if ( cartItems[items][item] > 0 ) {
+                    totalAmount += ( productInfo.price ) * ( cartItems[items][item] )
+                }
+            } catch (error) {
+                
+            }
+        }
+    }
+    return totalAmount;
+}
 
     const value = {
         products,
@@ -76,7 +104,9 @@ const getCartCount = () => {
         addToCart,
         cartItems,
         setCartItems,
-        getCartCount
+        getCartCount,
+        updateQuantity,
+        getCartAmount
     };
     
     return (

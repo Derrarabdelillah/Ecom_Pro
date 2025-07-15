@@ -35,7 +35,7 @@ const ProductDisplay = () => {
             <p >Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui asperiores perspiciatis necessitatibus totam, eius sequi exercitationem consequuntur suscipit! Culpa adipisci repellat commodi alias sit qui quae! Saepe iste labore architecto?</p>
        </div>
 
-       <div className="grid gap-8 grid-cols-2 md:grid-cols-4 ">
+       <div className="grid gap-8 grid-cols-1 md:grid-cols-4 ">
             {bestSellers.map( (product) => {
                 return (
                     <Item key={product._id} product={product} />

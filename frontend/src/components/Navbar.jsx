@@ -7,7 +7,7 @@ import { productsContext } from "../context/ProductsContext";
 const Navbar = () => {
     
     const [ isMenuOpen, setIsMenuOpen ] = useState(false);
-    const { setShowSearch, getCartCount, cartItems} = useContext(productsContext);
+    const { setShowSearch, getCartCount} = useContext(productsContext);
     const count = getCartCount();
     
     const nav = [
@@ -58,11 +58,13 @@ const Navbar = () => {
                                 <Link to={"/cart"} >
                                     <img src={assets.cart_icon} className="w-5" />
                                 </Link>
-                                {cartItems ? (
+                                {count > 0 ? (
                                     <span className="  text-white font-bold">
                                         <span className="absolute -top-4 -right-2 bg-main rounded-full text-xs px-1 ">{count}</span>
                                     </span>
-                                ) : ''
+                                ) :                                     <span className="  text-white font-bold">
+                                        <span className="absolute -top-4 -right-2 bg-main rounded-full text-xs px-1 ">0</span>
+                                    </span>
                             }
                             </div>
 

@@ -147,8 +147,8 @@ const Collections = () => {
         </div>
 
         <div className="flex flex-col gap-4 w-full">
-              <div className="flex flex-row gap-2 justify-between">
-                  <h2 className="font-bold text-2xl uppercase">all collections</h2>
+              <div className="flex flex-row gap-2 items-center justify-between">
+                  <h2 className="font-bold text-xl md:text-2xl uppercase">all collections</h2>
                 <select 
                 onChange={ (e) => setSortType(e.target.value) }
                 className="bg-white font-bold text-sm border border-grayBorder rounded-lg px-2 py-2 cursor-pointer outline-none">
@@ -158,7 +158,7 @@ const Collections = () => {
                 </select>
               </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     {filterProdcuts.map( (product) => {
                         return (
                             <div >
