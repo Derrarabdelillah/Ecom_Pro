@@ -41,7 +41,9 @@ const Navbar = () => {
                         {/* User Dropdown */}
                         <div className="relative group">
                             <div className="p-2 cursor-pointer">
-                                <img src={assets.profile_icon} className="w-5" />
+                                <Link to={'/login'}>
+                                    <img src={assets.profile_icon} className="w-5" />
+                                </Link>
                             </div>
 
                             {/* Dropdown Content */}

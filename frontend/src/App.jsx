@@ -10,6 +10,8 @@ import Login from "./pages/Login"
 import Header from "./components/Header"
 import Product from "./pages/Product"
 import CheckOut from "./pages/CheckOut"
+import Regist from "./pages/register"
+
 import { ToastContainer } from 'react-toastify';
 const  App = () => {
 
@@ -27,6 +29,7 @@ const  App = () => {
         <Route path="/collections" element={<Collections />} />
         <Route path="/login" element={<Login />} />
         <Route path="/product/:productId" element={<Product />} />
+        <Route path="/register" element={ <Regist /> } />
       </Routes>
     </>
   )

@@ -1,12 +1,12 @@
 import { useContext } from "react"
 import { productsContext } from "../context/ProductsContext"
 
-const TotalCart = () => {
+const TotalCart = ({widt}) => {
   const { getCartAmount, delivery_fee, currency } = useContext(productsContext);
   const subTotal = getCartAmount() + delivery_fee;
 
     return (
-    <div className="md:w-100 flex  flex-col" >
+    <div className={`md:${widt} flex  flex-col`} >
       <h2 className="text-2xl font-bold" >Cart Total</h2>
 
       <div className="flex flex-col gap-2 my-4">

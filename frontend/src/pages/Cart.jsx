@@ -80,7 +80,7 @@ const Cart = () => {
         </div>     
 
             <div className="flex flex-col md:w-100 justify-end" >
-              <TotalCart />
+              <TotalCart widt='w-full' />
               <button 
               onClick={ () => navigate('/checkout') }
               className="w-full text-center px-4 py-2 bg-main text-white font-bold rounded-lg cursor-pointer">place order</button>
