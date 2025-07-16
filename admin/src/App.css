@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import "tailwindcss";
+
+
+* {
+    font-family: "Poppins", sans-serif;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    transition: all 0.3s;
+}
+
+@theme {
+  /* Brand Colors */
+  --color-main: #0CA194;  /* Primary teal */
+  --color-grayText: #2F3A4F; /* Charcoal text */
+  
+  /* Border */
+  --color-grayBorder: #d1d5dc;
+  /* Optional shades */
+  --color-main-light: rgb(12 161 148 / 0.1);
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Container Styles */
+.container {
+  padding: 1.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Section Spacing */
+.section {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+/* Button Styles */
+.main-btn {
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  cursor: pointer;
+  color: black;
+  border: 1px solid var(--color-main);
+  font-weight: 600;
+}
+
+.main-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 6px rgba(12, 161, 148, 0.2);
+}
+
+/* Text Styles */
+/* .main-text {
+  color: var(--color-main);
+  font-weight: bold;
+} */
+
+p {
+  color: var(--color-grayText);
+  line-height: 25px;
+}
+
+/* Gradient Background (Optional) */
+.linearColor {
+  background: var(--color-main);
+  background: linear-gradient(90deg, 
+             rgba(12, 161, 148, 1) 0%, 
+             rgba(12, 161, 148, 0.8) 50%, 
+             rgba(12, 161, 148, 1) 100%);
+  padding: 35px 0;
+}
+
+
+
+/* Responsive Containers */
+@media (min-width: 768px) {
+  .container {
+    width: 730px;
+  }
+  
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
