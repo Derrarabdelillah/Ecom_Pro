@@ -30,6 +30,7 @@ const UserSchema = new Schema({
 }, {minimize: false})
 
 
+// Hashing the Password using bcrypt
 UserSchema.pre('save', async function (next) {
     if ( this.isModified("password") ) {
         try {

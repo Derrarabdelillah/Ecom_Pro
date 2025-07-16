@@ -1,0 +1,86 @@
+<div className="flex flex-col gap-4">
+  {products.slice(1, 4).map((product) => (
+    <div key={product._id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden transition-all hover:shadow-md">
+      <div className="flex flex-col md:flex-row p-4 gap-4">
+        {/* Product Image */}
+        <div className="w-full md:w-24 flex-shrink-0">
+          <img 
+            src={product.image[0]} 
+            alt={product.name}
+            className="w-full h-24 object-contain rounded-lg border border-gray-100"
+          />
+        </div>
+
+        {/* Product Details */}
+        <div className="flex-1 flex flex-col gap-2">
+          <h3 className="text-lg font-semibold text-gray-800">{product.name}</h3>
+          
+          <div className="flex flex-wrap gap-3 text-sm">
+            <span className="font-medium">{product.price}{currency}</span>
+            <span className="text-gray-600">Quantity: 4</span>
+            <span className="text-gray-600">Size: M</span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2 text-sm">
+            <div>
+              <span className="font-medium">Order Date: </span>
+              <span className="text-gray-600">Tue, Jul 15, 2025</span>
+            </div>
+            <div>
+              <span className="font-medium">Payment: </span>
+              <span className="text-gray-600">COD (Cash On Delivery)</span>
+            </div>
+            <div>
+              <span className="font-medium">Order ID: </span>
+              <span className="text-gray-600">#{product._id.slice(0, 8)}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Status & Actions */}
+        <div className="flex flex-col items-end gap-3 min-w-[180px]">
+          {/* Status Badge */}
+          <div className="flex items-center gap-2 border border-green-300 bg-green-50 px-3 py-1 rounded-full text-green-700 font-medium text-sm">
+            <span className="flex h-2 w-2 relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+            Processing
+          </div>
+
+          {/* Track Order Button */}
+          <button 
+            className="px-4 py-2 border border-gray-300 rounded-lg font-medium text-sm text-gray-700 flex items-center justify-center gap-2 hover:bg-gray-50 transition-colors min-w-[120px]"
+            onClick={() => {/* Add tracking functionality */}}
+          >
+            <svg className="animate-spin h-4 w-4 text-gray-500" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Tracking...
+          </button>
+
+          {/* Optional: Cancel Button */}
+          <button className="text-xs text-red-500 hover:text-red-700 hover:underline">
+            Cancel Order
+          </button>
+        </div>
+      </div>
+
+      {/* Order Progress (Optional) */}
+      <div className="px-4 pb-4">
+        <div className="w-full bg-gray-100 rounded-full h-2">
+          <div 
+            className="bg-green-500 h-2 rounded-full" 
+            style={{ width: '33%' }} // Update this based on actual progress
+          ></div>
+        </div>
+        <div className="flex justify-between text-xs text-gray-500 mt-1">
+          <span>Ordered</span>
+          <span>Shipped</span>
+          <span>Delivered</span>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>

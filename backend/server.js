@@ -1,22 +1,35 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+// DB
 const connectDB = require('./config/connect');
+// Cloudinary
+const connectToCloudinary  = require('./config/cloudinary');
+
+// dotenv
+require('dotenv').config()
+
+// middleware
+app.use(cors());
+app.use(express.json()); // For JSON bodies
+app.use(express.urlencoded({ extended: true })); // For form data
 
 // Connect To DataBase
 connectDB();
 
-require('dotenv').config()
-const PORT = process.env.PORT;
+// Connect To Cloudinary
+connectToCloudinary()
 
 // Routes
 const UserRoute = require('./routes/UserRoute');
+const ProductRoute = require('./routes/ProductRoute')
+
+const PORT = process.env.PORT;
 
 
-// middleware
-app.use(cors());
-app.use(express.json());
+// api endpoints
 app.use(UserRoute)
+app.use('/api/product', ProductRoute)
 
 app.listen(PORT, () => {
     console.log(`http://localhost:${PORT}`)
