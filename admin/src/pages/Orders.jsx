@@ -1,6 +1,6 @@
 
 
-const Orders = () => {
+const Orders = ({token}) => {
   return (
     <div>
       

@@ -13,7 +13,7 @@ const {
 const upload = require('../middleware/multer');
 const adminAuth = require('../middleware/adminAuth');
 
-router.post('/add', adminAuth, upload.fields([
+router.post('/add', upload.fields([
     {
         name: 'image1', 
         maxCount: 1
@@ -32,8 +32,8 @@ router.post('/add', adminAuth, upload.fields([
     },
 ]), addProduct);
 
-router.get('/all', adminAuth, allProducts);
-router.delete('/remove/:productId', adminAuth, removeProduct);
-router.get('/single/:productId', adminAuth, singleProduct);
+router.get('/all', allProducts);
+router.delete('/remove/:productId',  removeProduct);
+router.get('/single/:productId',  singleProduct);
 
 module.exports = router;

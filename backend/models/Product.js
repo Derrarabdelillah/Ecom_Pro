@@ -5,32 +5,39 @@ const Schema = mongoose.Schema;
 const ProductSchema = new Schema({
     name: {
         type: String,
+        required: true
     },
     description: {
         type: String,
     },
     price: {
         type: Number,
+        required: true
     },
     image: {
-        type: Array,
+        type: [String],  // Better way to define array of strings
+        default: []
     },
     category: {
         type: String,
+        required: true
     },
     subCategory: {
         type: String,
     },
     sizes: {
-        type: Array,
+        type: [String],  // Proper array of strings
+        default: []
     },
     bestseller: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     date: {
-        type: Number,
+        type: Date,  // Better to use Date type instead of Number
+        default: Date.now
     },
-})
+}, { timestamps: true });  // Adds createdAt and updatedAt automatically
 
 // define the model of the schema
 const Product = mongoose.models.product || mongoose.model('Product', ProductSchema)
