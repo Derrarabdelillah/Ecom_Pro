@@ -1,50 +1,81 @@
-import { useContext } from "react"
-import { productsContext } from "../context/ProductsContext"
-
+import { useContext } from "react";
+import { productsContext } from "../context/ProductsContext";
 import Item from "./Item";
 
-
-
 const ProductDisplay = () => {
-    const { products } = useContext(productsContext);
-    const { currency } = useContext(productsContext);
-    const { delivery_fee } = useContext(productsContext);
+  const { products, currency } = useContext(productsContext);
+  const bestSellers = products.filter((product) => product.bestseller === true);
 
-    const bestSellers = products.filter( (product) => product.bestseller === true )
-  
-    return (
-    <div className="flex flex-col gap-4 justify-center items-center">
-       <div className="flex flex-col items-center text-center gap-2 md:w-[80%]">
-            <h2 className="font-bold text-2xl uppercase">latest collections</h2>
-            <p >Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui asperiores perspiciatis necessitatibus totam, eius sequi exercitationem consequuntur suscipit! Culpa adipisci repellat commodi alias sit qui quae! Saepe iste labore architecto?</p>
-       </div>
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* Hero Section */}
+      <div className="text-center mb-16">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          Discover Our Collection
+        </h1>
+        <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          Curated selection of premium products designed for your lifestyle
+        </p>
+      </div>
 
-       <div className="grid gap-8 grid-cols-2 md:grid-cols-4 ">
-            {products.map( (product) => {
-        return (
-            <div >
-                <Item key={product._id} product={product} currency={currency} 
-                />
+      {/* Latest Collections */}
+      <section className="mb-20">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-10">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">Latest Collections</h2>
+            <p className="text-gray-500 mt-2">
+              Fresh arrivals that redefine contemporary style
+            </p>
+          </div>
+          <button className="mt-4 md:mt-0 px-6 py-2 border border-gray-300 rounded-full text-sm font-medium hover:bg-gray-50 transition-colors">
+            View All
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {products.slice(0, 4).map((product) => (
+            <Item key={product._id} product={product} currency={currency} />
+          ))}
+        </div>
+      </section>
+
+      {/* Best Sellers */}
+      {bestSellers.length > 0 && (
+        <section className="mt-16">
+          <div className="flex flex-col md:flex-row justify-between items-center mb-10">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Best Sellers</h2>
+              <p className="text-gray-500 mt-2">
+                Customer favorites that never go out of style
+              </p>
             </div>
-        )
-    } )}
-       </div>
+            <button className="mt-4 md:mt-0 px-6 py-2  text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors">
+              Shop Bestsellers
+            </button>
+          </div>
 
-       <div className="flex flex-col items-center text-center gap-2 md:w-[80%]">
-            <h2 className="font-bold text-2xl uppercase">best seller</h2>
-            <p >Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui asperiores perspiciatis necessitatibus totam, eius sequi exercitationem consequuntur suscipit! Culpa adipisci repellat commodi alias sit qui quae! Saepe iste labore architecto?</p>
-       </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {bestSellers.slice(0, 4).map((product) => (
+              <Item key={product._id} product={product} currency={currency} />
+            ))}
+          </div>
+        </section>
+      )}
 
-       <div className="grid gap-8 grid-cols-1 md:grid-cols-4 ">
-            {bestSellers.map( (product) => {
-                return (
-                    <Item key={product._id} product={product} />
-                )
-            } )}
-       </div>
-
+      {/* CTA Section */}
+      <div className="mt-20 bg-gray-50 rounded-xl p-8 md:p-12 text-center">
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">
+          Can't Find What You're Looking For?
+        </h3>
+        <p className="text-gray-600 max-w-2xl mx-auto mb-6">
+          Our personal shoppers can help you discover the perfect items for your needs.
+        </p>
+        <button className="px-8 py-3 bg-main text-white rounded-lg font-medium hover:bg-main-dark transition-colors">
+          Contact Our Stylists
+        </button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductDisplay
+export default ProductDisplay;

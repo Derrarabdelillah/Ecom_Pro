@@ -13,12 +13,13 @@ import CheckOut from "./pages/CheckOut"
 import Regist from "./pages/register"
 
 import { ToastContainer } from 'react-toastify';
-const  App = () => {
+import Profile from "./pages/Profile"
+const App = () => {
 
   return (
     <>
-    <Header />
-    <ToastContainer />
+      <Header />
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -29,7 +30,8 @@ const  App = () => {
         <Route path="/collections" element={<Collections />} />
         <Route path="/login" element={<Login />} />
         <Route path="/product/:productId" element={<Product />} />
-        <Route path="/register" element={ <Regist /> } />
+        <Route path="/register" element={<Regist />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </>
   )

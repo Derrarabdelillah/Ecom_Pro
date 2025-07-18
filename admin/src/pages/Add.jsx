@@ -223,7 +223,7 @@ onChange={ (e) => setName(e.target.value) }
         <div className="flex flex-row gap-2 items-center">
           <input
           checked={bestseller}
-          onChange={ () => setBestseller( (e) => !e ) }
+          onChange={ () => setBestseller( (prev) => !prev ) }
           type="checkbox" id='bestseller' className='w-3 h-3' />
           <label htmlFor="bestseller" className=''>Add To Best Seller</label>
         </div>

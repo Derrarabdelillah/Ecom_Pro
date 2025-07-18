@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { productsContext } from "../context/ProductsContext";
-import { assets } from "../assets/frontend_assets/assets";
 import { FaShoppingCart, FaStar, FaRegStar, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import RelatedProducts from "../components/RelatedProducts";
 
@@ -12,16 +11,6 @@ const Product = () => {
   const [image, setImage] = useState('');
   const [size, setSize] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  // const [finalProduct, setFinalProduct] = useState([
-  //   {
-  //     name: productData.name,
-  //     price: productData.price,
-  //     description: productData.description,
-  //     category: productData.category,
-  //     sizes: size,
-  //   }
-  // ])
 
   // get product by her ID
   const fetchProductData = async () => {
@@ -40,21 +29,24 @@ const Product = () => {
   }, [productId, products]);
 
 
-  // display the next image when click to the next button
-  const nextImage = () => {
-    if (productData.image.length > currentImageIndex + 1) {
-      setCurrentImageIndex(currentImageIndex + 1);
-      setImage(productData.image[currentImageIndex + 1]);
-    }
-  };
-  
-  // display the prev image when click to the prev button
-  const prevImage = () => {
-    if (currentImageIndex > 0) {
-      setCurrentImageIndex(currentImageIndex - 1);
-      setImage(productData.image[currentImageIndex - 1]);
-    }
-  };
+const nextImage = () => {
+  if (productData.image.length > currentImageIndex + 1) {
+    setCurrentImageIndex(prev => prev + 1);
+  } else {
+    // Optional: Loop back to the first image
+    setCurrentImageIndex(0);
+  }
+};
+
+// display the prev image when click to the prev button
+const prevImage = () => {
+  if (currentImageIndex > 0) {
+    setCurrentImageIndex(prev => prev - 1);
+  } else {
+    // Optional: Loop back to the last image
+    setCurrentImageIndex(productData.image.length - 1);
+  }
+};
 
   // add items to cart
   const handleAddToCart = () => {
@@ -65,34 +57,46 @@ const Product = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/*  */}
       <nav className="flex mb-6" aria-label="Breadcrumb">
+
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
           <li className="inline-flex items-center">
             <a href="#" className="text-gray-700 hover:text-main text-sm font-medium">Home</a>
           </li>
+
           <li>
             <div className="flex items-center">
               <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path></svg>
               <a href="#" className="text-gray-700 hover:text-main ml-1 text-sm font-medium">{productData.category}</a>
             </div>
           </li>
+          
           <li aria-current="page">
             <div className="flex items-center">
               <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path></svg>
               <span className="text-gray-400 ml-1 text-sm font-medium">{productData.name}</span>
             </div>
           </li>
+
         </ol>
+
       </nav>
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Product Images */}
         <div className="w-full lg:w-1/2">
           <div className="relative bg-white rounded-xl shadow-md overflow-hidden mb-4">
+            {productData.image?.[0] ? (
             <img 
-              src={image} 
+              src={productData.image[currentImageIndex]}  
               alt={productData.name} 
-              className="w-full h-96 object-contain p-4"
-            />
+              className={`w-full h-96 object-contain p-4`}
+            /> )
+            : (
+            <div className="h-100 flex items-center justify-center bg-gray-200 text-main">
+              No Image
+            </div>
+          )
+          }
             {productData.image.length > 1 && (
               <>
                 <button 
@@ -122,7 +126,6 @@ const Product = () => {
                   alt={`Thumbnail ${index + 1}`}
                   className={`w-16 h-16 object-cover rounded-md cursor-pointer border-2 ${currentImageIndex === index ? 'border-main' : 'border-transparent'}`}
                   onClick={() => {
-                    setImage(img);
                     setCurrentImageIndex(index);
                   }}
                 />

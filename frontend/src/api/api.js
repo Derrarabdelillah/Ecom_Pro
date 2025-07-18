@@ -5,10 +5,10 @@ let URL = `http://localhost:${PORT}/api`;
 
 export async function createUser(user) {
     const response = await Axios.post(`${URL}/users`, user);
-    return response;
+    return response.data;
 }
 
 export async function verifyUser(user) {
     const response = await Axios.post(`${URL}/users/login`, user);
-    return response;
+    return response.data;
 }
