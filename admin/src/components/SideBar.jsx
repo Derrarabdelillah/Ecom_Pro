@@ -3,7 +3,7 @@ import NavItem from "./NavItem"
 
 const SideBar = () => {
   return (
-    <div className="bg-white flex flex-col gap-4 shadow-xl w-full py-6 px-4 h-screen rounded-b-lg ">
+    <div className="bg-white flex flex-col gap-4 shadow-xl w-full py-6 px-4 h-full rounded-b-lg ">
 
         <NavItem href={'/'} text="Dashbord" icon={FiTrendingUp} />
         <NavItem href={'/products'} text="Products" icon={FiPackage} />
