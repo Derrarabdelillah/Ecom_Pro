@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { verifyUser } from "../api/api";
 import { Link, useNavigate } from 'react-router-dom';
 import { FiMail, FiLock, FiArrowRight } from "react-icons/fi";
+import { useCookies } from "react-cookie";
+
 import Alert from "../components/Alert";
 
 const Login = () => {
@@ -20,8 +22,8 @@ const Login = () => {
       if (response) {
         const { token, user: userData } = response;
         localStorage.setItem('token', token);
-        localStorage.setItem('username', userData.username);
-        localStorage.setItem('email', userData.email);
+        localStorage.setItem('user', JSON.stringify(userData));
+        
 
         setAlert({
           type: 'success',

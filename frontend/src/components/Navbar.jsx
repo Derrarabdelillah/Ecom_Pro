@@ -5,10 +5,11 @@ import { FiUser, FiShoppingCart } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { productsContext } from "../context/ProductsContext";
 
+
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showSearch, setShowSearch] = useState(false);
-    const { getCartCount } = useContext(productsContext);
+    const { getCartCount, setCartItems } = useContext(productsContext);
     const count = getCartCount();
     const navigate = useNavigate()
     const token = localStorage.getItem('token');
@@ -38,6 +39,12 @@ const Navbar = () => {
             }
         }
     };
+
+    const logOut = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setCartItems({}); 
+    }
 
     return (
         <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
@@ -120,8 +127,10 @@ const Navbar = () => {
                                         My Orders
                                     </Link>
                                     <button
-                                        onClick={() => localStorage.clear()}
-                                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-main"
+                                        onClick={ () => { 
+                                            logOut()
+                                        } }
+                                        className="block cursor-pointer w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-main"
                                     >
                                         Logout
                                     </button>

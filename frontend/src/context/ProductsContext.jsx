@@ -67,6 +67,7 @@ const algerianWilayas = [
     { id: 57, name: "In Salah", name_ar: "عين صالح", fee: 2100 },
     { id: 58, name: "In Guezzam", name_ar: "عين قزام", fee: 2800 }
 ];
+
 const ProductsContext = ({ children }) => {
     const currency = 'DZD'; // Changed from '$' to 'DZD' for Algerian context
     const [deliveryFee, setDeliveryFee] = useState(0);
@@ -75,6 +76,8 @@ const ProductsContext = ({ children }) => {
     const [showSearch, setShowSearch] = useState(false);
     const [cartItems, setCartItems] = useState({});
     const [products, setProducts] = useState([]);
+    const [ token, setToken ] = useState( localStorage.getItem('token') ? localStorage.getItem('token') : '' );
+    
 
 
     const navigate = useNavigate();
@@ -109,7 +112,29 @@ const ProductsContext = ({ children }) => {
             cartData[itemId] = {};
             cartData[itemId][size] = 1;
         }
-        setCartItems(cartData);
+        setCartItems(cartData);        
+        
+        if ( token ) {
+            
+            const user = JSON.parse(localStorage.getItem('user'));
+            const userId = user._id;
+            try {
+                await axios.post(`${backendUrl}/api/cart/add`, 
+            { userId, itemId, size },
+            {
+                headers: { 
+                'Authorization': `Bearer ${localStorage.getItem('token')}` 
+                }
+            }
+            )
+                .then( res => console.log(res))
+            } catch (error) {
+                console.log(error);
+                toast.error(error.message)
+            }
+
+        }
+
     };
 
     const getCartCount = () => {
@@ -178,7 +203,9 @@ const ProductsContext = ({ children }) => {
         updateQuantity,
         getCartAmount,
         getTotalWithDelivery,
-        getProducts
+        getProducts,
+        backendUrl
+
     };
 
     return (
