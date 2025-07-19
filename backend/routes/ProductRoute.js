@@ -36,4 +36,5 @@ router.get('/all', allProducts);
 router.delete('/remove/:productId',  removeProduct);
 router.get('/single/:productId',  singleProduct);
 
+
 module.exports = router;

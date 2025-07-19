@@ -13,8 +13,6 @@ const addProduct = async (req, res) => {
         const subCategory = req.body?.subCategory;
         const sizes = req.body?.sizes;
         const bestseller = req.body?.bestseller;
-        // const image = req.body?.image;
-        // const date = req.body?.date;
 
         // images
         const image1 = req.files?.image1 && req.files.image1[0];
