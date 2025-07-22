@@ -26,7 +26,8 @@ connectToCloudinary()
 // Routes
 const UserRoute = require('./routes/UserRoute');
 const ProductRoute = require('./routes/ProductRoute')
-const CartRouter = require('./routes/CartRoute')
+const CartRoute = require('./routes/CartRoute')
+const OrderRoute = require('./routes/OrderRoute')
 
 const PORT = process.env.PORT;
 
@@ -34,7 +35,8 @@ const PORT = process.env.PORT;
 // api endpoints
 app.use(UserRoute)
 app.use('/api/product', ProductRoute);
-app.use('/api/cart', CartRouter);
+app.use('/api/cart', CartRoute);
+app.use('/api/orders', OrderRoute);
 
 app.listen(PORT, () => {
     console.log(`http://localhost:${PORT}`)

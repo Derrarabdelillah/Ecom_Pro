@@ -5,31 +5,29 @@ const User = require('./User');
 const Product = require('./Product');
 
 const orderSchema = new Schema({
-    orderNumber: { type: String, unique: true },
-    customer: {
+    orderNumber: { type: String, unique: true }, // Like "ORD-20240615-001"
+    customer: { // null for guests
         type: mongoose.Schema.Types.ObjectId,
         ref: User,
         require: false // no required for guest orders
     },
-    guestCustomer: {
+    guestCustomer: { // For non-logged-in users
         name: String,
         email: String,
-        phone: String
-    },
-    items: [{
-        product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product'},
+        phone: String // Required for Algerian delivery
+    }, 
+    products: [{
+        productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product'},
         size: String,
         quantity: Number,
         price: Number
     }],
-    deliveryAddress: {
-        street: String,
-        city: String,
+    delivery: {
         wilaya: String,
-        postalCode: String
+        address: String,
+        postalCode: String,
+        fee: Number // Calculated from wilaya
     },
-    deliveryFee: Number,
-    subtotal: Number,
     total: Number,
     paymentMethod: {
         type: String,
