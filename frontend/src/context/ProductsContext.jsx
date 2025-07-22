@@ -159,7 +159,6 @@ const ProductsContext = ({ children }) => {
                      )
 
                      if ( response.data.success ) {
-                        console.log(response.data.cart)
                         setCartItems(response.data.cart);
                      }
                 } catch (error) {
@@ -179,7 +178,6 @@ const ProductsContext = ({ children }) => {
                  })
 
                  if ( response.data.success ) {
-                    console.log(response.data)
                     setCartItems(response.data.cartData)
                  }
                  

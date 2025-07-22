@@ -10,8 +10,7 @@ const CheckOut = () => {
   const {
     selectedWilaya,
     algerianWilayas,
-    handleWilayaChange,
-    delivery_fee
+    handleWilayaChange
   } = useContext(productsContext);
 
   return (
