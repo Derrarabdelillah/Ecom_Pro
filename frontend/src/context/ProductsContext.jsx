@@ -118,16 +118,20 @@ const ProductsContext = ({ children }) => {
             
             const user = JSON.parse(localStorage.getItem('user'));
             const userId = user._id;
+            
             try {
-                await axios.post(`${backendUrl}/api/cart/add`, 
-            { userId, itemId, size },
-            {
-                headers: { 
-                'Authorization': `Bearer ${localStorage.getItem('token')}` 
+                const response = await axios.post(`${backendUrl}/api/cart/add`, { userId, itemId, size },
+                {
+                    headers: { 
+                        Authorization : `Bearer ${token}` 
+                    }
                 }
-            }
             )
-                .then( res => console.log(res))
+
+            if (response.data.success) {
+                setCartItems(response.data.cart); // Update with server's cart
+                console.log(response.data.cart)
+            }
             } catch (error) {
                 console.log(error);
                 toast.error(error.message)

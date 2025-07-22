@@ -50,13 +50,64 @@ const addToCart = async (req, res) => {
 // update user cart
 const updateCart = async (req, res) => {
     
-    
-    
+    try {
+        
+        const user = await User.findById(req.userId);
+        const { itemId, size, quantity } = req.body;
+
+        // 1. Validate input
+        if (!itemId || !size || quantity === undefined || quantity < 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Missing item ID, size, or invalid quantity"
+            });
+        }
+
+        // 2. Find user with cartData initialized
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        user.cartData[itemId][size] = quantity
+
+        
+        user.markModified('cartData');
+        // Save the updated product the DB
+        await user.save();
+
+        res.json({ success: true, cart:user.cartData, message: "Cart Updated" })
+
+    } catch (error) {
+        console.log('Update Cart Error ' + error);
+        res.status(500).json({ success: false, message: "Error on updating the product" })
+    }
+
 }
 
 // get user cart
 const getUserCart = async (req, res) => {
-    
+    try {
+
+        const user = await User.findById(req.userId);
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+                code: "USER_NOT_FOUND"
+            });
+        }
+
+        const cartData = await user.cartData;
+
+        res.json({ success: true, cartData })
+
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ success: false, message: "Cannot get the cart data" })
+    }
 }
 
 module.exports = {

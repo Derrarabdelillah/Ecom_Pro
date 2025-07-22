@@ -6,8 +6,9 @@ const { addToCart, updateCart, getUserCart } = require('../controllers/cartContr
 const authUser = require('../middleware/auth');
 
 
-router.get('/get' , getUserCart)
+router.get('/get' , authUser, getUserCart)
 router.post('/add' , authUser, addToCart),
-router.put('/update' , updateCart)
+router.put('/update', authUser, updateCart)
+// router.delete('/remove', authUser, removeFromCart)
 
 module.exports = router;

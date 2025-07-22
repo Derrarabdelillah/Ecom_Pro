@@ -19,6 +19,7 @@ const Login = () => {
 
     try {
       const response = await verifyUser(user);
+      
       if (response) {
         const { token, user: userData } = response;
         localStorage.setItem('token', token);
