@@ -3,10 +3,11 @@ const express = require('express');
 const router = express.Router();
 
 const { addToCart, updateCart, getUserCart } = require('../controllers/cartController');
+const authUser = require('../middleware/auth');
 
 
-router.post('/add' , addToCart),
-router.put('/update' , updateCart),
-router.get('/get' , getUserCart),
+router.get('/get' , getUserCart)
+router.post('/add' , authUser, addToCart),
+router.put('/update' , updateCart)
 
 module.exports = router;
