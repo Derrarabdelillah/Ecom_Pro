@@ -130,7 +130,6 @@ const ProductsContext = ({ children }) => {
 
             if (response.data.success) {
                 setCartItems(response.data.cart); // Update with server's cart
-                console.log(response.data.cart)
             }
             } catch (error) {
                 console.log(error);
@@ -140,7 +139,56 @@ const ProductsContext = ({ children }) => {
         }
 
     };
+    
+        const updateQuantity = async (itemId, size, quantity) => {
+            let cartData = structuredClone(cartItems);
+            cartData[itemId][size] = quantity;
+            setCartItems(cartData);
 
+            const user = JSON.parse(localStorage.getItem('user'));
+            const userId = user._id;
+
+            if ( token ) {
+                try {
+                    const response = await axios.put(`${backendUrl}/api/cart/update`, { userId, itemId, size, quantity } , 
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`
+                            }
+                        }
+                     )
+
+                     if ( response.data.success ) {
+                        console.log(response.data.cart)
+                        setCartItems(response.data.cart);
+                     }
+                } catch (error) {
+                    console.log(error);
+                    toast.error(error.message)
+                }
+            }
+
+        };
+
+        const getUserCart = async ( token ) => {
+            try {
+                const response = await axios.get(`${backendUrl}/api/cart/get`, { 
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                 })
+
+                 if ( response.data.success ) {
+                    console.log(response.data)
+                    setCartItems(response.data.cartData)
+                 }
+                 
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        
     const getCartCount = () => {
         let totalCount = 0;
         for (const productId in cartItems) {
@@ -149,12 +197,6 @@ const ProductsContext = ({ children }) => {
             }
         }
         return totalCount;
-    };
-
-    const updateQuantity = async (itemId, size, quantity) => {
-        let cartData = structuredClone(cartItems);
-        cartData[itemId][size] = quantity;
-        setCartItems(cartData);
     };
 
     const getCartAmount = () => {
@@ -188,6 +230,16 @@ const ProductsContext = ({ children }) => {
     useEffect(() => {
         getProducts();
     }, []); // Removed products from dependency array to prevent infinite loops
+
+    useEffect( () => {
+        const loadCart = async () => {
+            if ( token ) {
+                await getUserCart(token);
+            }
+        }
+        loadCart();
+    }, [ token ] )
+
 
     const value = {
         products,
