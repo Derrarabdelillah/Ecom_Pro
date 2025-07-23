@@ -5,28 +5,28 @@ const { algerianWilayas } = require('../data/algeriaWilayas');
 // Create New Order
 const createOrder = async (req, res) => {
     try {
-        
-        const { products, delivery, guestInfo } = req.body;
 
-        // 1. Calculate Total
-        let productsTotal = 0;
-        const orderProducts = [];
+        const { products, deliveryInfos, customer } = req.body;
 
-        for ( const item of products ) {
-            const product = await Product.findById(item.productId);
-
-            if ( !product ) {
-                throw new Error(`Product ${item.productId} not found`);
-            }
-            productsTotal += ( product.price * item.quantity ) ;
-
-            orderProducts.push({
-                productId: item.productId,
-                size: item.size,
-                quantity: item.quantity,
-                price: product.price
-            })
+        if ( !products ) {
+            res.status(404).json({success: false, message: "No Products Founded!"})
         }
+        
+        if ( !deliveryInfos ) {
+            res.status(404).json({success: false, message: "No deliveryInfos Founded!"})
+        }
+
+        const orderData = {
+            customer: customer,
+            products,
+            deliveryInfos, // This Contain All delivery infos, that will send from the front end
+            date: new Date().toISOString().split('T')[0]
+        }
+
+        const newOrder = new Order(orderData);
+
+        // save the order on DB
+        await newOrder.save();
 
     } catch (error) {
         console.log(error);
