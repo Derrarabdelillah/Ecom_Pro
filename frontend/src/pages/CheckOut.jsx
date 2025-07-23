@@ -4,14 +4,43 @@ import { useNavigate } from "react-router-dom";
 import { productsContext } from "../context/ProductsContext";
 import TotalCart from "../components/TotalCart";
 import { FiArrowRight, FiCheckCircle } from "react-icons/fi";
+import { useState } from "react";
 
 const CheckOut = () => {
   const navigate = useNavigate();
   const {
     selectedWilaya,
     algerianWilayas,
-    handleWilayaChange
+    handleWilayaChange,
+    getCartAmount, 
+    delivery_fee, 
+    currency, 
+    getTotalWithDelivery,
+    cartItems
   } = useContext(productsContext);
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');  
+  
+  const [orderData, setOrderData] = useState({
+    customer: `${firstName} ${lastName}`,
+    products: cartItems,
+    deliveryInfos: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      wilaya: selectedWilaya,
+      street: '',
+      deliveryFee: delivery_fee,
+      subTotal: getCartAmount,
+      total: getTotalWithDelivery,
+    }
+  })
+
+  const placeOrder = async () => {
+    console.log(orderData)
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -33,7 +62,7 @@ const CheckOut = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                  <input 
+                  <input
                     type="text" 
                     className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
                     placeholder="John"
@@ -151,7 +180,7 @@ const CheckOut = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => navigate('/orders')}
+                onClick={() => placeOrder()}
                 className="w-full cursor-pointer mt-8 py-4 bg-gradient-to-r from-main to-indigo-600 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 uppercase"
               >
                 Place Order <FiArrowRight />
