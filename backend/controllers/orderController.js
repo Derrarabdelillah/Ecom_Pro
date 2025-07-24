@@ -6,7 +6,7 @@ const { algerianWilayas } = require('../data/algeriaWilayas');
 const createOrder = async (req, res) => {
     try {
 
-        const { products, deliveryInfos, customer } = req.body;
+        const { products, deliveryInfos, customer, userId } = req.body;
 
         if ( !products ) {
             res.status(404).json({success: false, message: "No Products Founded!"})
@@ -18,6 +18,7 @@ const createOrder = async (req, res) => {
 
         const orderData = {
             customer: customer,
+            userId: userId,
             products,
             deliveryInfos, // This Contain All delivery infos, that will send from the front end
             paymentMethod: 'Cash On Delivery',
@@ -36,24 +37,22 @@ const createOrder = async (req, res) => {
 
 // Get User Orders
 const getUserOrders = async (req, res) => {
-    try {
-        
-    } catch (error) {
-        console.log(error);
-    };
+
 };
 
 // Admin: Update Status
 const updateStatus  = async (req, res) => {
-    try {
-        
-    } catch (error) {
-        console.log(error);
-    };
+
+};
+
+const getAdminOrders = async (req, res) => {
+    const orders = await Order.find();
+    res.status(200).json({success: true, orders})
 };
 
 module.exports = {
     createOrder,
     getUserOrders,
-    updateStatus
+    updateStatus,
+    getAdminOrders
 }

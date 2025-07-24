@@ -75,9 +75,11 @@ const ProductsContext = ({ children }) => {
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const [cartItems, setCartItems] = useState({});
+    const [orders, setOrders] = useState([])
     const [products, setProducts] = useState([]);
     const [ token, setToken ] = useState( localStorage.getItem('token') ? localStorage.getItem('token') : '' );
-    
+    const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
+    const userId = user?.id || null; // Safe access with optional chaining
 
 
     const navigate = useNavigate();
@@ -186,6 +188,16 @@ const ProductsContext = ({ children }) => {
             }
         }
 
+        const getUserOrders = async () => {
+            const response = await axios.get(`${backendUrl}/api/orders/myOrders`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            if ( response.data.success ) {
+                setOrders(orders)
+            }
+        }
         
     const getCartCount = () => {
         let totalCount = 0;
@@ -271,7 +283,13 @@ const ProductsContext = ({ children }) => {
         getTotalWithDelivery,
         getProducts,
         backendUrl,
-        getCartProductsArray
+        getCartProductsArray,
+        user,
+        userId,
+        getUserOrders,
+        orders,
+        setOrders,
+        token
     };
 
     return (

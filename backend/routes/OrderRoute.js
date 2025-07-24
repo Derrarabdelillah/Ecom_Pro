@@ -1,18 +1,19 @@
 const express = require('express');
 const router = express.Router();
 
-const { createOrder, getUserOrders, updateStatus } = require("../controllers/orderController");
+const { createOrder, getUserOrders, updateStatus, getAdminOrders } = require("../controllers/orderController");
 const { adminAuth } = require("../middleware/adminAuth");
 const authUser = require("../middleware/auth");
+
 
 // Public Route ( guest checkout )
 router.post('/placeOrder', createOrder);;
 
 // User Routes
-router.get('/myOrders', getUserOrders);
+router.get('/myOrders', authUser, getUserOrders);
 
-//// Admin Routes
-// Update Status
+// Admin Routes
 router.put('/:id/status', adminAuth, updateStatus);
+router.get('/adminOrders', getAdminOrders)
 
 module.exports = router;

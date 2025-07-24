@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
     orderNumber: { type: String, unique: true },
+    userId: { type: String, ref: 'User' },
     customer: { type: String }, // Just a name/identifier
     products: { type: Array },
     deliveryInfos: { type: Object }, // All delivery/payment details here

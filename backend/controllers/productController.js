@@ -63,7 +63,7 @@ const addProduct = async (req, res) => {
 
 // All Products Function
 const allProducts = async (req, res) => {
-    const products = await Product.find({});
+    const products = await Product.find();
     return res.json(products)
 }
 

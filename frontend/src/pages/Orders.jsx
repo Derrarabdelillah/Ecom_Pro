@@ -1,10 +1,35 @@
 import { useContext } from "react"
 import { productsContext } from "../context/ProductsContext"
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Orders = () => {
 
-  const { products, currency } = useContext(productsContext);
+  const { products, currency, backendUrl, token, userId, orders } = useContext(productsContext);
+  // const [orders, setOrders] = useState([]);
 
+  // const fetchOrders = async () => {
+  //   try {
+  //     if (!token) {
+  //       return null
+  //     }
+
+  //     const response = await axios.get(`${backendUrl}/api/orders/myOrders`, { headers: {
+  //       Authorization: `Bearer ${token}`,
+  //       userId: userId
+  //     } }
+  //   )
+    
+  //   return console.log(response)
+  //   } catch (error) {
+  //     console.log( 'orders front end error ' + error)
+  //   }
+  // }
+
+  // useEffect( () => {
+  //   fetchOrders();
+  // }, [token] )
+  console.log(orders)
   return (
     <div className="container flex flex-col gap-3 my-5" >
         <h2 className="text-2xl font-bold" >Delivery Informations</h2>
@@ -12,7 +37,7 @@ const Orders = () => {
         <div className="flex flex-col gap-3">
           
           {
-            products.slice(1, 4).map( (product) => {
+            orders.map( (product) => {
               return (
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between py-4 px-2 border-b border-grayBorder ">
                   

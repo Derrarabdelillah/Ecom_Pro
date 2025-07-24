@@ -18,7 +18,11 @@ const CheckOut = () => {
     delivery_fee,
     getTotalWithDelivery,
     getCartProductsArray,
-    backendUrl
+    backendUrl,
+    setCartItems,
+    user,
+    userId,
+    token
   } = useContext(productsContext); 
   
   const [deliveryInfos, setDeliveryInfos] = useState({
@@ -51,6 +55,7 @@ const CheckOut = () => {
   const placeOrder = async () => {
     const orderData = {
       customer: customer,
+      userId: userId,
       products: products.map(item => ({
         productId: item._id,
         name: item.name,
@@ -64,7 +69,11 @@ const CheckOut = () => {
     }
     
     const response = await axios.post(`${backendUrl}/api/orders/placeOrder`, orderData);
-    console.log(response.data);
+    
+    if ( response.data.success ) {
+      setCartItems({});
+      navigate('/orders')
+    }
   }
 
   return (
