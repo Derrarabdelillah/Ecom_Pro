@@ -20,6 +20,7 @@ const createOrder = async (req, res) => {
             customer: customer,
             products,
             deliveryInfos, // This Contain All delivery infos, that will send from the front end
+            paymentMethod: 'Cash On Delivery',
             date: new Date().toISOString().split('T')[0]
         }
 
@@ -27,7 +28,7 @@ const createOrder = async (req, res) => {
 
         // save the order on DB
         await newOrder.save();
-
+        res.json({success: true ,orderData})
     } catch (error) {
         console.log(error);
     };
