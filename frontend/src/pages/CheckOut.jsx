@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 import { productsContext } from "../context/ProductsContext";
 import TotalCart from "../components/TotalCart";
 import { FiArrowRight, FiCheckCircle } from "react-icons/fi";
 import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 const CheckOut = () => {
   const navigate = useNavigate();
@@ -13,33 +15,56 @@ const CheckOut = () => {
     algerianWilayas,
     handleWilayaChange,
     getCartAmount, 
-    delivery_fee, 
-    currency, 
+    delivery_fee,
     getTotalWithDelivery,
-    cartItems
-  } = useContext(productsContext);
-
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');  
+    getCartProductsArray,
+    backendUrl
+  } = useContext(productsContext); 
   
-  const [orderData, setOrderData] = useState({
-    customer: `${firstName} ${lastName}`,
-    products: cartItems,
-    deliveryInfos: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
+  const [deliveryInfos, setDeliveryInfos] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    wilaya: '',
+    street: '',
+  });
+  const customer = `${deliveryInfos.firstName} ${deliveryInfos.lastName}`;
+  const products = getCartProductsArray();
+
+
+  useEffect( () => {
+    setDeliveryInfos( prev => ( {
+      ...prev,
       wilaya: selectedWilaya,
-      street: '',
       deliveryFee: delivery_fee,
-      subTotal: getCartAmount,
-      total: getTotalWithDelivery,
-    }
-  })
+      subTotal: getCartAmount(),
+      total: getTotalWithDelivery()
+    } ) )
+  }, [selectedWilaya, delivery_fee, getCartAmount, getTotalWithDelivery] )
+
+  const onChnageHandler = (event) => {
+    const { name, value } = event.target;
+    setDeliveryInfos( data => ({...data, [name]: value}) )
+  } 
 
   const placeOrder = async () => {
-    console.log(orderData)
+    const orderData = {
+      customer: customer,
+      products: products.map(item => ({
+        productId: item._id,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        size: item.size,
+        image: item.image[0], // Include product image 
+        category: item.category
+    })),
+      deliveryInfos: deliveryInfos,
+    }
+    
+    const response = await axios.post(`${backendUrl}/api/orders/placeOrder`, orderData);
+    console.log(response.data);
   }
 
   return (
@@ -63,6 +88,9 @@ const CheckOut = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
                   <input
+                    onChange={onChnageHandler}
+                    name="firstName"
+                    value={deliveryInfos.firstName}
                     type="text" 
                     className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
                     placeholder="John"
@@ -71,6 +99,9 @@ const CheckOut = () => {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
                   <input 
+                    onChange={onChnageHandler}
+                    name="lastName"
+                    value={deliveryInfos.lastName}
                     type="text" 
                     className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
                     placeholder="Doe"
@@ -81,6 +112,9 @@ const CheckOut = () => {
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
                 <input 
+                  onChange={onChnageHandler}
+                  name="email"
+                  value={deliveryInfos.email}                  
                   type="email" 
                   className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
                   placeholder="your@email.com"
@@ -89,22 +123,28 @@ const CheckOut = () => {
 
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
-                <input 
+                <input
+                  onChange={onChnageHandler}
+                  name="street"
+                  value={deliveryInfos.street} 
                   type="text" 
                   className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
                   placeholder="123 Main Street"
                 />
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
+              <div className="grid grid-cols-1 mb-4">
+                {/* <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
-                  <input 
+                  <input
+                    onChange={onChnageHandler}
+                    name="city"
+                    value={deliveryInfos.city}  
                     type="text" 
                     className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
                     placeholder="Algiers"
                   />
-                </div>
+                </div> */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Wilaya</label>
                   <select 
@@ -115,7 +155,7 @@ const CheckOut = () => {
                   >
                     <option value="">Select Wilaya</option>
                     {algerianWilayas.map((wilaya) => (
-                      <option key={wilaya.id} value={wilaya.id}>
+                      <option key={wilaya.id} value={wilaya.id} >
                         {wilaya.name} - {wilaya.fee} DZD
                       </option>
                     ))}
@@ -123,15 +163,15 @@ const CheckOut = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
+              <div className="grid grid-cols-1">
+                {/* <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Postal Code</label>
                   <input 
                     type="number" 
                     className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
                     placeholder="16000"
                   />
-                </div>
+                </div> */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
                   <input 
@@ -146,6 +186,9 @@ const CheckOut = () => {
               <div className="mt-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
                 <input 
+                  onChange={onChnageHandler}
+                  name="phone"
+                  value={deliveryInfos.phone} 
                   type="number" 
                   className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
                   placeholder="0550123456"

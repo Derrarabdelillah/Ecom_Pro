@@ -225,6 +225,18 @@ const ProductsContext = ({ children }) => {
         }
     };
 
+    // Transform CartItems Object to an Array
+    const getCartProductsArray = () => {
+    return Object.entries(cartItems).flatMap(([productId, sizes]) =>
+        Object.entries(sizes).map(([size, quantity]) => ({
+        productId,
+        size,
+        quantity,
+        ...products.find(p => p._id === productId) // Spread product details
+        }))
+    );
+    };
+
     useEffect(() => {
         getProducts();
     }, []); // Removed products from dependency array to prevent infinite loops
@@ -258,8 +270,8 @@ const ProductsContext = ({ children }) => {
         getCartAmount,
         getTotalWithDelivery,
         getProducts,
-        backendUrl
-
+        backendUrl,
+        getCartProductsArray
     };
 
     return (
