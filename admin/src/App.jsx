@@ -9,6 +9,8 @@ import Add from './pages/Add';
 import { useEffect, useState } from 'react'
 import Login from './components/Login'
 import { ToastContainer, toast } from 'react-toastify'
+import Users from './pages/Users'
+import Settings from './pages/Settings'
 
 const App = () => {
   
@@ -36,6 +38,8 @@ const App = () => {
                 <Route path='/products' element={<Products token={token}  />} />
                 <Route path='/orders' element={<Orders token={token} />} />
                 <Route path='/add' element={<Add token={token} />} />
+                <Route path='/users' element={<Users token={token} />} />
+                <Route path='/settings' element={<Settings token={token} />} />
               </Routes>
             </div>
 

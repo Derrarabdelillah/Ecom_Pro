@@ -1,16 +1,21 @@
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
+import { motion } from "framer-motion"
 
-
-const NavItem = ({href, text, icon: Icon}) => {
+const NavItem = ({ href, text, icon: Icon, className, activeClassName }) => {
   return (
-    <div>
-        <Link to={href} >
-            <div className="flex flex-row items-center gap-3 px-2 py-2 rounded-lg text-gray-800 hover:bg-gray-100">
-                <Icon className="w-6 h-6"  />
-                <span className="hidden md:block font-bold text-lg" >{text}</span>
-            </div>
-        </Link>
-    </div>
+    <motion.div>
+      <NavLink
+        to={href}
+        className={({ isActive }) => 
+          `flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${className} ${
+            isActive ? activeClassName : ''
+          }`
+        }
+      >
+        <Icon className="w-5 h-5" />
+        <span>{text}</span>
+      </NavLink>
+    </motion.div>
   )
 }
 
