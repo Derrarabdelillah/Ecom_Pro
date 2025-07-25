@@ -13,7 +13,7 @@ router.post('/placeOrder', createOrder);;
 router.get('/myOrders', authUser, getUserOrders);
 
 // Admin Routes
-router.put('/:id/status', adminAuth, updateStatus);
+router.put('/:orderId/status', updateStatus);
 router.get('/adminOrders', getAdminOrders)
 
 module.exports = router;

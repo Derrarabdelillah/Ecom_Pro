@@ -42,7 +42,36 @@ const getUserOrders = async (req, res) => {
 
 // Admin: Update Status
 const updateStatus  = async (req, res) => {
+    try {
+    const { status } = req.body;
+    const { orderId } = req.params;
 
+        // Validate input
+    if (!orderId || !status) {
+        return res.status(400).json({
+            success: false,
+            message: "Order ID and status are required"
+    });
+    }
+
+    const updatedOrder = await Order.findByIdAndUpdate(orderId, {
+        status: status,
+        updatedAt: new Date()
+    });
+
+    // save to the data base
+    await updatedOrder.save();
+    
+    res.json({success: true, message: "Order status updated successfully", updatedOrder})
+
+    } catch (error) {
+        console.error("Error updating order status:", error);
+        res.status(500).json({
+            success: false,
+            message: "Failed to update order status",
+            error: error.message
+        });
+    }
 };
 
 const getAdminOrders = async (req, res) => {
