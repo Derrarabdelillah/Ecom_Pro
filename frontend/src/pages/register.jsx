@@ -6,12 +6,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FiUser, FiMail, FiLock, FiArrowRight } from "react-icons/fi";
 import Alert from "../components/Alert";
 import axios from "axios";
+import { productsContext } from "../context/ProductsContext";
+import { useContext } from "react";
 
 const Register = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState(null);
+  const { backendUrl } = useContext(productsContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
