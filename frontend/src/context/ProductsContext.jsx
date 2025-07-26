@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export const productsContext = createContext();
-const backendUrl = "http://localhost:3000";
+const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
 // List of all 58 Algerian wilayas with delivery fees
 const algerianWilayas = [
