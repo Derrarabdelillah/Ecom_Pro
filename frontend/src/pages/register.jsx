@@ -21,7 +21,7 @@ const Register = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(`${backendUrl}/api/users`, user);
+      const response = await axios.post(`${backendUrl}/api/users`, JSON.stringify(user));
       if (response.data.succes) {
         setAlert({
           type: 'success',
