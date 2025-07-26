@@ -1,5 +1,4 @@
 import { FiEdit, FiPlus } from 'react-icons/fi';
-import { assets } from '../../../frontend/src/assets/admin_assets/assets'
 import { useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify'
