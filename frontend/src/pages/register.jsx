@@ -19,7 +19,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(`${backendUrl}/api/users`, user);
-      if (response.data.success) {
+      if (response.data.succes) {
         setAlert({
           type: 'success',
           message: 'Registration successful! Redirecting to login...'
@@ -32,7 +32,7 @@ const Register = () => {
       } else {
         setAlert({
           type: 'error',
-          message: 'whyyyy'
+          message: 'Please fill all fields correctly'
         });
       }
     } catch (error) {
