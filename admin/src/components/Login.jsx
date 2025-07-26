@@ -4,15 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import { FiMail, FiLock, FiArrowRight } from 'react-icons/fi';
-import { useContext } from 'react';
-import { productsContext } from "../../../frontend/src/context/ProductsContext"
 
 
 const Login = ({ setToken }) => {
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    // const { backendUrl } = useContext(productsContext)
     const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
     const handleSubmit = async (e) => {

@@ -3,21 +3,17 @@ import { assets } from '../../../frontend/src/assets/admin_assets/assets'
 import { useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify'
-import { useContext } from 'react';
-import { productsContext } from '../../../frontend/src/context/ProductsContext';
-import { useEffect } from 'react';
 
 // Back End Api Url
 
 const Add = ({ token }) => {
-  const {  updatedProduct } = useContext(productsContext)
+
 const backendUrl = "https://ecom-pro-0qxb.onrender.com";
   const [image1, setImage1] = useState('');
   const [image2, setImage2] = useState('');
   const [image3, setImage3] = useState('');
   const [image4, setImage4] = useState('');
 
-  // const [product, setProduct] = useState({name: '', description: '', category: 'Men', subCategory: '', price: '', sizes: [], bestseller: false});
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('Men');
@@ -25,6 +21,7 @@ const backendUrl = "https://ecom-pro-0qxb.onrender.com";
   const [price, setPrice] = useState('');
   const [sizes, setSizes] = useState([]);
   const [bestseller, setBestseller] = useState(false);
+  const [updatedProduct, setUpdatedProduct] = useState({})
 
   const addProduct = async () => {
     const formData = new FormData();
@@ -70,7 +67,12 @@ const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
   }
 
-  
+      const getProduct = async (product, productId) => {
+        const response = await axios.get(`${backendUrl}/api/product/single/${productId}`)
+            setUpdatedProduct(response.data.product);
+            navigate('/add');
+    }
+
 
   // console.log(updatedProduct)
 

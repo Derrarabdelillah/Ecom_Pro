@@ -1,6 +1,5 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { productsContext } from "../../../frontend/src/context/ProductsContext";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FiPackage, FiTruck, FiCheckCircle, FiClock,
@@ -21,9 +20,12 @@ const Orders = () => {
   const [loadingStatus, setLoadingStatus] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [statusChangeData, setStatusChangeData] = useState({ orderId: null, newStatus: null });
-  const {  token, currency } = useContext(productsContext);
+
+
+  const [ token, setToken ] = useState( localStorage.getItem('token') ? localStorage.getItem('token') : '' );
+  const currency = 'DZD';
   const backendUrl = "https://ecom-pro-0qxb.onrender.com";
-  
+
   // Status configuration
   const statusConfig = {
     pending: {

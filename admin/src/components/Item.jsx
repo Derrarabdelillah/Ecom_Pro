@@ -1,14 +1,15 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import axios from "axios";
 import { FiEdit2, FiTrash2, FiX, FiAlertTriangle } from "react-icons/fi";
-import { productsContext } from "../../../frontend/src/context/ProductsContext";
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-toastify';
-import { useEffect } from 'react';
+
 
 const Item = ({ product, currency }) => {
-  const {  token } = useContext(productsContext);
+
+  const [ token, setToken ] = useState( localStorage.getItem('token') ? localStorage.getItem('token') : '' );
   const backendUrl = "https://ecom-pro-0qxb.onrender.com";
+  
   const [showConfirm, setShowConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 

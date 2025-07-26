@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { useEffect, useState } from "react";
 import { FiPlus, FiEdit2, FiTrash2, FiSearch, FiPackage  } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { productsContext } from "../../../frontend/src/context/ProductsContext";
 import { motion } from "framer-motion";
 import Item from "../components/Item"
 
@@ -11,7 +10,8 @@ import Item from "../components/Item"
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const { currency } = useContext(productsContext);
+  const currency = 'DZD';
+
   const backendUrl = "https://ecom-pro-0qxb.onrender.com";
   useEffect(() => {
     const getProducts = async () => {

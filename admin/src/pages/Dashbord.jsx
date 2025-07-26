@@ -1,7 +1,6 @@
 import { FiPackage, FiShoppingCart, FiDollarSign, FiBarChart2 } from 'react-icons/fi';
 import { motion } from 'framer-motion';
-import { useContext, useEffect, useState } from 'react';
-import { productsContext } from '../../../frontend/src/context/ProductsContext';
+import {  useEffect, useState } from 'react';
 import axios from 'axios';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
@@ -10,8 +9,11 @@ import { Bar } from 'react-chartjs-2';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Dashboard = () => {
-  const {  token, currency } = useContext(productsContext);
+
+  const [ token, setToken ] = useState( localStorage.getItem('token') ? localStorage.getItem('token') : '' );
+  const currency = 'DZD';
   const backendUrl = "https://ecom-pro-0qxb.onrender.com";
+
   const [stats, setStats] = useState({
     totalOrders: 0,
     totalRevenue: 0,
