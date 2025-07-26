@@ -11,8 +11,8 @@ import Item from "../components/Item"
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const { currency, backendUrl } = useContext(productsContext);
-
+  const { currency } = useContext(productsContext);
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
   useEffect(() => {
     const getProducts = async () => {
       try {

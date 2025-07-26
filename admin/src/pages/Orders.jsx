@@ -21,8 +21,9 @@ const Orders = () => {
   const [loadingStatus, setLoadingStatus] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [statusChangeData, setStatusChangeData] = useState({ orderId: null, newStatus: null });
-  const { backendUrl, token, currency } = useContext(productsContext);
-
+  const {  token, currency } = useContext(productsContext);
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
+  
   // Status configuration
   const statusConfig = {
     pending: {

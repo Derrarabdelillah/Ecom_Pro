@@ -10,8 +10,8 @@ import { useEffect } from 'react';
 // Back End Api Url
 
 const Add = ({ token }) => {
-  const { backendUrl, updatedProduct } = useContext(productsContext)
-
+  const {  updatedProduct } = useContext(productsContext)
+const backendUrl = "https://ecom-pro-0qxb.onrender.com";
   const [image1, setImage1] = useState('');
   const [image2, setImage2] = useState('');
   const [image3, setImage3] = useState('');

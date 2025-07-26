@@ -12,7 +12,8 @@ const Login = ({ setToken }) => {
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const { backendUrl } = useContext(productsContext)
+    // const { backendUrl } = useContext(productsContext)
+    const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
     const handleSubmit = async (e) => {
         try {

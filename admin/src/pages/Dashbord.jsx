@@ -10,7 +10,8 @@ import { Bar } from 'react-chartjs-2';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Dashboard = () => {
-  const { backendUrl, token, currency } = useContext(productsContext);
+  const {  token, currency } = useContext(productsContext);
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
   const [stats, setStats] = useState({
     totalOrders: 0,
     totalRevenue: 0,

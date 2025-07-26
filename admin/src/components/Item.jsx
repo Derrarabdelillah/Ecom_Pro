@@ -7,7 +7,8 @@ import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 
 const Item = ({ product, currency }) => {
-  const { backendUrl, token } = useContext(productsContext);
+  const {  token } = useContext(productsContext);
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
   const [showConfirm, setShowConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
