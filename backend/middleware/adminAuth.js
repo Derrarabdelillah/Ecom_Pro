@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-const SecretKey = "3#3#3#3"
+require('dotenv').config();
+
 
 const adminAuth = async (req, res, next) => {
 
@@ -11,7 +12,7 @@ const adminAuth = async (req, res, next) => {
         if ( !token ) {
             return res.status(401).json({success: false, message: "No Token Availble"})
         }
-        const decode_token = jwt.verify(token, SecretKey);
+        const decode_token = jwt.verify(token, process.env.JWT_SECRET);
 
         if ( decode_token.email !== process.env.ADMIN_EMAIL || decode_token.password !== process.env.ADMIN_PASSWORD ) {
             return res.status(403).json({success: false, message: "Not Authorized. Invalid Credentials"})

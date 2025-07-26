@@ -29,7 +29,7 @@ const ProductRoute = require('./routes/ProductRoute')
 const CartRoute = require('./routes/CartRoute')
 const OrderRoute = require('./routes/OrderRoute')
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 
 // api endpoints

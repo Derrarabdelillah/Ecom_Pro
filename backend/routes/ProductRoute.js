@@ -7,7 +7,8 @@ const {
     addProduct, 
     allProducts, 
     removeProduct, 
-    singleProduct 
+    singleProduct,
+    updateProduct
 } = require('../controllers/productController');
 
 const upload = require('../middleware/multer');
@@ -35,6 +36,7 @@ router.post('/add', upload.fields([
 router.get('/all', allProducts);
 router.delete('/remove/:productId',  removeProduct);
 router.get('/single/:productId',  singleProduct);
+router.put('/update/:productId', updateProduct)
 
 
 module.exports = router;

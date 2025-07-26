@@ -4,10 +4,11 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 
-const SecretKey = "3#3#3#3"
+// dotenv
+require('dotenv').config()
 
 const createToken = async (id) => {
-    return jwt.sign({ id }, SecretKey)
+    return jwt.sign({ id }, process.env.JWT_SECRET)
 }
 
 
@@ -86,6 +87,7 @@ router.get('/api/users', async (req, res) => {
 });
 
 
+module.exports = router;
 
 // Get User by ID
 // router.get('/api/users/:id', async (req, res) => {
@@ -93,4 +95,3 @@ router.get('/api/users', async (req, res) => {
 //     res.status(200).json(user);
 // });
 
-module.exports = router;

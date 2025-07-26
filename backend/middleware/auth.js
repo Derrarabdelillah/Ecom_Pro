@@ -1,5 +1,8 @@
+// dotenv
+require('dotenv').config();
+
 const jwt = require('jsonwebtoken');
-const SecretKey = "3#3#3#3";
+
 
 const authUser = async (req, res, next) => {
     try {
@@ -21,7 +24,7 @@ const authUser = async (req, res, next) => {
         }
 
         // 3. Verify token
-        const decoded = jwt.verify(token, SecretKey);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         
         // 4. Validate decoded payload
         if (!decoded._id) {

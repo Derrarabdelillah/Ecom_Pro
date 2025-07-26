@@ -1,6 +1,5 @@
 const Order = require('../models/Order');
-const Product = require('../models/Product');
-const { algerianWilayas } = require('../data/algeriaWilayas');
+
 
 // Create New Order
 const createOrder = async (req, res) => {
