@@ -23,6 +23,7 @@ const Register = () => {
           type: 'success',
           message: 'Registration successful! Redirecting to login...'
         });
+        console.log(user)
 
         setTimeout(() => {
           setAlert(null);
