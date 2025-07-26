@@ -8,5 +8,9 @@ export default defineConfig({
     tailwindcss(),
     react()
   ],
+  ,
+  optimizeDeps: {
+    include: ['axios']
+  }
   server: {port: 5100}
 })
