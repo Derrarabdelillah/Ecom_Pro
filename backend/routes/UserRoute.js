@@ -6,9 +6,10 @@ const jwt = require('jsonwebtoken');
 
 // dotenv
 require('dotenv').config()
+const JWT_SECRET = "#3#3#3#3";
 
 const createToken = async (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET)
+    return jwt.sign({ id }, JWT_SECRET)
 }
 
 
@@ -67,7 +68,7 @@ router.post('/api/users/admin', async (req, res) => {
         const email =  req.body.email;
         const password = req.body.password;
         if ( email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD ) {
-            const token = jwt.sign({email,password}, process.env.JWT_SECRET);
+            const token = jwt.sign({email,password}, JWT_SECRET);
             res.json({success: true, token})
         } else {
             res.json({success: false, message: 'Invalid Credentials'})
