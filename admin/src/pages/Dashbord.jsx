@@ -1,17 +1,23 @@
-import { FiPackage, FiShoppingCart, FiDollarSign, FiTrendingUp } from 'react-icons/fi'
-import { motion } from 'framer-motion'
-import { useContext, useEffect, useState } from 'react'
-import { productsContext } from '../../../frontend/src/context/ProductsContext' 
-import axios from 'axios'
+import { FiPackage, FiShoppingCart, FiDollarSign, FiBarChart2 } from 'react-icons/fi';
+import { motion } from 'framer-motion';
+import { useContext, useEffect, useState } from 'react';
+import { productsContext } from '../../../frontend/src/context/ProductsContext';
+import axios from 'axios';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
+// Register ChartJS components
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Dashboard = () => {
-  const { backendUrl, token, currency } = useContext(productsContext)
+  const { backendUrl, token, currency } = useContext(productsContext);
   const [stats, setStats] = useState({
     totalOrders: 0,
     totalRevenue: 0,
     totalProducts: 0,
-    recentOrders: []
-  })
+    recentOrders: [],
+    salesData: [] // Add sales data for the chart
+  });
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -21,25 +27,33 @@ const Dashboard = () => {
             headers: { Authorization: `Bearer ${token}` }
           }),
           axios.get(`${backendUrl}/api/product/all`)
-        ])
+        ]);
 
         const totalRevenue = ordersRes.data.orders.reduce(
           (sum, order) => sum + order.deliveryInfos.total, 0
-        )
+        );
+
+        // Prepare monthly sales data for the chart
+        const monthlySales = Array(12).fill(0);
+        ordersRes.data.orders.forEach(order => {
+          const month = new Date(order.createdAt).getMonth();
+          monthlySales[month] += order.deliveryInfos.total;
+        });
 
         setStats({
           totalOrders: ordersRes.data.orders.length,
           totalRevenue,
           totalProducts: productsRes.data.length,
-          recentOrders: ordersRes.data.orders.slice(0, 5)
-        })
+          recentOrders: ordersRes.data.orders.slice(0, 5),
+          salesData: monthlySales
+        });
       } catch (error) {
-        console.error('Error fetching stats:', error)
+        console.error('Error fetching stats:', error);
       }
-    }
+    };
 
-    if (token) fetchStats()
-  }, [token, backendUrl])
+    if (token) fetchStats();
+  }, [token, backendUrl]);
 
   const StatCard = ({ icon, value, label, cardType }) => {
     // Gradient configurations for each card type
@@ -68,6 +82,8 @@ const Dashboard = () => {
 
     const config = gradientConfig[cardType] || gradientConfig.orders
 
+
+
     return (
       <motion.div 
         whileHover={{ y: -3 }}
@@ -85,6 +101,58 @@ const Dashboard = () => {
       </motion.div>
     )
   }
+
+  ///////////////////////
+  // Chart Data
+const chartData = {
+  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  datasets: [{
+    label: 'Sales',
+    data: stats.salesData,
+    backgroundColor: 'rgba(99, 102, 241, 0.7)',
+    borderRadius: 6,
+    borderSkipped: false,
+    barThickness: 20
+  }]
+};
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      display: false
+    },
+    tooltip: {
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
+      padding: 12,
+      callbacks: {
+        label: (context) => {
+          return ` ${currency}${context.raw.toFixed(2)}`;
+        }
+      }
+    }
+  },
+  scales: {
+    y: {
+      beginAtZero: true,
+      grid: {
+        drawBorder: false,
+        color: 'rgba(0, 0, 0, 0.03)'
+      },
+      ticks: {
+        callback: (value) => currency + value
+      }
+    },
+    x: {
+      grid: {
+        display: false,
+        drawBorder: false
+      }
+    }
+  }
+};
+////////////
 
   return (
     <div className="h-full bg-white rounded-lg p-6">
@@ -104,29 +172,44 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
       <StatCard
         icon={<FiShoppingCart size={20} />}
-        value="24"
+        value={stats.totalOrders}
         label="Total Orders"
         cardType="orders"
       />
       <StatCard
         icon={<FiDollarSign size={20} />}
-        value="$1,234"
+        value={( stats.totalRevenue ).toFixed(2) + currency}
         label="Total Revenue"
         cardType="revenue"
       />
       <StatCard
         icon={<FiPackage size={20} />}
-        value="56"
+        value={stats.totalProducts}
         label="Products in Store"
         cardType="products"
       />
       <StatCard
-        icon={<FiTrendingUp size={20} />}
-        value="$51.42"
-        label="Avg. Order Value"
-        cardType="average"
+        icon={<FiBarChart2 size={20} />}
+        value={stats.totalOrders > 0 ? 
+        `${((stats.totalRevenue / stats.totalOrders).toFixed(2))}${currency}` : 
+        `0${currency}`}
+        label="Sales Growth"
+        cardType="growth"
       />
         </div>
+
+                {/* NEW: Sales Chart Section */}
+    <div className="bg-white border border-gray-100 rounded-xl p-6 mb-8 shadow-xs">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="font-medium text-gray-900">Monthly Performance</h3>
+        <span className="text-xs bg-indigo-50 text-indigo-600 px-2 py-1 rounded-full">
+          {currency}{stats.totalRevenue.toFixed(2)} total
+        </span>
+      </div>
+      <div className="h-80">
+        <Bar data={chartData} options={chartOptions} />
+      </div>
+    </div>
 
         {/* Recent Orders */}
         <div className="bg-gradient-to-b from-white to-gray-50 border border-gray-100 rounded-xl shadow-xs overflow-hidden">

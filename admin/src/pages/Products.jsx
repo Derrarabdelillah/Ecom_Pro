@@ -7,12 +7,11 @@ import { productsContext } from "../../../frontend/src/context/ProductsContext";
 import { motion } from "framer-motion";
 import Item from "../components/Item"
 
-const backendUrl = "http://localhost:3000";
 
-const Products = ({ token }) => {
+const Products = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const { currency } = useContext(productsContext);
+  const { currency, backendUrl } = useContext(productsContext);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -24,7 +23,8 @@ const Products = ({ token }) => {
       }
     };
     getProducts();
-  }, []);
+  }, [products]);
+
 
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
