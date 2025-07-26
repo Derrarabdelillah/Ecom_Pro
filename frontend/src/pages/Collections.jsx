@@ -4,29 +4,26 @@ import Item from "../components/Item";
 import { assets } from "../assets/frontend_assets/assets";
 import SearchBar from "../components/SearchBar";
 
-
 const Collections = () => {
   const { products, search, setSearch } = useContext(productsContext);
   const { currency } = useContext(productsContext);
 
   const [showFilter, setShowFilter] = useState(false);
-  const [filterProdcuts, setFilterProducts] = useState([]);
+  const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState('relavent')
 
-  // Category Toogle Funciton to store the clicked checkbox on the category useState
+  // Category Toggle Function
   const toggleCategory = (e) => {
-
     if (category.includes(e.target.value)) {
       setCategory(prev => prev.filter(item => item !== e.target.value))
     } else {
       setCategory(prev => [...prev, e.target.value])
     }
-
   }
 
-  // SubCategory Toogle Funciton to store the clicked checkbox on the SubCategory useState
+  // SubCategory Toggle Function
   const toggleSubCategory = (e) => {
     if (subCategory.includes(e.target.value)) {
       setSubCategory(prev => prev.filter(item => item !== e.target.value))
@@ -35,7 +32,7 @@ const Collections = () => {
     }
   }
 
-  // function to apply the filter after selecting the checkbox have been clicked
+  // Apply filters
   const applyFilter = () => {
     let productsCopy = products.slice();
 
@@ -53,8 +50,9 @@ const Collections = () => {
     setFilterProducts(productsCopy)
   };
 
+  // Sort products
   const sortProducts = () => {
-    let fpCopy = filterProdcuts.slice();
+    let fpCopy = filterProducts.slice();
 
     switch (sortType) {
       case 'Low To High':
@@ -71,28 +69,27 @@ const Collections = () => {
     }
   }
 
-  // store the products to the useState
+  // Initialize with all products
   useEffect(() => {
     setFilterProducts(products);
   }, [products])
 
-  // apply Filter function when the category and subCategory have been changed
+  // Apply filters when dependencies change
   useEffect(() => {
     applyFilter();
   }, [category, subCategory, search, products])
 
+  // Sort when sort type changes
   useEffect(() => {
     sortProducts();
-    console.log(sortType)
   }, [sortType])
-
 
   return (
     <div className="container ">
       <SearchBar />
       <div className="flex flex-col gap-8 md:flex-row ">
 
-        {/* Filter Options */}
+        {/* Filter Options - FULL CODE INCLUDED */}
         <div className="flex flex-col gap-4 min-w-60 ">
           <div className="flex flex-row gap-2 items-center">
             <h2 className="font-bold text-2xl uppercase">filter</h2>
@@ -122,7 +119,6 @@ const Collections = () => {
                 <input type="checkbox" className="w-3" value={"Kids"} onChange={toggleCategory} />
                 <p>Kids</p>
               </div>
-
             </div>
 
             {/* Sub Category Options */}
@@ -143,35 +139,58 @@ const Collections = () => {
                 <input type="checkbox" className="w-3" value={"Winterwear"} onChange={toggleSubCategory} />
                 <p>Winterwear</p>
               </div>
-
             </div>
           </div>
         </div>
 
+        {/* Products Display Area */}
         <div className="flex flex-col gap-4 w-full">
           <div className="flex flex-row gap-2 items-center justify-between">
             <h2 className="font-bold text-xl md:text-2xl uppercase">all collections</h2>
             <select
               onChange={(e) => setSortType(e.target.value)}
               className="bg-white font-bold text-sm border border-grayBorder rounded-lg px-2 py-2 cursor-pointer outline-none">
-              <option value="relavent" >Relavent</option>
-              <option value="Low To High" >Low To High</option>
-              <option value="High To Low" >High To Low</option>
+              <option value="relavent">Relavent</option>
+              <option value="Low To High">Low To High</option>
+              <option value="High To Low">High To Low</option>
             </select>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {filterProdcuts.map((product) => {
-              return (
-                <div >
-                  <Item key={product._id} product={product} currency={currency}
-                  />
+          {/* No Products Message */}
+          {filterProducts.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-16">
+              <div className="text-center">
+                <svg className="w-20 h-20 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h3 className="mt-4 text-lg font-medium text-gray-900">No products found</h3>
+                <p className="mt-2 text-gray-600">
+                  {search 
+                    ? `No matches for "${search}"` 
+                    : "Try adjusting your filters"}
+                </p>
+                <button
+                  onClick={() => {
+                    setSearch('');
+                    setCategory([]);
+                    setSubCategory([]);
+                  }}
+                  className="mt-4 px-4 py-2 bg-main text-white rounded-md hover:bg-main-dark transition"
+                >
+                  Reset Filters
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              {filterProducts.map((product) => (
+                <div key={product._id}>
+                  <Item product={product} currency={currency} />
                 </div>
-              )
-            })}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
-
       </div>
     </div>
   )

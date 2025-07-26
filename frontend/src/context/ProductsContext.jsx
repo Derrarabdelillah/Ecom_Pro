@@ -80,6 +80,7 @@ const ProductsContext = ({ children }) => {
     const [ token, setToken ] = useState( localStorage.getItem('token') ? localStorage.getItem('token') : '' );
     const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null;
     const userId = user?.id || null; // Safe access with optional chaining
+    const [updatedProduct, setUpdatedProduct] = useState({})
 
 
     const navigate = useNavigate();
@@ -122,12 +123,12 @@ const ProductsContext = ({ children }) => {
             const userId = user._id;
             
             try {
-                const response = await axios.post(`${backendUrl}/api/cart/add`, { userId, itemId, size },
-                {
+                const response = await axios.post(`${backendUrl}/api/cart/add`, {
                     headers: { 
                         Authorization : `Bearer ${token}` 
                     }
-                }
+                }, { userId, itemId, size },
+
             )
 
             if (response.data.success) {
@@ -237,6 +238,15 @@ const ProductsContext = ({ children }) => {
         }
     };
 
+    const updateProduct = async (product, productId) => {
+    }
+
+    const getProduct = async (product, productId) => {
+        const response = await axios.get(`${backendUrl}/api/product/single/${productId}`)
+            setUpdatedProduct(response.data.product);
+            navigate('/add');
+    }
+
     // Transform CartItems Object to an Array
     const getCartProductsArray = () => {
     return Object.entries(cartItems).flatMap(([productId, sizes]) =>
@@ -289,7 +299,11 @@ const ProductsContext = ({ children }) => {
         getUserOrders,
         orders,
         setOrders,
-        token
+        token,
+        updatedProduct,
+        setUpdatedProduct,
+        updateProduct,
+        getProduct
     };
 
     return (

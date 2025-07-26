@@ -14,6 +14,7 @@ import Regist from "./pages/register"
 
 import { ToastContainer } from 'react-toastify';
 import Profile from "./pages/Profile"
+import Footer from "./components/Footer"
 const App = () => {
 
   return (
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/register" element={<Regist />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>
+      <Footer />
     </>
   )
 }
