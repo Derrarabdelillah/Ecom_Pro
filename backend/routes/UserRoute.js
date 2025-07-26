@@ -51,7 +51,7 @@ router.post('/api/users/login', async (req, res) => {
 // Create a new user - post method
 router.post('/api/users', async (req, res) => {
     const EmailTaken = await User.findOne({ email: req.body.email });
-    
+
     if (EmailTaken) {
         return res.status(400).json({ message: 'Email already taken' });
     } else {

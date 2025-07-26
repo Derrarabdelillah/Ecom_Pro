@@ -15,7 +15,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     try {
       const response = await createUser(user);
       if (response) {
@@ -47,14 +47,14 @@ const Register = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4 relative">
       {alert && (
-        <Alert 
-          type={alert.type} 
-          message={alert.message} 
-          onClose={() => setAlert(null)} 
+        <Alert
+          type={alert.type}
+          message={alert.message}
+          onClose={() => setAlert(null)}
         />
       )}
-      
-      <motion.div 
+
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -73,7 +73,7 @@ const Register = () => {
                   <FiUser className="text-gray-400" />
                 </div>
                 <input
-                  onChange={(e) => setUser({...user, username: e.target.value})}
+                  onChange={(e) => setUser({ ...user, username: e.target.value })}
                   type="text"
                   className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent transition-all"
                   placeholder="Full Name"
@@ -86,7 +86,7 @@ const Register = () => {
                   <FiMail className="text-gray-400" />
                 </div>
                 <input
-                  onChange={(e) => setUser({...user, email: e.target.value})}
+                  onChange={(e) => setUser({ ...user, email: e.target.value })}
                   type="email"
                   className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent transition-all"
                   placeholder="Email Address"
@@ -99,7 +99,7 @@ const Register = () => {
                   <FiLock className="text-gray-400" />
                 </div>
                 <input
-                  onChange={(e) => setUser({...user, password: e.target.value})}
+                  onChange={(e) => setUser({ ...user, password: e.target.value })}
                   type="password"
                   className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent transition-all"
                   placeholder="Password"
