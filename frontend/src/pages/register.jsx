@@ -38,7 +38,7 @@ const Register = () => {
     } catch (error) {
       setAlert({
         type: 'error',
-        message: error
+        message: 'Registration failed. Please try again.'
       });
     } finally {
       setIsLoading(false);
