@@ -2,6 +2,8 @@ import { FiEdit, FiPlus } from 'react-icons/fi';
 import { useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify'
+import { assets } from '../assets/admin_assets/assets';
+
 
 // Back End Api Url
 
