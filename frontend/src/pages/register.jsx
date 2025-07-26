@@ -5,6 +5,7 @@ import { createUser } from "../api/api";
 import { Link, useNavigate } from 'react-router-dom';
 import { FiUser, FiMail, FiLock, FiArrowRight } from "react-icons/fi";
 import Alert from "../components/Alert";
+import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -17,8 +18,8 @@ const Register = () => {
     setIsLoading(true);
 
     try {
-      const response = await createUser(user);
-      if (response) {
+      const response = await axios.post(`${backendUrl}/api/users`, user);
+      if (response.data.success) {
         setAlert({
           type: 'success',
           message: 'Registration successful! Redirecting to login...'
@@ -31,7 +32,7 @@ const Register = () => {
       } else {
         setAlert({
           type: 'error',
-          message: 'Please fill all fields correctly'
+          message: 'whyyyy'
         });
       }
     } catch (error) {
