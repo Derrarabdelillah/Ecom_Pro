@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export const productsContext = createContext();
-const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
 // List of all 58 Algerian wilayas with delivery fees
 const algerianWilayas = [
@@ -69,6 +68,7 @@ const algerianWilayas = [
 ];
 
 const ProductsContext = ({ children }) => {
+    const backendUrl = "https://ecom-pro-0qxb.onrender.com";
     const currency = 'DZD'; // Changed from '$' to 'DZD' for Algerian context
     const [deliveryFee, setDeliveryFee] = useState(0);
     const [selectedWilaya, setSelectedWilaya] = useState("");
