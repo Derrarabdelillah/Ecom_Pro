@@ -4,8 +4,8 @@ require('dotenv').config()
 
 const uri = process.env.URI
 
-function connectDB() {
-    mongoose.connect(uri);
+async function connectDB() {
+    await mongoose.connect(uri);
 }
 
 module.exports = connectDB;
