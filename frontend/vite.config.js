@@ -7,10 +7,5 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     react()
-  ],
-    build: {
-    rollupOptions: {
-      external: ['axios'] // Explicitly mark axios as external
-    }
-  }
+  ]
 })
