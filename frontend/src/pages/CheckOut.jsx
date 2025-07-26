@@ -72,7 +72,6 @@ const CheckOut = () => {
     
     if ( response.data.success ) {
       setCartItems({});
-      navigate('/orders')
     }
   }
 
