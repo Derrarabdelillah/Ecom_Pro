@@ -23,8 +23,12 @@ const handleSubmit = async (e) => {
 
   try {
     const response = await axios.post(
-      `${backendUrl}/api/users`, 
-      user, // Send user object directly, not wrapped in {user}
+      `${backendUrl}/api/users`,
+      { // Send flat object structure
+        username: user.username,
+        email: user.email,
+        password: user.password
+      },
       {
         headers: {
           'Content-Type': 'application/json'
