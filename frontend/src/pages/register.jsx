@@ -1,7 +1,6 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { createUser } from "../api/api";
 import { Link, useNavigate } from 'react-router-dom';
 import { FiUser, FiMail, FiLock, FiArrowRight } from "react-icons/fi";
 import Alert from "../components/Alert";
@@ -14,7 +13,9 @@ const Register = () => {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState(null);
-  const { backendUrl } = useContext(productsContext);
+  // const { backendUrl } = useContext(productsContext);
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
