@@ -20,6 +20,8 @@ const allowedOrigins = [
 app.use(cors({
   origin: allowedOrigins,
   credentials: true,
+  methods: ['POST', 'GET', 'PUT'],
+  allowedHeaders: ['Content-Type']
 }));
 app.use(express.json()); // For JSON bodies
 app.use(express.urlencoded({ extended: true })); // For form data

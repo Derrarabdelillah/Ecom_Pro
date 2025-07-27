@@ -56,7 +56,7 @@ router.post('/api/users', async (req, res) => {
         return res.status(400).json({ message: 'Email already taken' });
     } else {
         const user = await User.create(req.body);
-        return res.status(201).json(user);
+        return res.status(201).json({success: true, user});
     }
 
 });
