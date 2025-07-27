@@ -118,13 +118,10 @@ const CheckOut = () => {
                 
                 <div className="bg-gray-50 p-4 rounded-lg mb-6 text-left">
                   <h4 className="font-medium mb-2">Order Summary</h4>
-                  <p className="text-sm">Total: {orderData.deliveryInfos.total} DZD</p>
+                  <p className="text-sm">Total: {deliveryInfos.total} DZD</p>
                   <p className="text-sm">Delivery to: {deliveryInfos.wilaya}</p>
                 </div>
-                
-                <p className="text-gray-500 text-sm">
-                  You'll be redirected to your orders page shortly...
-                </p>
+              
               </div>
             </motion.div>
           </motion.div>
