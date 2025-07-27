@@ -6,6 +6,7 @@ import { FiMail, FiLock, FiArrowRight } from "react-icons/fi";
 import { useCookies } from "react-cookie";
 
 import Alert from "../components/Alert";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Login = () => {
       
       if (response.data.success) {
         const { token, user } = response.data;
-        
+
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
         
