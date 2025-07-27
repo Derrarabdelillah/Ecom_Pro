@@ -35,7 +35,7 @@ const authUser = async (req, res, next) => {
         }
 
         // 5. Attach user ID to request
-        req.userId = decoded.id;
+        req.userId = decoded._id;
         next();
 
     } catch (error) {
