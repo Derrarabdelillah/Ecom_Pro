@@ -175,9 +175,10 @@ const ProductsContext = ({ children }) => {
         const getUserCart = async ( token ) => {
             try {
                 const response = await axios.get(`${backendUrl}/api/cart/get`, { 
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
                  })
 
                  if ( response.data.success ) {
