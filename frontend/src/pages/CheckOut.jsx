@@ -116,12 +116,12 @@ const CheckOut = () => {
                   Your order #{orderData?.orderNumber} has been received.
                 </p>
                 
-                <div className="bg-gray-50 p-4 rounded-lg mb-6 text-left">
+                {/* <div className="bg-gray-50 p-4 rounded-lg mb-6 text-left">
                   <h4 className="font-medium mb-2">Order Summary</h4>
-                  <p className="text-sm">Total: {deliveryInfos.total} DZD</p>
+                  <p className="text-sm">Total: {orderData?.totalAmount} DZD</p>
                   <p className="text-sm">Delivery to: {deliveryInfos.wilaya}</p>
-                </div>
-              
+                </div> */}
+                
               </div>
             </motion.div>
           </motion.div>
