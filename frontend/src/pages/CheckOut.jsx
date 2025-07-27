@@ -83,11 +83,6 @@ const CheckOut = () => {
         setOrderData(response.data.order);
         setCartItems({});
         setOrderSuccess(true);
-        
-        // Redirect after 5 seconds
-        setTimeout(() => {
-          navigate('/orders');
-        }, 5000);
       }
     } catch (error) {
       console.error("Order error:", error);
@@ -105,7 +100,7 @@ const CheckOut = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-gray-50 bg-opacity-50 flex items-center justify-center z-50 p-4"
           >
             <motion.div 
               initial={{ scale: 0.9, y: 20 }}
@@ -123,7 +118,7 @@ const CheckOut = () => {
                 
                 <div className="bg-gray-50 p-4 rounded-lg mb-6 text-left">
                   <h4 className="font-medium mb-2">Order Summary</h4>
-                  <p className="text-sm">Total: {orderData?.totalAmount} DZD</p>
+                  <p className="text-sm">Total: {orderData.deliveryInfos.total} DZD</p>
                   <p className="text-sm">Delivery to: {deliveryInfos.wilaya}</p>
                 </div>
                 
