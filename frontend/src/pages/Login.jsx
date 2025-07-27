@@ -12,17 +12,29 @@ const Login = () => {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState(null);
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const response = await verifyUser(user);
+      const response = await axios.post(
+        `${backendUrl}/api/users/login`,
+        { // Send flat object structure
+          email: user.email,
+          password: user.password
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
       
-      if (response) {
-        const token = response.token;
-        const user = response.user;
+      if (response.data.success) {
+        const { token, user } = response.data;
+        
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
         
