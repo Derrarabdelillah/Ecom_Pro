@@ -17,37 +17,47 @@ const Register = () => {
   const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
 
-    try {
-      const response = await axios.post(`${backendUrl}/api/users`, { user });
-      if (response.data.succes) {
-        setAlert({
-          type: 'success',
-          message: 'Registration successful! Redirecting to login...'
-        });
-
-        setTimeout(() => {
-          setAlert(null);
-          navigate('/login');
-        }, 3000);
-      } else {
-        setAlert({
-          type: 'error',
-          message: 'Please fill all fields correctly'
-        });
+  try {
+    const response = await axios.post(
+      `${backendUrl}/api/users`, 
+      user, // Send user object directly, not wrapped in {user}
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
       }
-    } catch (error) {
+    );
+
+    if (response.data.success) { // Fixed typo: 'succes' → 'success'
+      setAlert({
+        type: 'success',
+        message: 'Registration successful! Redirecting to login...'
+      });
+
+      setTimeout(() => {
+        setAlert(null);
+        navigate('/login');
+      }, 3000);
+    } else {
       setAlert({
         type: 'error',
-        message: 'Registration failed. Please try again.'
+        message: response.data.message || 'Please fill all fields correctly'
       });
-    } finally {
-      setIsLoading(false);
     }
-  };
+  } catch (error) {
+    setAlert({
+      type: 'error',
+      message: error.response?.data?.message || 'Registration failed. Please try again.'
+    });
+    console.error('Registration error:', error);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4 relative">
