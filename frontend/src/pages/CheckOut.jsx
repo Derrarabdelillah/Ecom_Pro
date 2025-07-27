@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { data, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { productsContext } from "../context/ProductsContext";
 import TotalCart from "../components/TotalCart";
-import { FiArrowRight, FiCheckCircle } from "react-icons/fi";
+import { FiArrowRight, FiCheckCircle, FiShoppingBag } from "react-icons/fi";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
@@ -33,50 +33,109 @@ const CheckOut = () => {
     wilaya: '',
     street: '',
   });
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+  const [orderSuccess, setOrderSuccess] = useState(false);
+  const [orderData, setOrderData] = useState(null);
+  
   const customer = `${deliveryInfos.firstName} ${deliveryInfos.lastName}`;
   const products = getCartProductsArray();
 
-
-  useEffect( () => {
-    setDeliveryInfos( prev => ( {
+  useEffect(() => {
+    setDeliveryInfos(prev => ({
       ...prev,
       wilaya: selectedWilaya,
       deliveryFee: delivery_fee,
       subTotal: getCartAmount(),
       total: getTotalWithDelivery()
-    } ) )
-  }, [selectedWilaya, delivery_fee, getCartAmount, getTotalWithDelivery] )
+    }));
+  }, [selectedWilaya, delivery_fee, getCartAmount, getTotalWithDelivery]);
 
   const onChnageHandler = (event) => {
     const { name, value } = event.target;
-    setDeliveryInfos( data => ({...data, [name]: value}) )
-  } 
+    setDeliveryInfos(data => ({...data, [name]: value}));
+  };
 
   const placeOrder = async () => {
-    const orderData = {
-      customer: customer,
-      userId: userId,
-      products: products.map(item => ({
-        productId: item._id,
-        name: item.name,
-        price: item.price,
-        quantity: item.quantity,
-        size: item.size,
-        image: item.image[0], // Include product image 
-        category: item.category
-    })),
-      deliveryInfos: deliveryInfos,
+    setIsPlacingOrder(true);
+    try {
+      const orderData = {
+        customer: customer,
+        userId: userId,
+        products: products.map(item => ({
+          productId: item._id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          size: item.size,
+          image: item.image[0],
+          category: item.category
+        })),
+        deliveryInfos: deliveryInfos,
+      };
+      
+      const response = await axios.post(`${backendUrl}/api/orders/placeOrder`, orderData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      
+      if (response.data.success) {
+        setOrderData(response.data.order);
+        setCartItems({});
+        setOrderSuccess(true);
+        
+        // Redirect after 5 seconds
+        setTimeout(() => {
+          navigate('/orders');
+        }, 5000);
+      }
+    } catch (error) {
+      console.error("Order error:", error);
+    } finally {
+      setIsPlacingOrder(false);
     }
-    
-    const response = await axios.post(`${backendUrl}/api/orders/placeOrder`, orderData);
-    
-    if ( response.data.success ) {
-      setCartItems({});
-    }
-  }
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Order Success Modal */}
+      <AnimatePresence>
+        {orderSuccess && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              className="bg-white rounded-xl p-8 max-w-md w-full"
+            >
+              <div className="text-center">
+                <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4">
+                  <FiCheckCircle className="h-10 w-10 text-green-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Order Placed Successfully!</h3>
+                <p className="text-gray-600 mb-6">
+                  Your order #{orderData?.orderNumber} has been received.
+                </p>
+                
+                <div className="bg-gray-50 p-4 rounded-lg mb-6 text-left">
+                  <h4 className="font-medium mb-2">Order Summary</h4>
+                  <p className="text-sm">Total: {orderData?.totalAmount} DZD</p>
+                  <p className="text-sm">Delivery to: {deliveryInfos.wilaya}</p>
+                </div>
+                
+                <p className="text-gray-500 text-sm">
+                  You'll be redirected to your orders page shortly...
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -102,6 +161,7 @@ const CheckOut = () => {
                     type="text" 
                     className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
                     placeholder="John"
+                    required
                   />
                 </div>
                 <div>
@@ -113,6 +173,7 @@ const CheckOut = () => {
                     type="text" 
                     className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
                     placeholder="Doe"
+                    required
                   />
                 </div>
               </div>
@@ -126,6 +187,7 @@ const CheckOut = () => {
                   type="email" 
                   className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
                   placeholder="your@email.com"
+                  required
                 />
               </div>
 
@@ -138,21 +200,11 @@ const CheckOut = () => {
                   type="text" 
                   className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
                   placeholder="123 Main Street"
+                  required
                 />
               </div>
 
               <div className="grid grid-cols-1 mb-4">
-                {/* <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
-                  <input
-                    onChange={onChnageHandler}
-                    name="city"
-                    value={deliveryInfos.city}  
-                    type="text" 
-                    className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
-                    placeholder="Algiers"
-                  />
-                </div> */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Wilaya</label>
                   <select 
@@ -172,14 +224,6 @@ const CheckOut = () => {
               </div>
 
               <div className="grid grid-cols-1">
-                {/* <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Postal Code</label>
-                  <input 
-                    type="number" 
-                    className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
-                    placeholder="16000"
-                  />
-                </div> */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
                   <input 
@@ -200,6 +244,7 @@ const CheckOut = () => {
                   type="number" 
                   className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
                   placeholder="0550123456"
+                  required
                 />
               </div>
             </div>
@@ -231,10 +276,17 @@ const CheckOut = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => placeOrder()}
-                className="w-full cursor-pointer mt-8 py-4 bg-gradient-to-r from-main to-indigo-600 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 uppercase"
+                onClick={placeOrder}
+                disabled={isPlacingOrder || !deliveryInfos.firstName || !deliveryInfos.lastName || !deliveryInfos.email || !deliveryInfos.phone || !deliveryInfos.street || !selectedWilaya}
+                className={`w-full mt-8 py-4 ${isPlacingOrder || !deliveryInfos.firstName || !deliveryInfos.lastName || !deliveryInfos.email || !deliveryInfos.phone || !deliveryInfos.street || !selectedWilaya ? 'bg-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-main to-indigo-600 hover:shadow-lg'} text-white font-bold rounded-lg shadow-md transition-all flex items-center justify-center gap-2 uppercase`}
               >
-                Place Order <FiArrowRight />
+                {isPlacingOrder ? (
+                  'Processing...'
+                ) : (
+                  <>
+                    Place Order <FiArrowRight />
+                  </>
+                )}
               </motion.button>
 
               <p className="text-xs text-gray-500 mt-4">
