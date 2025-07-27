@@ -22,7 +22,7 @@ const Orders = () => {
   const [statusChangeData, setStatusChangeData] = useState({ orderId: null, newStatus: null });
 
 
-  const [ token, setToken ] = useState( localStorage.getItem('token') ? localStorage.getItem('token') : '' );
+  const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
   const currency = 'DZD';
   const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
@@ -80,9 +80,7 @@ const Orders = () => {
   useEffect(() => {
     const getOrders = async () => {
       try {
-        const response = await axios.get(`${backendUrl}/api/orders/adminOrders`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const response = await axios.get(`${backendUrl}/api/orders/adminOrders`);
         if (response.data.success) {
           setOrders(response.data.orders);
         }
@@ -93,6 +91,8 @@ const Orders = () => {
     };
     getOrders();
   }, [backendUrl, token]);
+
+  
 
   // Filter orders by status
   const filteredOrders = selectedStatus === "all"
@@ -218,12 +218,12 @@ const Orders = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="flex flex-row items-center text-2xl font-bold text-gray-900">Orders 
+          <h1 className="flex flex-row items-center text-2xl font-bold text-gray-900">Orders
             {orders.length > 0 && (
-                <span className="ml-2 text-lg font-medium text-gray-900 bg-gray-200 px-2 py-1 rounded-full">
-                  {orders.length}
-                </span>
-              )} </h1>
+              <span className="ml-2 text-lg font-medium text-gray-900 bg-gray-200 px-2 py-1 rounded-full">
+                {orders.length}
+              </span>
+            )} </h1>
           <p className="text-gray-600 mt-1 text-sm md:text-base">Manage customer orders</p>
         </div>
 
@@ -236,8 +236,8 @@ const Orders = () => {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 className={`flex items-center px-3 py-1.5 rounded-lg text-sm whitespace-nowrap border ${selectedStatus === option.value
-                    ? `${option.filterColor} border-current font-medium`
-                    : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50"
+                  ? `${option.filterColor} border-current font-medium`
+                  : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50"
                   }`}
                 onClick={() => {
                   setSelectedStatus(option.value);
@@ -490,8 +490,8 @@ const Orders = () => {
                       whileTap={{ scale: 0.9 }}
                       onClick={() => setCurrentPage(pageNum)}
                       className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${currentPage === pageNum
-                          ? 'bg-indigo-600 text-white'
-                          : 'bg-white text-gray-700 hover:bg-gray-100'
+                        ? 'bg-indigo-600 text-white'
+                        : 'bg-white text-gray-700 hover:bg-gray-100'
                         }`}
                     >
                       {pageNum}
