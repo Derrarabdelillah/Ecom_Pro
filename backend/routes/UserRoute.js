@@ -9,7 +9,7 @@ require('dotenv').config()
 const JWT_SECRET = "#3#3#3#3";
 
 const createToken = async (id) => {
-    return jwt.sign({ id }, JWT_SECRET)
+    return jwt.sign({ id }, JWT_SECRET, { expiresIn: '7d' })
 }
 
 
@@ -23,7 +23,7 @@ router.post('/api/users/login', async (req, res) => {
             let confirmation = await bcrypt.compare(req.body.password, user.password);
 
             if (confirmation) {
-                const token = await createToken(user._id.toString()); // Explicitly convert to string
+                const token = await createToken(user._id); // Explicitly convert to string
                 return res.status(200).json({
                     success: true, token, user:
                     {
