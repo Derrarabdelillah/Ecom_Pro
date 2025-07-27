@@ -17,16 +17,14 @@ const allowedOrigins = [
 ];
 
 // CORS Configuration
-app.use(cors({
-  origin: ['https://admin-ecompro.onrender.com', 'https://f-ecompro.onrender.com'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+const corsOptions = {
+  origin: ['https://admin-ecompro.onrender.com'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Add OPTIONS here
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
-}));
+};
 
-// Handle preflight requests
-app.options('*', cors());
-
+app.use(cors(corsOptions));
 app.use(express.json()); // For JSON bodies
 app.use(express.urlencoded({ extended: true })); // For form data
 app.use(cookieParse());

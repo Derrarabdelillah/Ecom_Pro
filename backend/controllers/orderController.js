@@ -34,10 +34,10 @@ const createOrder = async (req, res) => {
     };
 };
 
-// Get User Orders
-const getUserOrders = async (req, res) => {
+// // Get User Orders
+// const getUserOrders = async (req, res) => {
 
-};
+// };
 
 // Admin: Update Status
 const updateStatus  = async (req, res) => {
@@ -80,7 +80,7 @@ const getAdminOrders = async (req, res) => {
 
 module.exports = {
     createOrder,
-    getUserOrders,
+    // getUserOrders,
     updateStatus,
     getAdminOrders
 }
