@@ -3,12 +3,14 @@ const router = express.Router();
 
 const { createOrder, getUserOrders, updateStatus, getAdminOrders } = require("../controllers/orderController");
 
+const authUser = require("../middleware/auth");
+
 
 // Public Route ( guest checkout )
 router.post('/placeOrder', createOrder);;
 
 // User Routes
-router.get('/myOrders', getUserOrders);
+router.get('/myOrders', authUser, getUserOrders);
 
 // Admin Routes
 router.put('/:orderId/status', updateStatus);
