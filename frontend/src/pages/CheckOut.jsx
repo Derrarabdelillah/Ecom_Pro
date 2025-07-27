@@ -141,15 +141,9 @@ const CheckOut = () => {
                 <div className="flex gap-3">
                   <button
                     onClick={() => setOrderSuccess(false)}
-                    className="flex-1 py-2 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+                    className="w-full py-2 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors"
                   >
                     Continue Shopping
-                  </button>
-                  <button
-                    onClick={() => navigate('/orders')}
-                    className="flex-1 py-2 bg-main text-white rounded-lg font-medium hover:bg-main-dark transition-colors"
-                  >
-                    View Orders
                   </button>
                 </div>
               </div>
