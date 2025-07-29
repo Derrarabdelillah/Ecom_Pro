@@ -1,6 +1,6 @@
 import { FiPackage, FiShoppingCart, FiDollarSign, FiBarChart2 } from 'react-icons/fi';
-import { motion } from 'framer-motion';
-import {  useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
@@ -9,8 +9,8 @@ import { Bar } from 'react-chartjs-2';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const Dashboard = () => {
-
-  const [ token, setToken ] = useState( localStorage.getItem('token') ? localStorage.getItem('token') : '' );
+  const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
+  const [isLoading, setIsLoading] = useState(true);
   const currency = 'DZD';
   const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
@@ -50,13 +50,38 @@ const Dashboard = () => {
           recentOrders: ordersRes.data.orders.slice(0, 5),
           salesData: monthlySales
         });
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching stats:', error);
+        setIsLoading(false);
       }
     };
 
     if (token) fetchStats();
   }, [token, backendUrl]);
+
+  // Loading Spinner Component
+  const LoadingSpinner = () => (
+    <motion.div
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="fixed inset-0 bg-white/80 z-50 flex items-center justify-center"
+    >
+      <motion.div
+        animate={{ 
+          rotate: 360,
+          scale: [1, 1.1, 1]
+        }}
+        transition={{ 
+          repeat: Infinity, 
+          duration: 1.5,
+          ease: "linear"
+        }}
+        className="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full"
+      />
+    </motion.div>
+  );
 
   const StatCard = ({ icon, value, label, cardType }) => {
     // Gradient configurations for each card type
@@ -85,8 +110,6 @@ const Dashboard = () => {
 
     const config = gradientConfig[cardType] || gradientConfig.orders
 
-
-
     return (
       <motion.div 
         whileHover={{ y: -3 }}
@@ -105,60 +128,62 @@ const Dashboard = () => {
     )
   }
 
-  ///////////////////////
   // Chart Data
-const chartData = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-  datasets: [{
-    label: 'Sales',
-    data: stats.salesData,
-    backgroundColor: 'rgba(99, 102, 241, 0.7)',
-    borderRadius: 6,
-    borderSkipped: false,
-    barThickness: 20
-  }]
-};
+  const chartData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    datasets: [{
+      label: 'Sales',
+      data: stats.salesData,
+      backgroundColor: 'rgba(99, 102, 241, 0.7)',
+      borderRadius: 6,
+      borderSkipped: false,
+      barThickness: 20
+    }]
+  };
 
-const chartOptions = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: {
-      display: false
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false
+      },
+      tooltip: {
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        padding: 12,
+        callbacks: {
+          label: (context) => {
+            return ` ${currency}${context.raw.toFixed(2)}`;
+          }
+        }
+      }
     },
-    tooltip: {
-      backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      padding: 12,
-      callbacks: {
-        label: (context) => {
-          return ` ${currency}${context.raw.toFixed(2)}`;
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: {
+          drawBorder: false,
+          color: 'rgba(0, 0, 0, 0.03)'
+        },
+        ticks: {
+          callback: (value) => currency + value
+        }
+      },
+      x: {
+        grid: {
+          display: false,
+          drawBorder: false
         }
       }
     }
-  },
-  scales: {
-    y: {
-      beginAtZero: true,
-      grid: {
-        drawBorder: false,
-        color: 'rgba(0, 0, 0, 0.03)'
-      },
-      ticks: {
-        callback: (value) => currency + value
-      }
-    },
-    x: {
-      grid: {
-        display: false,
-        drawBorder: false
-      }
-    }
-  }
-};
-////////////
+  };
 
   return (
     <div className="h-full bg-white rounded-lg p-6">
+      <AnimatePresence>
+        {isLoading && <LoadingSpinner />}
+      </AnimatePresence>
+
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
@@ -173,46 +198,46 @@ const chartOptions = {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-      <StatCard
-        icon={<FiShoppingCart size={20} />}
-        value={stats.totalOrders}
-        label="Total Orders"
-        cardType="orders"
-      />
-      <StatCard
-        icon={<FiDollarSign size={20} />}
-        value={( stats.totalRevenue ).toFixed(2) + currency}
-        label="Total Revenue"
-        cardType="revenue"
-      />
-      <StatCard
-        icon={<FiPackage size={20} />}
-        value={stats.totalProducts}
-        label="Products in Store"
-        cardType="products"
-      />
-      <StatCard
-        icon={<FiBarChart2 size={20} />}
-        value={stats.totalOrders > 0 ? 
-        `${((stats.totalRevenue / stats.totalOrders).toFixed(2))}${currency}` : 
-        `0${currency}`}
-        label="Sales Growth"
-        cardType="growth"
-      />
+          <StatCard
+            icon={<FiShoppingCart size={20} />}
+            value={stats.totalOrders}
+            label="Total Orders"
+            cardType="orders"
+          />
+          <StatCard
+            icon={<FiDollarSign size={20} />}
+            value={( stats.totalRevenue ).toFixed(2) + currency}
+            label="Total Revenue"
+            cardType="revenue"
+          />
+          <StatCard
+            icon={<FiPackage size={20} />}
+            value={stats.totalProducts}
+            label="Products in Store"
+            cardType="products"
+          />
+          <StatCard
+            icon={<FiBarChart2 size={20} />}
+            value={stats.totalOrders > 0 ? 
+            `${((stats.totalRevenue / stats.totalOrders).toFixed(2))}${currency}` : 
+            `0${currency}`}
+            label="Sales Growth"
+            cardType="growth"
+          />
         </div>
 
-                {/* NEW: Sales Chart Section */}
-    <div className="bg-white border border-gray-100 rounded-xl p-6 mb-8 shadow-xs">
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="font-medium text-gray-900">Monthly Performance</h3>
-        <span className="text-xs bg-indigo-50 text-indigo-600 px-2 py-1 rounded-full">
-          {currency}{stats.totalRevenue.toFixed(2)} total
-        </span>
-      </div>
-      <div className="h-80">
-        <Bar data={chartData} options={chartOptions} />
-      </div>
-    </div>
+        {/* Sales Chart Section */}
+        <div className="bg-white border border-gray-100 rounded-xl p-6 mb-8 shadow-xs">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="font-medium text-gray-900">Monthly Performance</h3>
+            <span className="text-xs bg-indigo-50 text-indigo-600 px-2 py-1 rounded-full">
+              {currency}{stats.totalRevenue.toFixed(2)} total
+            </span>
+          </div>
+          <div className="h-80">
+            <Bar data={chartData} options={chartOptions} />
+          </div>
+        </div>
 
         {/* Recent Orders */}
         <div className="bg-gradient-to-b from-white to-gray-50 border border-gray-100 rounded-xl shadow-xs overflow-hidden">
@@ -249,7 +274,7 @@ const chartOptions = {
               ))
             ) : (
               <div className="p-8 text-center text-gray-500 bg-gradient-to-b from-white to-gray-50">
-                No recent orders found
+                {isLoading ? 'Loading orders...' : 'No recent orders found'}
               </div>
             )}
           </div>
