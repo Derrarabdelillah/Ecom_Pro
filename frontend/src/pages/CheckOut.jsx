@@ -31,7 +31,7 @@ const CheckOut = () => {
     email: '',
     phone: '',
     wilaya: '',
-    street: '',
+    street: ''
   });
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
@@ -83,6 +83,14 @@ const CheckOut = () => {
         setOrderData(response.data.order);
         setCartItems({});
         setOrderSuccess(true);
+        setDeliveryInfos({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          wilaya: '',
+          street: ''
+        })
       }
     } catch (error) {
       console.error("Order error:", error);
