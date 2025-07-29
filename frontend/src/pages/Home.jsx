@@ -77,6 +77,13 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+  // Hide loading when products are available
+  if (products && products.length > 0) {
+    setIsLoading(false);
+  }
+}, [products]);
+
   // Loading Spinner Component
   const LoadingSpinner = () => (
     <motion.div
