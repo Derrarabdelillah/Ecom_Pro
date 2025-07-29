@@ -137,7 +137,7 @@ const ProductsContext = ({ children }) => {
             }
             } catch (error) {
                 console.log(error);
-                toast.error(error.message)
+                toast.error("Can't Add To Cart!")
             }
 
         }
