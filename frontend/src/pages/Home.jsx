@@ -84,16 +84,6 @@ const Home = () => {
         </motion.div>
       </motion.div>
 
-      {/* Shipping Banner with Slide-in
-      <motion.div
-        initial={{ y: -50 }}
-        animate={{ y: 0 }}
-        transition={{ type: "spring" }}
-        className="bg-gray-900 text-white py-2 px-4 text-center text-sm"
-      >
-        Free shipping on orders over 4000DA | Delivered in 2-3 business days
-      </motion.div> */}
-
       {/* Value Propositions with Staggered Animation */}
       <motion.div
         initial="hidden"
@@ -477,145 +467,9 @@ const Home = () => {
           </motion.div>
         </div>
       </motion.div>
-
-
-
-
-
-      {/* Animated Footer */}
-      {/* <Footer /> */}
     </div>
   );
 };
 
-// // Enhanced Footer with Motion
-// const Footer = () => {
-//   const footerVariants = {
-//     hidden: { opacity: 0 },
-//     visible: {
-//       opacity: 1,
-//       transition: {
-//         staggerChildren: 0.1
-//       }
-//     }
-//   };
-
-//   const itemVariants = {
-//     hidden: { y: 20, opacity: 0 },
-//     visible: { y: 0, opacity: 1 }
-//   };
-
-//   return (
-//     <motion.footer
-//       initial="hidden"
-//       whileInView="visible"
-//       variants={footerVariants}
-//       viewport={{ once: true }}
-//       className="bg-gray-900 text-white pt-12 pb-6"
-//     >
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-//           <motion.div variants={itemVariants}>
-//             <motion.h3 
-//               whileHover={{ x: 5 }} 
-//               className="text-xl font-bold mb-4"
-//             >
-//               FashionStore
-//             </motion.h3>
-//             <p className="text-gray-400">Your premier destination for quality fashion and accessories.</p>
-//           </motion.div>
-          
-//           <motion.div variants={itemVariants}>
-//             <h4 className="text-lg font-semibold mb-4">Shop</h4>
-//             <ul className="space-y-2">
-//               {['Men', 'Women', 'New Arrivals', 'Bestsellers'].map((item) => (
-//                 <motion.li 
-//                   key={item}
-//                   whileHover={{ x: 5 }}
-//                   variants={itemVariants}
-//                 >
-//                   <Link 
-//                     to={`/collections/${item.toLowerCase().replace(' ', '-')}`} 
-//                     className="text-gray-400 hover:text-white transition-colors cursor-pointer"
-//                   >
-//                     {item}
-//                   </Link>
-//                 </motion.li>
-//               ))}
-//             </ul>
-//           </motion.div>
-          
-//           <motion.div variants={itemVariants}>
-//             <h4 className="text-lg font-semibold mb-4">Customer Service</h4>
-//             <ul className="space-y-2">
-//               {['Contact Us', 'FAQs', 'Shipping Policy', 'Returns'].map((item) => (
-//                 <motion.li 
-//                   key={item}
-//                   whileHover={{ x: 5 }}
-//                   variants={itemVariants}
-//                 >
-//                   <Link 
-//                     to={`/${item.toLowerCase().replace(' ', '-')}`} 
-//                     className="text-gray-400 hover:text-white transition-colors cursor-pointer"
-//                   >
-//                     {item}
-//                   </Link>
-//                 </motion.li>
-//               ))}
-//             </ul>
-//           </motion.div>
-          
-//           <motion.div variants={itemVariants}>
-//             <h4 className="text-lg font-semibold mb-4">Connect With Us</h4>
-//             <motion.div 
-//               className="flex space-x-4 mb-4"
-//               variants={itemVariants}
-//             >
-//               {[
-//                 { icon: <FaInstagram />, link: "#" },
-//                 { icon: <FaTwitter />, link: "#" },
-//                 { icon: <FaFacebookF />, link: "#" }
-//               ].map((social, index) => (
-//                 <motion.a 
-//                   key={index} 
-//                   href={social.link} 
-//                   className="text-gray-400 hover:text-white transition-colors text-xl cursor-pointer"
-//                   whileHover={{ y: -3 }}
-//                   whileTap={{ scale: 0.9 }}
-//                 >
-//                   {social.icon}
-//                 </motion.a>
-//               ))}
-//             </motion.div>
-//             <motion.p variants={itemVariants} className="text-gray-400">
-//               Subscribe for exclusive offers
-//             </motion.p>
-//           </motion.div>
-//         </div>
-        
-//         <motion.div 
-//           className="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center"
-//           variants={itemVariants}
-//         >
-//           <p className="text-gray-400 text-sm">© {new Date().getFullYear()} FashionStore. All rights reserved.</p>
-//           <div className="flex space-x-6 mt-4 md:mt-0">
-//             <Link 
-//               to="/privacy-policy" 
-//               className="text-gray-400 hover:text-white text-sm cursor-pointer"
-//             >
-//               Privacy Policy
-//             </Link>
-//             <Link 
-//               to="/terms" 
-//               className="text-gray-400 hover:text-white text-sm cursor-pointer"
-//             >
-//               Terms of Service
-//             </Link>
-//           </div>
-//         </motion.div>
-//       </div>
-//     </motion.footer>
-//   );
-// };
 
 export default Home;

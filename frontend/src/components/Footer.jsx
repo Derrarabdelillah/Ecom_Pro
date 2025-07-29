@@ -89,7 +89,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-gray-200 border-opacity-50 flex flex-col md:flex-row justify-between items-center">
           <p className="text-sm text-gray-600">
-            © {new Date().getFullYear()} Ecom Pro. All rights reserved.
+            © {new Date().getFullYear()} <span className="text-main" >Ecom Pro.</span> All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-sm text-gray-600 hover:text-main transition">Privacy Policy</a>
