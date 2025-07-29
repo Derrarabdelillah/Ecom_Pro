@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { FiArrowRight, FiTrendingUp, FiAward, FiShield, FiRefreshCw, FiShoppingBag  } from "react-icons/fi";
+import { FiArrowRight, FiTrendingUp, FiAward, FiShield, FiRefreshCw, FiShoppingBag } from "react-icons/fi";
 import { FaStar, FaRegStar, FaStarHalfAlt, FaInstagram, FaTwitter, FaFacebookF } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,9 +10,13 @@ import "swiper/css/navigation";
 import Hero from "../components/Hero";
 import ProductDisplay from "../components/ProductDisplay";
 import { productsContext } from "../context/ProductsContext";
+import { useState, useEffect, useContext } from "react";
 
 const Home = () => {
-    // Testimonial data
+  const [isLoading, setIsLoading] = useState(true);
+  const { products } = useContext(productsContext);
+
+  // Testimonial data (unchanged)
   const testimonials = [
     {
       id: 1,
@@ -43,7 +47,7 @@ const Home = () => {
     }
   ];
 
-  // Animation variants
+  // Animation variants (unchanged)
   const fadeIn = {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.8 } }
@@ -64,8 +68,44 @@ const Home = () => {
     }
   };
 
+  useEffect(() => {
+    // Simulate loading delay
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Loading Spinner Component
+  const LoadingSpinner = () => (
+    <motion.div
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="fixed inset-0 bg-white z-50 flex items-center justify-center"
+    >
+      <motion.div
+        animate={{ 
+          rotate: 360,
+          scale: [1, 1.1, 1]
+        }}
+        transition={{ 
+          repeat: Infinity, 
+          duration: 1.5,
+          ease: "linear"
+        }}
+        className="w-16 h-16 border-4 border-main border-t-transparent rounded-full"
+      />
+    </motion.div>
+  );
+
   return (
     <div className="bg-white">
+      <AnimatePresence>
+        {isLoading && <LoadingSpinner />}
+      </AnimatePresence>
+
       {/* Hero Section with Motion */}
       <motion.div
         initial="hidden"
@@ -260,21 +300,20 @@ const Home = () => {
           
           <ProductDisplay />
 
-          {productsContext.products ? (
-                      
-          <motion.div 
-            variants={slideUp}
-            className="text-center mt-8"
-          >
-            <Link 
-              to="/collections" 
-              className="px-6 py-3 bg-main text-white font-medium rounded-lg hover:bg-main/90 transition-colors flex items-center justify-center gap-2 mx-auto w-fit cursor-pointer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+          {productsContext.products ? (          
+            <motion.div 
+              variants={slideUp}
+              className="text-center mt-8"
             >
-              View All Products <FiArrowRight />
-            </Link>
-          </motion.div>
+              <Link 
+                to="/collections" 
+                className="px-6 py-3 bg-main text-white font-medium rounded-lg hover:bg-main/90 transition-colors flex items-center justify-center gap-2 mx-auto w-fit cursor-pointer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                View All Products <FiArrowRight />
+              </Link>
+            </motion.div>
           ) : null}
         </div>
       </motion.div>
@@ -336,7 +375,7 @@ const Home = () => {
         </div>
       </motion.div>
 
-{/* Enhanced Testimonials Section */}
+      {/* Enhanced Testimonials Section */}
       <motion.div 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -470,6 +509,5 @@ const Home = () => {
     </div>
   );
 };
-
 
 export default Home;
