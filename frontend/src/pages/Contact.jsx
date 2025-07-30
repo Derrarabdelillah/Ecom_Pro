@@ -163,7 +163,7 @@ const Contact = () => {
                 type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base rounded-lg hover:shadow-md transition-all flex items-center justify-center gap-2 font-medium"
+                className="w-full bg-gradient-to-r from-main to-indigo-600 text-white px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base rounded-lg hover:shadow-md transition-all flex items-center justify-center gap-2 font-medium"
               >
                 Send Message <FiSend size={16} className="sm:w-4 sm:h-4" />
               </motion.button>
