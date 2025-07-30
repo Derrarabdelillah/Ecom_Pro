@@ -7,7 +7,7 @@ const Footer = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="relative py-12 px-4 sm:px-6 lg:px-8 overflow-hidden"
+      className="relative py-12 px-4 sm:px-6 lg:px-8 overflow-hidden mt-10"
     >
       {/* Gradient Blur Background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
