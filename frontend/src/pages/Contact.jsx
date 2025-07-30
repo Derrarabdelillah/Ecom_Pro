@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FiMail, FiMapPin, FiPhone, FiSend, FiUser, FiMessageSquare } from 'react-icons/fi';
+import { FiMail, FiPhone, FiSend, FiUser, FiMessageSquare } from 'react-icons/fi';
 import { FaFacebookF, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
 
 const Contact = () => {
@@ -11,7 +11,7 @@ const Contact = () => {
         transition={{ duration: 0.5 }}
         className="max-w-6xl w-full bg-white rounded-2xl shadow-xl overflow-hidden"
       >
-        {/* Gradient Header */}
+        {/* Gradient Header - Using your requested gradient */}
         <div className="bg-gradient-to-r from-main to-indigo-600 p-6 sm:p-8 text-center text-white relative">
           <div className="absolute top-0 left-0 w-full h-full opacity-10">
             <div className="absolute top-1/4 left-1/4 w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-white"></div>
@@ -49,7 +49,7 @@ const Contact = () => {
 
             <div className="space-y-3 sm:space-y-4">
               <div className="flex items-start gap-3 sm:gap-4">
-                <div className="text-blue-600 bg-blue-100 p-2 sm:p-3 rounded-full">
+                <div className="text-main bg-blue-100 p-2 sm:p-3 rounded-full">
                   <FiMail size={18} className="sm:w-5 sm:h-5" />
                 </div>
                 <div>
@@ -59,7 +59,7 @@ const Contact = () => {
               </div>
 
               <div className="flex items-start gap-3 sm:gap-4">
-                <div className="text-blue-600 bg-blue-100 p-2 sm:p-3 rounded-full">
+                <div className="text-main bg-blue-100 p-2 sm:p-3 rounded-full">
                   <FiPhone size={18} className="sm:w-5 sm:h-5" />
                 </div>
                 <div>
@@ -77,7 +77,7 @@ const Contact = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ y: -3 }}
-                  className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white transition-colors text-gray-700"
+                  className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-main hover:text-white transition-colors text-gray-700"
                 >
                   <FaFacebookF className="text-sm sm:text-base" />
                 </motion.a>
@@ -87,7 +87,7 @@ const Contact = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ y: -3 }}
-                  className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white transition-colors text-gray-700"
+                  className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-main hover:text-white transition-colors text-gray-700"
                 >
                   <FaLinkedinIn className="text-sm sm:text-base" />
                 </motion.a>
@@ -96,7 +96,7 @@ const Contact = () => {
                   href="https://www.instagram.com/vegonix/" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white transition-colors text-gray-700 flex items-center justify-center"
+                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 hover:bg-main hover:text-white transition-colors text-gray-700 flex items-center justify-center"
                   whileHover={{ y: -3 }}
                 >
                   <FaInstagram className="text-sm sm:text-base" />
@@ -123,7 +123,7 @@ const Contact = () => {
                   <input
                     type="text"
                     id="name"
-                    className="pl-9 sm:pl-10 w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="pl-9 sm:pl-10 w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent"
                     placeholder="John Doe"
                   />
                 </div>
@@ -138,7 +138,7 @@ const Contact = () => {
                   <input
                     type="email"
                     id="email"
-                    className="pl-9 sm:pl-10 w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="pl-9 sm:pl-10 w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -153,7 +153,7 @@ const Contact = () => {
                   <textarea
                     id="message"
                     rows="3"
-                    className="pl-9 sm:pl-10 w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="pl-9 sm:pl-10 w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent"
                     placeholder="How can we help you?"
                   ></textarea>
                 </div>
