@@ -7,10 +7,10 @@ const Item = ({ product, currency }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
 
   return (
-    <div className="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 h-[450px]">
-      {/* Image Container */}
-      <div className="relative aspect-square overflow-hidden">
-        <Link to={`/product/${product._id}`} className="block h-full">
+    <div className="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-[450px]">
+      {/* Image Container - Fixed Height */}
+      <div className="relative aspect-square overflow-hidden flex-shrink-0">
+        <Link to={`/product/${product._id}`} className="block h-full w-full">
           {product.image?.[0] ? (
             <img
               src={product.image[0]}
@@ -48,16 +48,16 @@ const Item = ({ product, currency }) => {
         </div>
       </div>
 
-      {/* Product Info */}
-      <div className="p-4">
-        <Link to={`/product/${product._id}`}>
-          <h3 className="font-medium text-gray-900 mb-1 line-clamp-2 hover:text-main transition-colors">
+      {/* Product Info - Flexible Height with Fixed Bottom */}
+      <div className="p-4 flex flex-col flex-grow">
+        <Link to={`/product/${product._id}`} className="flex-grow">
+          <h3 className="font-medium text-gray-900 mb-1 line-clamp-2 hover:text-main transition-colors h-[40px] overflow-hidden">
             {product.name}
           </h3>
         </Link>
 
-        {/* Rating */}
-        <div className="flex items-center mb-2">
+        {/* Rating - Fixed Height */}
+        <div className="flex items-center mb-2 h-[20px]">
           <div className="flex text-amber-400 mr-1">
             {[...Array(5)].map((_, i) => (
               <FaStar key={i} className="w-3 h-3" />
@@ -66,8 +66,8 @@ const Item = ({ product, currency }) => {
           <span className="text-xs text-gray-500">(24)</span>
         </div>
 
-        {/* Price */}
-        <div className="flex items-center justify-between mb-3">
+        {/* Price - Fixed Height */}
+        <div className="flex items-center justify-between mb-3 h-[24px]">
           <span className="font-bold text-gray-900">
             {currency}{product.price?.toFixed(2)}
           </span>
@@ -78,8 +78,8 @@ const Item = ({ product, currency }) => {
           )}
         </div>
 
-        {/* Quick Add */}
-        <div className="mt-2">
+        {/* Quick Add - Fixed Height at Bottom */}
+        <div className="mt-auto">
           {quickAddSize ? (
             <Link to={`/product/${product._id}`}>
               <button
