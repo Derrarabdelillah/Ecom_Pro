@@ -1,6 +1,8 @@
 import { FiPackage, FiShoppingCart, FiDollarSign, FiBarChart2 } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState, useNavigate } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
 import axios from 'axios';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
