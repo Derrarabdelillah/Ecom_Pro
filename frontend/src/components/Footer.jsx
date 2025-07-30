@@ -88,7 +88,7 @@ const Footer = () => {
           <div className="flex space-x-6 mt-4 md:mt-0">
             <a href="#" className="text-sm text-gray-600 hover:text-main transition">Privacy Policy</a>
             <a href="#" className="text-sm text-gray-600 hover:text-main transition">Terms of Service</a>
-            <a href="https://web.facebook.com/Abdou.Dr.0001" className="text-sm text-gray-600 hover:text-main transition">Developer: <span className="font-bold">Abdelillah Derrar</span></a>
+            <a href="https://web.facebook.com/Abdou.Dr.0001" className="text-sm text-gray-600 hover:text-main transition">Developer: <span className="font-bold bg-gradient-to-r from-main to-indigo-600 bg-clip-text text-transparent">Abdelillah Derrar</span></a>
           </div>
         </div>
       </div>
