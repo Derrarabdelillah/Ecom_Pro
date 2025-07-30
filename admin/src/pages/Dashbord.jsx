@@ -1,6 +1,6 @@
 import { FiPackage, FiShoppingCart, FiDollarSign, FiBarChart2 } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useNavigate } from 'react';
 import axios from 'axios';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
@@ -14,6 +14,7 @@ const Dashboard = () => {
   const currency = 'DZD';
   const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
+  const navigate = useNavigate();
   const [stats, setStats] = useState({
     totalOrders: 0,
     totalRevenue: 0,
@@ -57,7 +58,11 @@ const Dashboard = () => {
       }
     };
 
-    if (token) fetchStats();
+    if (!token) {
+      navigate('/login')
+    } else {
+      fetchStats()
+    }
   }, [token, backendUrl]);
 
   // Loading Spinner Component

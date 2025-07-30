@@ -21,23 +21,65 @@ const Login = ({ setToken }) => {
 
             if (response.data.success) {
                 setToken(token);
-                toast.success(response.data.message);
+                toast.success(response.data.message, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    style: {
+                        fontSize: 'clamp(12px, 3vw, 16px)',
+                        maxWidth: '90vw',
+                        margin: '0 auto',
+                        width: 'auto',
+                    },
+                });
 
             } else {
-                toast.error(response.data.message);
+                toast.error(response.data.message, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    style: {
+                        fontSize: 'clamp(12px, 3vw, 16px)',
+                        maxWidth: '90vw',
+                        margin: '0 auto',
+                        width: 'auto',
+                    },
+                });
             }
         } catch (error) {
             console.log(error);
-            toast.error('Login failed. Please try again.');
+            toast.error('Login failed. Please try again.', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                style: {
+                    fontSize: 'clamp(12px, 3vw, 16px)',
+                    maxWidth: '90vw',
+                    margin: '0 auto',
+                    width: 'auto',
+                },
+            });
         } finally {
             setIsLoading(false);
         }
     };
-    
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4 relative">
             <ToastContainer />
-            
+
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -85,7 +127,7 @@ const Login = ({ setToken }) => {
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             disabled={isLoading}
-                            className={`w-full flex items-center justify-center py-3 px-4 rounded-lg bg-gradient-to-r from-main to-indigo-600 text-white font-medium shadow-md hover:shadow-lg transition-all ${isLoading ? 'opacity-70' : ''}`}
+                            className={`cursor-pointer w-full flex items-center justify-center py-3 px-4 rounded-lg bg-gradient-to-r from-main to-indigo-600 text-white font-medium shadow-md hover:shadow-lg transition-all ${isLoading ? 'opacity-70' : ''}`}
                         >
                             {isLoading ? (
                                 'Authenticating...'

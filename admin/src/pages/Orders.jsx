@@ -85,14 +85,27 @@ const Orders = () => {
           setOrders(response.data.orders);
         }
       } catch (error) {
-        console.error("Error fetching orders:", error);
-        toast.error("Failed to load orders");
+        toast.error("Failed to load orders", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            fontSize: 'clamp(12px, 3vw, 16px)',
+            maxWidth: '90vw',
+            margin: '0 auto',
+            width: 'auto',
+          },
+        });
       }
     };
     getOrders();
   }, [backendUrl, token]);
 
-  
+
 
   // Filter orders by status
   const filteredOrders = selectedStatus === "all"
@@ -132,11 +145,38 @@ const Orders = () => {
         ));
         setEditingStatus(null);
         setShowConfirmModal(false);
-        toast.success(`Status updated to ${statusConfig[newStatus].label}`);
+        toast.success(`Status updated to ${statusConfig[newStatus].label}`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            fontSize: 'clamp(12px, 3vw, 16px)',
+            maxWidth: '90vw',
+            margin: '0 auto',
+            width: 'auto',
+          },
+        });
       }
     } catch (error) {
-      console.error("Error updating status:", error);
-      toast.error("Failed to update status");
+      toast.error("Failed to update status", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          fontSize: 'clamp(12px, 3vw, 16px)',
+          maxWidth: '90vw',
+          margin: '0 auto',
+          width: 'auto',
+        },
+      });
     } finally {
       setLoadingStatus(null);
     }

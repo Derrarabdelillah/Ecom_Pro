@@ -9,7 +9,7 @@ import { assets } from '../assets/admin_assets/assets';
 
 const Add = ({ token }) => {
 
-const backendUrl = "https://ecom-pro-0qxb.onrender.com";
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
   const [image1, setImage1] = useState('');
   const [image2, setImage2] = useState('');
   const [image3, setImage3] = useState('');
@@ -48,31 +48,59 @@ const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
 
     const response = await axios.post(`${backendUrl}/api/product/add`, formData, { headers: token })
-    
+
 
     if (response.data.success) {
-      toast.success(response.data.message);
-          setName('');
-          // setDescription('');
-          setPrice('');
-          setImage1(false);
-          setImage2(false);
-          setImage3(false);
-          setImage4(false);
-          setSizes([]);
-          setBestseller(false);
+      toast.success(response.data.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          fontSize: 'clamp(12px, 3vw, 16px)',
+          maxWidth: '90vw',
+          margin: '0 auto',
+          width: 'auto',
+        },
+      });
+      setName('');
+      // setDescription('');
+      setPrice('');
+      setImage1(false);
+      setImage2(false);
+      setImage3(false);
+      setImage4(false);
+      setSizes([]);
+      setBestseller(false);
 
     } else {
-      toast.error('Error!')
+      toast.error('Error!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          fontSize: 'clamp(12px, 3vw, 16px)',
+          maxWidth: '90vw',
+          margin: '0 auto',
+          width: 'auto',
+        },
+      })
     };
 
   }
 
-      const getProduct = async (product, productId) => {
-        const response = await axios.get(`${backendUrl}/api/product/single/${productId}`)
-            setUpdatedProduct(response.data.product);
-            navigate('/add');
-    }
+  const getProduct = async (product, productId) => {
+    const response = await axios.get(`${backendUrl}/api/product/single/${productId}`)
+    setUpdatedProduct(response.data.product);
+    navigate('/add');
+  }
 
 
   // console.log(updatedProduct)
@@ -89,10 +117,10 @@ const backendUrl = "https://ecom-pro-0qxb.onrender.com";
             <div className="flex flex-row gap-3 items-center">
 
               <label htmlFor="image1">
-                <img src={image1 
-                  ? URL.createObjectURL(image1) 
-                  : updatedProduct?.image?.[0] 
-                  || assets.upload_area} 
+                <img src={image1
+                  ? URL.createObjectURL(image1)
+                  : updatedProduct?.image?.[0]
+                  || assets.upload_area}
                   className={`w-22 rounded-lg ${image1 ? 'w-33 h-33 object-contain' : ''}`} alt="" />
                 <input
                   onChange={(e) => setImage1(e.target.files[0])}
@@ -104,9 +132,9 @@ const backendUrl = "https://ecom-pro-0qxb.onrender.com";
               </label>
 
               <label htmlFor="image2">
-                <img src={image2 
-                  ? URL.createObjectURL(image2) 
-                  : updatedProduct?.image?.[1] 
+                <img src={image2
+                  ? URL.createObjectURL(image2)
+                  : updatedProduct?.image?.[1]
                   || assets.upload_area} className={`w-22 rounded-lg ${image2 ? 'w-33 h-33 object-contain' : ''}`} alt="" />
                 <input
                   onChange={(e) => setImage2(e.target.files[0])}
@@ -118,9 +146,9 @@ const backendUrl = "https://ecom-pro-0qxb.onrender.com";
               </label>
 
               <label htmlFor="image3">
-                <img src={image3 
-                  ? URL.createObjectURL(image3) 
-                  : updatedProduct?.image?.[2] 
+                <img src={image3
+                  ? URL.createObjectURL(image3)
+                  : updatedProduct?.image?.[2]
                   || assets.upload_area} className={`w-22 rounded-lg ${image3 ? 'w-33 h-33 object-contain' : ''}`} alt="" />
                 <input
                   onChange={(e) => setImage3(e.target.files[0])}
@@ -133,8 +161,8 @@ const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
               <label htmlFor="image4">
                 <img src={image4
-                  ? URL.createObjectURL(image4) 
-                  : updatedProduct?.image?.[3] 
+                  ? URL.createObjectURL(image4)
+                  : updatedProduct?.image?.[3]
                   || assets.upload_area} className={`w-22 rounded-lg ${image4 ? 'w-33 h-33 object-contain' : ''}`} alt="" />
                 <input
                   onChange={(e) => setImage4(e.target.files[0])}
