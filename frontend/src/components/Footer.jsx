@@ -33,10 +33,10 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="text-gray-600 hover:text-main transition">Home</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-main transition">Products</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-main transition">About Us</a></li>
-              <li><a href="#" className="text-gray-600 hover:text-main transition">Contact</a></li>
+              <li><a href="/" className="text-gray-600 hover:text-main transition">Home</a></li>
+              <li><a href="/collections" className="text-gray-600 hover:text-main transition">Products</a></li>
+              <li><a href="/about" className="text-gray-600 hover:text-main transition">About Us</a></li>
+              <li><a href="/contact" className="text-gray-600 hover:text-main transition">Contact</a></li>
             </ul>
           </div>
 
@@ -55,28 +55,21 @@ const Footer = () => {
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Connect</h3>
             <div className="flex space-x-4">
               <motion.a 
-                href="#" 
+                href="https://web.facebook.com/Abdou.Dr.0001" 
                 className="w-10 h-10 rounded-full bg-white bg-opacity-70 shadow-sm flex items-center justify-center text-gray-600 hover:text-white hover:bg-main transition"
                 whileHover={{ y: -3 }}
               >
                 <FaFacebookF />
               </motion.a>
               <motion.a 
-                href="#" 
-                className="w-10 h-10 rounded-full bg-white bg-opacity-70 shadow-sm flex items-center justify-center text-gray-600 hover:text-white hover:bg-main transition"
-                whileHover={{ y: -3 }}
-              >
-                <FaTwitter />
-              </motion.a>
-              <motion.a 
-                href="#" 
+                href="https://www.instagram.com/vegonix/" 
                 className="w-10 h-10 rounded-full bg-white bg-opacity-70 shadow-sm flex items-center justify-center text-gray-600 hover:text-white hover:bg-main transition"
                 whileHover={{ y: -3 }}
               >
                 <FaInstagram />
               </motion.a>
               <motion.a 
-                href="#" 
+                href="https://dz.linkedin.com/in/abdelillah-derrar-42a81635a" 
                 className="w-10 h-10 rounded-full bg-white bg-opacity-70 shadow-sm flex items-center justify-center text-gray-600 hover:text-white hover:bg-main transition"
                 whileHover={{ y: -3 }}
               >
