@@ -68,7 +68,7 @@ router.post('/api/users/admin', async (req, res) => {
         const email =  req.body.email;
         const password = req.body.password;
         if ( email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD ) {
-            const token = jwt.sign({email,password}, JWT_SECRET);
+            const token = jwt.sign({email,password}, JWT_SECRET, { expiresIn: '1h' } );
             res.json({success: true, token})
         } else {
             res.json({success: false, message: 'Invalid Credentials'})
