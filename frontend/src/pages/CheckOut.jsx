@@ -3,13 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { productsContext } from "../context/ProductsContext";
 import TotalCart from "../components/TotalCart";
-import { FiArrowRight, FiCheckCircle, FiShoppingBag, FiClock, FiMapPin, FiCreditCard } from "react-icons/fi";
+import { FiArrowRight, FiCheckCircle, FiClock, FiMapPin, FiCreditCard, FiAlertCircle } from "react-icons/fi";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 
 const CheckOut = () => {
-  const navigate = useNavigate();
   const {
     selectedWilaya,
     algerianWilayas,
@@ -33,6 +32,16 @@ const CheckOut = () => {
     wilaya: '',
     street: ''
   });
+
+  const [errors, setErrors] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    wilaya: '',
+    street: ''
+  });
+
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [orderData, setOrderData] = useState(null);
@@ -50,12 +59,87 @@ const CheckOut = () => {
     }));
   }, [selectedWilaya, delivery_fee, getCartAmount, getTotalWithDelivery]);
 
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      wilaya: '',
+      street: ''
+    };
+
+    // First Name validation
+    if (!deliveryInfos.firstName.trim()) {
+      newErrors.firstName = 'First name is required';
+      isValid = false;
+    } else if (deliveryInfos.firstName.length < 2) {
+      newErrors.firstName = 'First name must be at least 2 characters';
+      isValid = false;
+    }
+
+    // Last Name validation
+    if (!deliveryInfos.lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
+      isValid = false;
+    } else if (deliveryInfos.lastName.length < 2) {
+      newErrors.lastName = 'Last name must be at least 2 characters';
+      isValid = false;
+    }
+
+    // Email validation
+    if (!deliveryInfos.email.trim()) {
+      newErrors.email = 'Email is required';
+      isValid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(deliveryInfos.email)) {
+      newErrors.email = 'Please enter a valid email address';
+      isValid = false;
+    }
+
+    // Phone validation
+    if (!deliveryInfos.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+      isValid = false;
+    } else if (!/^[0-9]{10}$/.test(deliveryInfos.phone)) {
+      newErrors.phone = 'Phone number must be 10 digits';
+      isValid = false;
+    }
+
+    // Street validation
+    if (!deliveryInfos.street.trim()) {
+      newErrors.street = 'Street address is required';
+      isValid = false;
+    } else if (deliveryInfos.street.length < 5) {
+      newErrors.street = 'Please enter a valid address';
+      isValid = false;
+    }
+
+    // Wilaya validation
+    if (!deliveryInfos.wilaya) {
+      newErrors.wilaya = 'Please select your wilaya';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   const onChnageHandler = (event) => {
     const { name, value } = event.target;
     setDeliveryInfos(data => ({...data, [name]: value}));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({...prev, [name]: ''}));
+    }
   };
 
   const placeOrder = async () => {
+    if (!validateForm()) {
+      return;
+    }
+
     setIsPlacingOrder(true);
     try {
       const orderData = {
@@ -160,7 +244,6 @@ const CheckOut = () => {
         )}
       </AnimatePresence>
 
-      {/* Your existing checkout form remains exactly the same */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -178,60 +261,85 @@ const CheckOut = () => {
             <div className="bg-white rounded-xl shadow-sm p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
                   <input
                     onChange={onChnageHandler}
                     name="firstName"
                     value={deliveryInfos.firstName}
                     type="text" 
-                    className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
+                    className={`outline-none w-full border ${errors.firstName ? 'border-red-500' : 'border-gray-300'} px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent`}
                     placeholder="John"
                   />
+                  {errors.firstName && (
+                    <p className="mt-1 text-sm text-red-600 flex items-center">
+                      <FiAlertCircle className="mr-1" /> {errors.firstName}
+                    </p>
+                  )}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
                   <input 
                     onChange={onChnageHandler}
                     name="lastName"
                     value={deliveryInfos.lastName}
                     type="text" 
-                    className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
+                    className={`outline-none w-full border ${errors.lastName ? 'border-red-500' : 'border-gray-300'} px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent`}
                     placeholder="Doe"
                   />
+                  {errors.lastName && (
+                    <p className="mt-1 text-sm text-red-600 flex items-center">
+                      <FiAlertCircle className="mr-1" /> {errors.lastName}
+                    </p>
+                  )}
                 </div>
               </div>
 
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
                 <input 
                   onChange={onChnageHandler}
                   name="email"
                   value={deliveryInfos.email}                  
                   type="email" 
-                  className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
+                  className={`outline-none w-full border ${errors.email ? 'border-red-500' : 'border-gray-300'} px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent`}
                   placeholder="your@email.com"
                 />
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-600 flex items-center">
+                    <FiAlertCircle className="mr-1" /> {errors.email}
+                  </p>
+                )}
               </div>
 
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Street Address *</label>
                 <input
                   onChange={onChnageHandler}
                   name="street"
                   value={deliveryInfos.street} 
                   type="text" 
-                  className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
+                  className={`outline-none w-full border ${errors.street ? 'border-red-500' : 'border-gray-300'} px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent`}
                   placeholder="123 Main Street"
                 />
+                {errors.street && (
+                  <p className="mt-1 text-sm text-red-600 flex items-center">
+                    <FiAlertCircle className="mr-1" /> {errors.street}
+                  </p>
+                )}
               </div>
 
               <div className="grid grid-cols-1 mb-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Wilaya</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Wilaya *</label>
                   <select 
-                    className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
+                    className={`outline-none w-full border ${errors.wilaya ? 'border-red-500' : 'border-gray-300'} px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent`}
                     value={selectedWilaya}
-                    onChange={(e) => handleWilayaChange(e.target.value)}
+                    onChange={(e) => {
+                      handleWilayaChange(e.target.value);
+                      if (errors.wilaya) {
+                        setErrors(prev => ({...prev, wilaya: ''}));
+                      }
+                    }}
                     required
                   >
                     <option value="">Select Wilaya</option>
@@ -241,6 +349,11 @@ const CheckOut = () => {
                       </option>
                     ))}
                   </select>
+                  {errors.wilaya && (
+                    <p className="mt-1 text-sm text-red-600 flex items-center">
+                      <FiAlertCircle className="mr-1" /> {errors.wilaya}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -257,15 +370,20 @@ const CheckOut = () => {
               </div>
 
               <div className="mt-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
                 <input 
                   onChange={onChnageHandler}
                   name="phone"
                   value={deliveryInfos.phone} 
-                  type="number" 
-                  className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent"
+                  type="tel" 
+                  className={`outline-none w-full border ${errors.phone ? 'border-red-500' : 'border-gray-300'} px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent`}
                   placeholder="0550123456"
                 />
+                {errors.phone && (
+                  <p className="mt-1 text-sm text-red-600 flex items-center">
+                    <FiAlertCircle className="mr-1" /> {errors.phone}
+                  </p>
+                )}
               </div>
             </div>
           </motion.div>
@@ -296,8 +414,9 @@ const CheckOut = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => placeOrder()}
+                onClick={placeOrder}
                 className="w-full cursor-pointer mt-8 py-4 bg-gradient-to-r from-main to-indigo-600 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 uppercase"
+                disabled={isPlacingOrder}
               >
                 {isPlacingOrder ? (
                   <span className="flex items-center">
