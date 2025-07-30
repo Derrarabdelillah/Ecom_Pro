@@ -4,6 +4,7 @@ import { verifyUser } from "../api/api";
 import { Link, useNavigate } from 'react-router-dom';
 import { FiMail, FiLock, FiArrowRight } from "react-icons/fi";
 import { useCookies } from "react-cookie";
+import { toast } from "react-toastify";
 
 import Alert from "../components/Alert";
 import axios from "axios";
