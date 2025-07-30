@@ -7,7 +7,7 @@ const Item = ({ product, currency }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
 
   return (
-    <div className="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 h-[420px]">
+    <div className="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 md:not-first:h-[420px]">
       {/* Image Container */}
       <div className="relative aspect-square overflow-hidden">
         <Link to={`/product/${product._id}`} className="block h-full">

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { productsContext } from "../context/ProductsContext";
 import Item from "./Item";
+import { Link } from "react-router-dom";
 
 const ProductDisplay = () => {
   const { products, currency } = useContext(productsContext);
@@ -92,13 +93,17 @@ const ProductDisplay = () => {
               Fresh arrivals that redefine contemporary style
             </p>
           </motion.div>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="mt-4 md:mt-0 px-6 py-2 border border-gray-300 rounded-full text-sm font-medium hover:bg-gray-50 transition-colors"
-          >
-            View All
-          </motion.button>
+          
+          <Link to='/collections' >
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="mt-4 md:mt-0 px-6 py-2 border border-gray-300 rounded-full text-sm font-medium hover:bg-gray-50 transition-colors"
+            >
+              View All
+            </motion.button>
+          </Link>
+          
         </div>
 
         <AnimatePresence>
