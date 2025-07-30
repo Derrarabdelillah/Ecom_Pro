@@ -12,7 +12,7 @@ const Contact = () => {
         className="max-w-6xl w-full bg-white rounded-2xl shadow-xl overflow-hidden"
       >
         {/* Gradient Header */}
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-6 sm:p-8 text-center text-white relative">
+        <div className="bg-gradient-to-r from-main to-indigo-600 p-6 sm:p-8 text-center text-white relative">
           <div className="absolute top-0 left-0 w-full h-full opacity-10">
             <div className="absolute top-1/4 left-1/4 w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-white"></div>
             <div className="absolute bottom-1/3 right-1/4 w-28 h-28 sm:w-40 sm:h-40 rounded-full bg-white"></div>
