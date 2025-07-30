@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { FiMail, FiMapPin, FiPhone, FiSend, FiUser, FiMessageSquare } from 'react-icons/fi';
-import { FaFacebookF, FaLinkedinIn, FaTwitter } from 'react-icons/fa';
+import { FaFacebookF, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
 
 const Contact = () => {
   return (
@@ -48,15 +48,6 @@ const Contact = () => {
             </p>
 
             <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="text-blue-600 bg-blue-100 p-3 rounded-full">
-                  <FiMapPin size={20} />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-800">Our Location</h3>
-                  <p className="text-gray-600">123 Business Avenue, Algiers, Algeria</p>
-                </div>
-              </div>
 
               <div className="flex items-start gap-4">
                 <div className="text-blue-600 bg-blue-100 p-3 rounded-full">
@@ -64,8 +55,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-800">Email Us</h3>
-                  <p className="text-gray-600">contact@contactage.com</p>
-                  <p className="text-gray-600">support@contactage.com</p>
+                  <p className="text-gray-600">derrarabdelillah57@gmail.com</p>
                 </div>
               </div>
 
@@ -75,8 +65,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-semibold text-gray-800">Call Us</h3>
-                  <p className="text-gray-600">+213 123 456 789</p>
-                  <p className="text-gray-600">Mon-Fri: 9am-5pm</p>
+                  <p className="text-gray-600">+213 798-50-71-60</p>
                 </div>
               </div>
             </div>
@@ -85,7 +74,7 @@ const Contact = () => {
               <h3 className="font-semibold text-gray-800 mb-3">Follow Us</h3>
               <div className="flex gap-4">
                 <motion.a
-                  href="#"
+                  href="https://web.facebook.com/Abdou.Dr.0001"
                   whileHover={{ y: -3 }}
                   className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white transition-colors text-gray-700"
                 >
@@ -93,20 +82,21 @@ const Contact = () => {
                 </motion.a>
                 
                 <motion.a
-                  href="#"
+                  href="https://dz.linkedin.com/in/abdelillah-derrar-42a81635a"
                   whileHover={{ y: -3 }}
                   className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white transition-colors text-gray-700"
                 >
                   <FaLinkedinIn className="text-lg" />
                 </motion.a>
 
-                <motion.a
-                  href="#"
+                <motion.a 
+                  href="https://www.instagram.com/vegonix/" 
+                  className="w-10 h-10 rounded-full bg-white bg-opacity-70 shadow-sm flex items-center justify-center text-gray-600 hover:text-white hover:bg-main transition"
                   whileHover={{ y: -3 }}
-                  className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-200 hover:bg-blue-600 hover:text-white transition-colors text-gray-700"
                 >
-                  <FaTwitter className="text-lg" />
+                  <FaInstagram />
                 </motion.a>
+
               </div>
             </div>
           </motion.div>
