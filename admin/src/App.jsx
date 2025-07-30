@@ -18,11 +18,15 @@ const App = () => {
 
   useEffect( () => {
     localStorage.setItem('token', token)
+
+    if ( !token ) {
+      localStorage.removeItem('token');
+    }
   },[token] )
 
   return (
     <div>
-      { token === '' 
+      { token === '' || null
       ? <Login setToken={setToken} />
       : 
         <>
