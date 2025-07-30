@@ -95,10 +95,38 @@ const ProductsContext = ({ children }) => {
 
     const addToCart = async (itemId, size) => {
         if (!size) {
-            toast.error('Please Select The Size');
+            toast.error('Please Select The Size', {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                style: {
+                    fontSize: 'clamp(12px, 3vw, 16px)',
+                    maxWidth: '90vw',
+                    margin: '0 auto',
+                    width: 'auto',
+                },
+            });
             return;
         } else {
-            toast.success('The Product Have been added to your cart');
+            toast.success('The Product Have been added to your cart', {
+                position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                style: {
+                    fontSize: 'clamp(12px, 3vw, 16px)',
+                    maxWidth: '90vw',
+                    margin: '0 auto',
+                    width: 'auto',
+                },
+            });
             setTimeout(() => {
                 navigate('/cart');
             }, 3000);
@@ -137,11 +165,23 @@ const ProductsContext = ({ children }) => {
             }
             } catch (error) {
                 console.log(error);
-                toast.error("Can't Add To Cart!")
+                toast.error("Can't Add To Cart!", {
+                    position: "bottom-center",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    style: {
+                        fontSize: 'clamp(12px, 3vw, 16px)',
+                        maxWidth: '90vw',
+                        margin: '0 auto',
+                        width: 'auto',
+                    },
+                });
             }
-
         }
-
     };
     
         const updateQuantity = async (itemId, size, quantity) => {
@@ -167,7 +207,21 @@ const ProductsContext = ({ children }) => {
                      }
                 } catch (error) {
                     console.log(error);
-                    toast.error(error.message)
+                    toast.error(error.message, {
+                        position: "bottom-center",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        style: {
+                            fontSize: 'clamp(12px, 3vw, 16px)',
+                            maxWidth: '90vw',
+                            margin: '0 auto',
+                            width: 'auto',
+                        },
+                    })
                 }
             }
 
