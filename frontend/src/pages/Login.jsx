@@ -40,26 +40,58 @@ const Login = () => {
         localStorage.setItem('user', JSON.stringify(user));
         
 
-        setAlert({
-          type: 'success',
-          message: 'Login successful! Redirecting...'
-        });
+        toast.success('The Product Have been added to your cart', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                style: {
+                    fontSize: 'clamp(12px, 3vw, 16px)',
+                    maxWidth: '90vw',
+                    margin: '0 auto',
+                    width: 'auto',
+                },
+            });
 
         setTimeout(() => {
-          setAlert(null);
           navigate('/');
         }, 3000);
       } else {
-        setAlert({
-          type: 'error',
-          message: 'Invalid credentials!'
-        });
+            toast.error('Invialid Data', {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                style: {
+                    fontSize: 'clamp(12px, 3vw, 16px)',
+                    maxWidth: '90vw',
+                    margin: '0 auto',
+                    width: 'auto',
+                },
+            });
       }
     } catch (error) {
-      setAlert({
-        type: 'error',
-        message: 'Login failed. Please try again.'
-      });
+      toast.error('Login Failed! Please try again', {
+                      position: "top-right",
+                      autoClose: 3000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      style: {
+                          fontSize: 'clamp(12px, 3vw, 16px)',
+                          maxWidth: '90vw',
+                          margin: '0 auto',
+                          width: 'auto',
+                      },
+                  });
     } finally {
       setIsLoading(false);
     }
