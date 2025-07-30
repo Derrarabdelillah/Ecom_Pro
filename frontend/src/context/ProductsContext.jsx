@@ -165,21 +165,6 @@ const ProductsContext = ({ children }) => {
                 }
             } catch (error) {
                 console.log(error);
-                toast.error("Can't Add To Cart!", {
-                    position: "bottom-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    style: {
-                        fontSize: 'clamp(12px, 3vw, 16px)',
-                        maxWidth: '90vw',
-                        margin: '0 auto',
-                        width: 'auto',
-                    },
-                });
             }
         }
     };
@@ -206,22 +191,6 @@ const ProductsContext = ({ children }) => {
                     setCartItems(response.data.cart);
                 }
             } catch (error) {
-                console.log(error);
-                toast.error(error.message, {
-                    position: "bottom-center",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    style: {
-                        fontSize: 'clamp(12px, 3vw, 16px)',
-                        maxWidth: '90vw',
-                        margin: '0 auto',
-                        width: 'auto',
-                    },
-                })
             }
         }
 

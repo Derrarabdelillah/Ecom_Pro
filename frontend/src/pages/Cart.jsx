@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { productsContext } from "../context/ProductsContext";
-import { assets } from "../assets/frontend_assets/assets";
 import TotalCart from "../components/TotalCart";
 import { useNavigate } from "react-router-dom";
 import { FiArrowRight, FiTrash2, FiChevronLeft } from "react-icons/fi";
