@@ -60,7 +60,7 @@ const ProductDisplay = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Hero Section */}
+      {/* Hero Section
       <div className="text-center mb-16">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
@@ -78,7 +78,7 @@ const ProductDisplay = () => {
         >
           Curated selection of premium products designed for your lifestyle
         </motion.p>
-      </div>
+      </div> */}
 
       {/* Latest Collections */}
       <section className="mb-20">
@@ -103,7 +103,7 @@ const ProductDisplay = () => {
               View All
             </motion.button>
           </Link>
-          
+
         </div>
 
         <AnimatePresence>
