@@ -52,7 +52,7 @@ const Footer = () => {
 
           {/* Column 4 - Social */}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">Connect</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact</h3>
             <div className="flex space-x-4">
               <motion.a 
                 href="https://web.facebook.com/Abdou.Dr.0001" 
