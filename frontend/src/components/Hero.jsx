@@ -18,8 +18,8 @@ const Hero = () => {
             <p className="text-lg text-gray-600 mb-8">
               Discover curated fashion essentials designed for modern living. Quality pieces that complement your lifestyle.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="text-center px-8 py-3 bg-gradient-to-r from-main to-indigo-600 text-white rounded-lg font-medium hover:from-main-dark hover:to-indigo-700 transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+            <div className="flex flex-col justify-center items-center sm:flex-row gap-4">
+              <button className=" px-8 py-3 bg-gradient-to-r from-main to-indigo-600 text-white rounded-lg font-medium hover:from-main-dark hover:to-indigo-700 transition-all shadow-md hover:shadow-lg flex items-center gap-2">
                 Shop Collection <FiArrowRight />
               </button>
               <button className="px-8 py-3 border border-gray-300 bg-white rounded-lg font-medium hover:bg-gray-50 transition-all shadow-sm hover:shadow-md">
