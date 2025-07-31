@@ -19,9 +19,9 @@ const App = () => {
   useEffect( () => {
     localStorage.setItem('token', token)
 
-    if ( !token ) {
-      localStorage.removeItem('token');
-    }
+    setTimeout(() => {
+      localStorage.removeItem('token')
+    }, 60000);
   },[token] )
 
   return (
