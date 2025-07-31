@@ -33,7 +33,8 @@ const App = () => {
 
     if ( checkTokenExp(token) ) {
       localStorage.removeItem('token');
-      window.location.reload()
+      toast.info('Your session has expired. Please log in again.');
+      window.location.reload();
     }
   },[token] )
 
