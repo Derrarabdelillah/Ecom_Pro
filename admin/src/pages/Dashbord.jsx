@@ -60,11 +60,9 @@ const Dashboard = () => {
       }
     };
 
-    if (!token) {
-      navigate('/login')
-    } else {
+
       fetchStats()
-    }
+
   }, [token, backendUrl]);
 
   // Loading Spinner Component
