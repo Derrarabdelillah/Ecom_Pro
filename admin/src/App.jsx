@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import './App.css'
 import Navbar from './components/Navbar'
 import SideBar from './components/SideBar'
@@ -11,17 +11,30 @@ import Login from './components/Login'
 import { ToastContainer, toast } from 'react-toastify'
 import Users from './pages/Users'
 import Settings from './pages/Settings'
+import jwtDecode from "jwt-decode";
 
 const App = () => {
   
   const [token, setToken] = useState( localStorage.getItem('token') ? localStorage.getItem('token') : '');
+  
+  const checkTokenExp = (token) => {
+    if (!token) return true;
+
+    try {
+      const decoded = jwtDecode(token);
+      return decoded.exp * 1000 < Date.now();
+    } catch (error) {
+      return true
+    }
+  }
 
   useEffect( () => {
     localStorage.setItem('token', token)
 
-    setTimeout(() => {
-      localStorage.removeItem('token')
-    }, 60000);
+    if ( checkTokenExp(token) ) {
+      localStorage.removeItem('token');
+      window.location.reload()
+    }
   },[token] )
 
   return (
