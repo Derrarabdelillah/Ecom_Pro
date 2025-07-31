@@ -23,7 +23,7 @@ const App = () => {
     setTimeout(() => {
       localStorage.clear()
       window.location.reload()
-    }, 36000);
+    }, 950000);
   },[token] )
 
   return (
