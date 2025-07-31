@@ -11,7 +11,7 @@ import Login from './components/Login'
 import { ToastContainer, toast } from 'react-toastify'
 import Users from './pages/Users'
 import Settings from './pages/Settings'
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 const App = () => {
   
