@@ -28,7 +28,7 @@ const App = () => {
 
   return (
     <div>
-      { token === '' || null
+      { token === '' || !token
       ? <Login setToken={setToken} />
       : 
         <>
