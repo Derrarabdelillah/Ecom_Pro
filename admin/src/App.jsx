@@ -21,9 +21,9 @@ const App = () => {
     localStorage.setItem('token', token)
 
     setTimeout(() => {
-      localStorage.removeItem('token');
+      localStorage.clear()
       window.location.reload()
-    }, 3600000);
+    }, 36000);
   },[token] )
 
   return (
