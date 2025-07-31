@@ -11,30 +11,19 @@ import Login from './components/Login'
 import { ToastContainer, toast } from 'react-toastify'
 import Users from './pages/Users'
 import Settings from './pages/Settings'
-import { jwtDecode } from "jwt-decode";
+
 
 const App = () => {
   
   const [token, setToken] = useState( localStorage.getItem('token') ? localStorage.getItem('token') : '');
-  const navigate = useNavigate()
-  const checkTokenExp = (token) => {
-    if (!token) return true;
-
-    try {
-      const decoded = jwtDecode(token);
-      return decoded.exp * 1000 < Date.now();
-    } catch (error) {
-      return true
-    }
-  }
-
+  const navigate = useNavigate();
   useEffect( () => {
     localStorage.setItem('token', token)
 
-    if ( checkTokenExp(token) ) {
+    setTimeout(() => {
       localStorage.removeItem('token');
-      navigate('/')
-    }
+      window.location.reload()
+    }, 3600000);
   },[token] )
 
   return (
