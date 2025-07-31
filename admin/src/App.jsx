@@ -16,7 +16,7 @@ import { jwtDecode } from "jwt-decode";
 const App = () => {
   
   const [token, setToken] = useState( localStorage.getItem('token') ? localStorage.getItem('token') : '');
-  
+  const navigate = useNavigate()
   const checkTokenExp = (token) => {
     if (!token) return true;
 
@@ -33,7 +33,7 @@ const App = () => {
 
     if ( checkTokenExp(token) ) {
       localStorage.removeItem('token');
-      window.location.reload();
+      navigate('/dashbord')
     }
   },[token] )
 
