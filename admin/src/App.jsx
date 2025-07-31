@@ -33,7 +33,7 @@ const App = () => {
 
     if ( checkTokenExp(token) ) {
       localStorage.removeItem('token');
-      navigate('/dashbord')
+      navigate('/')
     }
   },[token] )
 
