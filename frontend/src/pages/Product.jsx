@@ -29,24 +29,24 @@ const Product = () => {
   }, [productId, products]);
 
 
-const nextImage = () => {
-  if (productData.image.length > currentImageIndex + 1) {
-    setCurrentImageIndex(prev => prev + 1);
-  } else {
-    // Optional: Loop back to the first image
-    setCurrentImageIndex(0);
-  }
-};
+  const nextImage = () => {
+    if (productData.image.length > currentImageIndex + 1) {
+      setCurrentImageIndex(prev => prev + 1);
+    } else {
+      // Optional: Loop back to the first image
+      setCurrentImageIndex(0);
+    }
+  };
 
-// display the prev image when click to the prev button
-const prevImage = () => {
-  if (currentImageIndex > 0) {
-    setCurrentImageIndex(prev => prev - 1);
-  } else {
-    // Optional: Loop back to the last image
-    setCurrentImageIndex(productData.image.length - 1);
-  }
-};
+  // display the prev image when click to the prev button
+  const prevImage = () => {
+    if (currentImageIndex > 0) {
+      setCurrentImageIndex(prev => prev - 1);
+    } else {
+      // Optional: Loop back to the last image
+      setCurrentImageIndex(productData.image.length - 1);
+    }
+  };
 
   // add items to cart
   const handleAddToCart = () => {
@@ -69,7 +69,7 @@ const prevImage = () => {
               <a href="#" className="text-gray-700 hover:text-main ml-1 text-sm font-medium">{productData.category}</a>
             </div>
           </li>
-          
+
           <li aria-current="page">
             <div className="flex items-center">
               <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path></svg>
@@ -86,27 +86,27 @@ const prevImage = () => {
         <div className="w-full lg:w-1/2">
           <div className="relative bg-white rounded-xl shadow-md overflow-hidden mb-4">
             {productData.image?.[0] ? (
-            <img 
-              src={productData.image[currentImageIndex]}  
-              alt={productData.name} 
-              className={`w-full h-96 object-contain p-4`}
-            /> )
-            : (
-            <div className="h-100 flex items-center justify-center bg-gray-200 text-main">
-              No Image
-            </div>
-          )
-          }
+              <img
+                src={productData.image[currentImageIndex]}
+                alt={productData.name}
+                className={`w-full h-96 object-contain p-4`}
+              />)
+              : (
+                <div className="h-100 flex items-center justify-center bg-gray-200 text-main">
+                  No Image
+                </div>
+              )
+            }
             {productData.image.length > 1 && (
               <>
-                <button 
+                <button
                   onClick={prevImage}
                   disabled={currentImageIndex === 0}
                   className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 disabled:opacity-50"
                 >
                   <FaChevronLeft className="cursor-pointer text-gray-700" />
                 </button>
-                <button 
+                <button
                   onClick={nextImage}
                   disabled={currentImageIndex === productData.image.length - 1}
                   className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 disabled:opacity-50"
@@ -116,7 +116,7 @@ const prevImage = () => {
               </>
             )}
           </div>
-          
+
           {productData.image.length > 1 && (
             <div className="flex space-x-2 overflow-x-auto py-2">
               {productData.image.map((img, index) => (
@@ -137,7 +137,7 @@ const prevImage = () => {
         {/* Product Details */}
         <div className="w-full lg:w-1/2">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">{productData.name}</h1>
-          
+
           <div className="flex items-center mb-4">
             <div className="flex text-yellow-400 mr-2">
               {[...Array(5)].map((_, i) => (
@@ -175,7 +175,7 @@ const prevImage = () => {
               ))}
             </div>
           </div>
-{/* 
+          {/* 
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-2">Quantity</h3>
             <div className="flex items-center">
@@ -212,10 +212,10 @@ const prevImage = () => {
             <div className="flex items-center mb-2">
               <span className="text-gray-700 mr-2">Availability:</span>
               {productData.stock ? (
-                <span className="font-semibold px-2 py-2 bg-green-50 text-green-800">In Stock ({productData.stock})</span>
+                <span className="inline-flex items-center px-2.5 py-2 rounded-full text-xs font-medium bg-green-50 text-green-800">In Stock ({productData.stock})</span>
               ) :
-              <span className="font-semibold px-2 py-2 bg-red-50 text-red-800">No Products in Stock</span> 
-               }
+                <span className="inline-flex items-center px-2.5 py-2 rounded-full text-xs font-medium bg-red-50 text-red-800">No Products in Stock</span>
+              }
             </div>
             <div className="flex items-center mb-2">
               <span className="text-gray-700 mr-2">Category:</span>
@@ -250,7 +250,7 @@ const prevImage = () => {
           <p className="text-gray-700 mb-6">
             {productData.longDescription || "An e-commerce website is an online platform that facilitates the buying and selling of products or services over the internet. It serves as a virtual marketplace where businesses and individuals can showcase their products, interact with customers, and conduct transactions without the need for a physical presence."}
           </p>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div>
               <h4 className="font-semibold mb-2">Features</h4>
@@ -285,10 +285,10 @@ const prevImage = () => {
       {/* Related Products */}
       <div className="mt-12">
         <h2 className="text-2xl font-bold mb-6">You may also like</h2>
-        <RelatedProducts 
-          key={productData._id} 
-          category={productData.category} 
-          subCategory={productData.subCategory} 
+        <RelatedProducts
+          key={productData._id}
+          category={productData.category}
+          subCategory={productData.subCategory}
         />
       </div>
     </div>
