@@ -93,9 +93,15 @@ const Item = ({ product, currency }) => {
             )}
           </div>
 
-            <span className="text-xs font-medium text-gray-500">
-              {product.stock}
+              {product.stock > 1 || !product.stock ? (
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-800">
+                in stock ( {product.stock} )
             </span>
+              ) :
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-800">
+                  no products in stock
+                </span> 
+              }
         </div>
 
         {/* Action Buttons */}
