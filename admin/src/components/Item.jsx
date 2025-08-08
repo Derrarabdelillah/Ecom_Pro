@@ -51,7 +51,7 @@ const Item = ({ product, currency }) => {
 
   return (
     <div className="relative">
-      <div className="group relative bg-white rounded-lg border border-grayBorder overflow-hidden shadow-sm hover:shadow-md min-h-97 max-h-100 transition-shadow duration-200">
+      <div className="group relative bg-white rounded-lg border border-grayBorder overflow-hidden shadow-sm hover:shadow-md min-h-97 max-h-120 transition-shadow duration-200">
         {/* Product Image */}
         <div className="aspect-square bg-gray-50 overflow-hidden">
           {product.image?.[0] ? (
@@ -93,7 +93,7 @@ const Item = ({ product, currency }) => {
             )}
           </div>
 
-          <div className="my-4 flex items-start">
+          <div className="my-2 flex items-start">
               {!product.stock ? (
                 <span className="inline-flex items-center px-2.5 py-2 rounded-full text-xs font-medium bg-red-50 text-red-800">
                   no products in stock
