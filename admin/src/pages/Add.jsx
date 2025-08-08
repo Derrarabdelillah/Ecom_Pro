@@ -67,6 +67,7 @@ const Add = ({ token }) => {
       });
       setName('');
       setDescription('');
+      setStock('')
       setPrice('');
       setImage1(false);
       setImage2(false);
