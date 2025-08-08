@@ -51,7 +51,7 @@ const Item = ({ product, currency }) => {
 
   return (
     <div className="relative">
-      <div className="group relative bg-white rounded-lg border border-grayBorder overflow-hidden shadow-sm hover:shadow-md  max-h-110 transition-shadow duration-200">
+      <div className="group relative bg-white rounded-lg border border-grayBorder overflow-hidden shadow-sm hover:shadow-md  h-110 transition-shadow duration-200">
         {/* Product Image */}
         <div className="aspect-square bg-gray-50 overflow-hidden">
           {product.image?.[0] ? (
