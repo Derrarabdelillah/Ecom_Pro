@@ -211,7 +211,11 @@ const prevImage = () => {
           <div className="border-t border-gray-200 pt-4">
             <div className="flex items-center mb-2">
               <span className="text-gray-700 mr-2">Availability:</span>
-              <span className="font-semibold text-green-600">In Stock (100)</span>
+              {productData.stock ? (
+                <span className="font-semibold px-2 py-2 bg-green-50 text-green-800">In Stock ({productData.stock})</span>
+              ) :
+              <span className="font-semibold px-2 py-2 bg-red-50 text-red-800">No Products in Stock</span> 
+               }
             </div>
             <div className="flex items-center mb-2">
               <span className="text-gray-700 mr-2">Category:</span>
