@@ -93,6 +93,7 @@ const Item = ({ product, currency }) => {
             )}
           </div>
 
+          <div className="my-4 flex items-start">
               {!product.stock ? (
                 <span className="inline-flex items-center px-2.5 py-2 rounded-full text-xs font-medium bg-red-50 text-red-800">
                   no products in stock
@@ -102,6 +103,7 @@ const Item = ({ product, currency }) => {
                   in stock ( {product.stock} )
               </span>
               }
+          </div>
         </div>
 
         {/* Action Buttons */}
