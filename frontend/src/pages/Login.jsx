@@ -41,7 +41,7 @@ const Login = () => {
         localStorage.setItem('user', JSON.stringify(user));
         
 
-        toast.success('The Product Have been added to your cart', {
+        toast.success('The User have been login successfuly', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
