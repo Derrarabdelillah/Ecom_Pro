@@ -17,6 +17,7 @@ const Add = ({ token }) => {
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [stock, setStock] = useState(0);
   const [category, setCategory] = useState('Men');
   const [subCategory, setSubCategory] = useState('TopWear');
   const [price, setPrice] = useState('');
@@ -29,6 +30,7 @@ const Add = ({ token }) => {
 
     formData.append('name', name);
     formData.append('description', description);
+    formData.append('stock', stock);
     formData.append('category', category);
     formData.append('subCategory', subCategory);
     formData.append('price', price);
@@ -232,6 +234,17 @@ const Add = ({ token }) => {
                 value={price}
                 type="number"
                 placeholder='199.99$...'
+                className='border border-grayBorder px-4 py-2 rounded-lg focus:ring-main focus:ring-1 outline-none'
+              />
+            </div>
+            
+            <div className="flex flex-col gap-2">
+              <h3 className='font-medium text-lg'>Stock Quantity</h3>
+              <input
+                onChange={(e) => setStock(e.target.value)}
+                value={price}
+                type="number"
+                placeholder='100'
                 className='border border-grayBorder px-4 py-2 rounded-lg focus:ring-main focus:ring-1 outline-none'
               />
             </div>
