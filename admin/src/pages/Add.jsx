@@ -242,7 +242,7 @@ const Add = ({ token }) => {
               <h3 className='font-medium text-lg'>Stock Quantity</h3>
               <input
                 onChange={(e) => setStock(e.target.value)}
-                value={price}
+                value={stock}
                 type="number"
                 placeholder='100'
                 className='border border-grayBorder px-4 py-2 rounded-lg focus:ring-main focus:ring-1 outline-none'
