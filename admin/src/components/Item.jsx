@@ -92,6 +92,10 @@ const Item = ({ product, currency }) => {
               </span>
             )}
           </div>
+
+            <span className="text-xs font-medium text-gray-500">
+              {product.stock}
+            </span>
         </div>
 
         {/* Action Buttons */}
