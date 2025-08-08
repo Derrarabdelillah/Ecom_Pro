@@ -289,9 +289,9 @@ const Add = ({ token }) => {
             <label htmlFor="bestseller" className=''>Add To Best Seller</label>
           </div>
 
-          <div onClick={addProduct} className={`flex flex-row items-center justify-center font-bold px-4 py-2 cursor-pointer gap-2 ${updatedProduct ? `bg-indigo-600` : `bg-gradient-to-tr from-main to-indigo-600`} text-white rounded-lg hover:scale-101`} >
-            {updatedProduct ? <FiEdit /> : <FiPlus />}
-            <span>{updatedProduct ? 'Update Product' : 'Add Product'}</span>
+          <div onClick={addProduct} className={`flex flex-row items-center justify-center font-bold px-4 py-2 cursor-pointer gap-2 bg-gradient-to-tr from-main to-indigo-600 text-white rounded-lg hover:scale-101`} >
+            <FiPlus />
+            <span>Add Product</span>
           </div>
 
         </div>
