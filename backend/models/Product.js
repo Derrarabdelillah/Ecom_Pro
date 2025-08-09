@@ -14,8 +14,13 @@ const ProductSchema = new Schema({
         type: Number,
     },
     attributes: {
-        type: Object,
-        default: {}
+        type: [
+            {
+                name: String,
+                values: [String]
+            }
+        ],
+        default: []
     },
     price: {
         type: Number,
