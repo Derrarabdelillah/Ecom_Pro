@@ -102,7 +102,7 @@ const Add = ({ token }) => {
       setImage2(false);
       setImage3(false);
       setImage4(false);
-      setAttributes({});
+      setAttributes([]);
       setBestseller(false);
 
     } else {
@@ -313,7 +313,7 @@ const Add = ({ token }) => {
             </button>
             {/* List of added attributes */}
             <div className="flex flex-col gap-2">
-              {attributes.map((attr, idx) => (
+              {(Array.isArray(attributes) ? attributes : []).map((attr, idx) => (
                 <div key={attr.name} className="flex flex-row items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
                   <span className="font-semibold capitalize">{attr.name}:</span>
                   <div className="flex flex-row gap-1 flex-wrap">
