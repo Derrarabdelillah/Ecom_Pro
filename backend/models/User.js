@@ -27,12 +27,12 @@ const UserSchema = new Schema({
         type: Date,
         default: Date.now()
     }
-}, {minimize: false})
+}, { minimize: false })
 
 
 // Hashing the Password using bcrypt
 UserSchema.pre('save', async function (next) {
-    if ( this.isModified("password") ) {
+    if (this.isModified("password")) {
         try {
             this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
         } catch (err) {

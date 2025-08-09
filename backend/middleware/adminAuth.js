@@ -6,16 +6,16 @@ require('dotenv').config();
 const adminAuth = async (req, res, next) => {
 
     try {
-        
+
         const token = req.headers.token;
 
-        if ( !token ) {
-            return res.status(401).json({success: false, message: "No Token Availble"})
+        if (!token) {
+            return res.status(401).json({ success: false, message: "No Token Availble" })
         }
         const decode_token = jwt.verify(token, process.env.JWT_SECRET);
 
-        if ( decode_token.email !== process.env.ADMIN_EMAIL || decode_token.password !== process.env.ADMIN_PASSWORD ) {
-            return res.status(403).json({success: false, message: "Not Authorized. Invalid Credentials"})
+        if (decode_token.email !== process.env.ADMIN_EMAIL || decode_token.password !== process.env.ADMIN_PASSWORD) {
+            return res.status(403).json({ success: false, message: "Not Authorized. Invalid Credentials" })
         }
         req.admin = decode_token; // Attach admin data to request
         next();

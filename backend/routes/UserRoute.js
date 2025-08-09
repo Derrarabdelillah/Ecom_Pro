@@ -56,7 +56,7 @@ router.post('/api/users', async (req, res) => {
         return res.status(400).json({ message: 'Email already taken' });
     } else {
         const user = await User.create(req.body);
-        return res.status(201).json({success: true, user});
+        return res.status(201).json({ success: true, user });
     }
 
 });
@@ -65,18 +65,18 @@ router.post('/api/users', async (req, res) => {
 // Admin Login
 router.post('/api/users/admin', async (req, res) => {
     try {
-        const email =  req.body.email;
+        const email = req.body.email;
         const password = req.body.password;
-        if ( email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD ) {
-            const token = jwt.sign({email,password}, JWT_SECRET, { expiresIn: '1h' } );
-            res.json({success: true, token})
+        if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+            const token = jwt.sign({ email, password }, JWT_SECRET, { expiresIn: '1h' });
+            res.json({ success: true, token })
         } else {
-            res.json({success: false, message: 'Invalid Credentials'})
+            res.json({ success: false, message: 'Invalid Credentials' })
         }
-        
+
     } catch (error) {
         console.log(error);
-        res.json({success: false, message: error.message})
+        res.json({ success: false, message: error.message })
     }
 })
 

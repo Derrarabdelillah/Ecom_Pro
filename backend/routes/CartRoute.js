@@ -6,8 +6,8 @@ const { addToCart, updateCart, getUserCart } = require('../controllers/cartContr
 const authUser = require('../middleware/auth');
 
 
-router.get('/get' , authUser, getUserCart)
-router.post('/add' , authUser, addToCart),
+router.get('/get', authUser, getUserCart)
+router.post('/add', authUser, addToCart),
 router.put('/update', authUser, updateCart)
 // router.delete('/remove', authUser, removeFromCart)
 

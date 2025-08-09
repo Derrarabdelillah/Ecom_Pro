@@ -13,6 +13,10 @@ const ProductSchema = new Schema({
     stock: {
         type: Number,
     },
+    attributes: {
+        type: Object,
+        default: {}
+    },
     price: {
         type: Number,
         required: true
