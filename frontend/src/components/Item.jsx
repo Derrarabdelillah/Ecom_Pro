@@ -81,16 +81,22 @@ const Item = ({ product, currency }) => {
         {/* Quick Add */}
         <div className="mt-2">
           {/* add the the first attribute */}
-          {product.attributes?.[0] && (
+          {product.attributes?.[0] ? (
             <div className="flex items-center">
               <span className="text-sm text-gray-600 mr-2">
-                {product.attributes[0].name}:
+                {product.attributes.name}:
               </span>
               <span className="font-medium text-gray-900">
-                {product.attributes[0].value}
+                {product.attributes.value}
               </span>
             </div>
-          )}
+          ) : (
+            <div className="flex items-center">
+              <span className="text-sm text-gray-600 mr-2">
+                No Attributes
+              </span>
+            </div>
+          ) }
         </div>
       </div>
     </div>
