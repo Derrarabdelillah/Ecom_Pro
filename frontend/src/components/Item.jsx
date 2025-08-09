@@ -79,25 +79,29 @@ const Item = ({ product, currency }) => {
         </div>
 
         {/* Quick Add */}
-        <div className="mt-2">
-          {/* add the the first attribute */}
-          {product.attributes?.[0] ? (
-            <div className="flex items-center">
-              <span className="text-sm text-gray-600 mr-2">
-                {product.attributes.name}:
-              </span>
-              <span className="font-medium text-gray-900">
-                {product.attributes.value}
-              </span>
-            </div>
-          ) : (
-            <div className="flex items-center">
-              <span className="text-sm text-gray-600 mr-2">
-                No Attributes
-              </span>
-            </div>
-          ) }
-        </div>
+<div className="mt-2">
+  {/* Show the first attribute and its values */}
+  {product.attributes && Object.keys(product.attributes).length > 0 ? (
+    <div className="flex items-center flex-wrap">
+      <span className="text-sm text-gray-600 mr-2">
+        {Object.keys(product.attributes)[0]}:
+      </span>
+      <span className="font-medium text-gray-900 flex flex-wrap gap-1">
+        {product.attributes[Object.keys(product.attributes)[0]].map((val, idx) => (
+          <span key={idx} className="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-lg text-xs">
+            {val}
+          </span>
+        ))}
+      </span>
+    </div>
+  ) : (
+    <div className="flex items-center">
+      <span className="text-sm text-gray-600 mr-2">
+        No Attributes
+      </span>
+    </div>
+  )}
+</div>
       </div>
     </div>
   );
