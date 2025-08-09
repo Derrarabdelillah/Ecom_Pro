@@ -23,35 +23,24 @@ const Add = ({ token }) => {
   const [bestseller, setBestseller] = useState(false);
   const [updatedProduct, setUpdatedProduct] = useState({})
 
-  // Dynamic attributes state
-  const [attributes, setAttributes] = useState({});
+  const [attributes, setAttributes] = useState([]);
   const [attrName, setAttrName] = useState('');
   const [attrValue, setAttrValue] = useState('');
   const [attrValues, setAttrValues] = useState([]);
 
   // Add value to current attribute
-const handleAddValue = () => {
-  if (!attrName) return; // Require attribute name
-  if (attrValue) {
-    // If attribute already exists, add value to it
-    if (attributes[attrName]) {
-      if (!attributes[attrName].includes(attrValue)) {
-        setAttributes({
-          ...attributes,
-          [attrName]: [...attributes[attrName], attrValue]
-        });
-      }
-    } else {
+  const handleAddValue = () => {
+    if (!attrName) return;
+    if (attrValue && !attrValues.includes(attrValue)) {
       setAttrValues([...attrValues, attrValue]);
+      setAttrValue('');
     }
-    setAttrValue('');
-  }
-};
+  };
 
   // Add attribute with its values
   const handleAddAttribute = () => {
     if (attrName && attrValues.length > 0) {
-      setAttributes({ ...attributes, [attrName]: attrValues });
+      setAttributes([...attributes, { name: attrName, values: attrValues }]);
       setAttrName('');
       setAttrValues([]);
     }
@@ -59,9 +48,7 @@ const handleAddValue = () => {
 
   // Remove attribute
   const handleRemoveAttribute = (name) => {
-    const newAttrs = { ...attributes };
-    delete newAttrs[name];
-    setAttributes(newAttrs);
+    setAttributes(attributes.filter(attr => attr.name !== name));
   };
 
   // Remove value from current attribute
@@ -326,18 +313,18 @@ const handleAddValue = () => {
             </button>
             {/* List of added attributes */}
             <div className="flex flex-col gap-2">
-              {Object.entries(attributes).map(([name, values]) => (
-                <div key={name} className="flex flex-row items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
-                  <span className="font-semibold capitalize">{name}:</span>
+              {attributes.map((attr, idx) => (
+                <div key={attr.name} className="flex flex-row items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
+                  <span className="font-semibold capitalize">{attr.name}:</span>
                   <div className="flex flex-row gap-1 flex-wrap">
-                    {values.map((v, i) => (
+                    {attr.values.map((v, i) => (
                       <span key={i} className="bg-indigo-100 text-indigo-700 px-2 py-1 rounded-lg">{v}</span>
                     ))}
                   </div>
                   <button
                     type="button"
                     className="cursor-pointer text-red-500 ml-2 font-bold"
-                    onClick={() => handleRemoveAttribute(name)}
+                    onClick={() => handleRemoveAttribute(attr.name)}
                   >Remove</button>
                 </div>
               ))}
