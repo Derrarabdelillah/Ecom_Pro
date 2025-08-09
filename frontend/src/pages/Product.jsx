@@ -51,6 +51,7 @@ const Product = () => {
   // add items to cart
   const handleAddToCart = () => {
     addToCart(productData._id, size);
+    console.log(productData.attributes)
   };
 
   return productData ? (
