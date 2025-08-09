@@ -51,7 +51,6 @@ const Product = () => {
   // add items to cart
   const handleAddToCart = () => {
     addToCart(productData._id, size);
-    console.log(productData.attributes)
   };
 
   return productData ? (
@@ -162,7 +161,7 @@ const Product = () => {
 
           <p className="text-gray-700 mb-6">{productData.description}</p>
 
-          {/* <div className="mb-6">
+          <div className="mb-6">
             <h3 className="text-lg font-semibold mb-2">Size</h3>
             <div className="flex flex-wrap gap-2">
               {productData.sizes.map((item, index) => (
@@ -175,39 +174,7 @@ const Product = () => {
                 </button>
               ))}
             </div>
-          </div> */}
-
-    {Array.isArray(productData.attributes) && productData.attributes.length > 0 ? (
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-2">Attributes</h3>
-        <ul className="list-disc list-inside">
-          {productData.attributes.map((attr, index) => (
-            <li key={index} className="text-gray-700">
-              {attr.name}:
-              {Array.isArray(attr.values) && attr.values.length > 0 ? (
-                attr.values.map((value, i) => (
-                  <span
-                    key={i}
-                    className="inline-block bg-gray-100 rounded-full px-2 py-1 text-xs font-semibold text-gray-700 mr-2"
-                  >
-                    {value}
-                  </span>
-                ))
-              ) : (
-                <span className="ml-2 text-xs text-gray-400">No values</span>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div>
-    ) : (
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-2 p-2 bg-red-50 text-red-800 rounded-lg">
-          No Attributes Available
-        </h3>
-      </div>
-    )}
-
+          </div>
           {/* 
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-2">Quantity</h3>
