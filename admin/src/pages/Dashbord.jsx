@@ -61,7 +61,7 @@ const Dashboard = () => {
     };
 
 
-      fetchStats()
+    fetchStats()
 
   }, [token, backendUrl]);
 
@@ -74,12 +74,12 @@ const Dashboard = () => {
       className="fixed inset-0 bg-white/80 z-50 flex items-center justify-center"
     >
       <motion.div
-        animate={{ 
+        animate={{
           rotate: 360,
           scale: [1, 1.1, 1]
         }}
-        transition={{ 
-          repeat: Infinity, 
+        transition={{
+          repeat: Infinity,
           duration: 1.5,
           ease: "linear"
         }}
@@ -116,7 +116,7 @@ const Dashboard = () => {
     const config = gradientConfig[cardType] || gradientConfig.orders
 
     return (
-      <motion.div 
+      <motion.div
         whileHover={{ y: -3 }}
         className={`${config.bg} border border-gray-200 rounded-xl p-5 shadow-xs transition-all duration-200`}
       >
@@ -211,7 +211,7 @@ const Dashboard = () => {
           />
           <StatCard
             icon={<FiDollarSign size={20} />}
-            value={( stats.totalRevenue ).toFixed(2) + currency}
+            value={(stats.totalRevenue).toFixed(2) + currency}
             label="Total Revenue"
             cardType="revenue"
           />
@@ -223,9 +223,9 @@ const Dashboard = () => {
           />
           <StatCard
             icon={<FiBarChart2 size={20} />}
-            value={stats.totalOrders > 0 ? 
-            `${((stats.totalRevenue / stats.totalOrders).toFixed(2))}${currency}` : 
-            `0${currency}`}
+            value={stats.totalOrders > 0 ?
+              `${((stats.totalRevenue / stats.totalOrders).toFixed(2))}${currency}` :
+              `0${currency}`}
             label="Sales Growth"
             cardType="growth"
           />
@@ -252,7 +252,7 @@ const Dashboard = () => {
           <div className="divide-y divide-gray-100">
             {stats.recentOrders.length > 0 ? (
               stats.recentOrders.map((order) => (
-                <motion.div 
+                <motion.div
                   key={order._id}
                   whileHover={{ backgroundColor: 'rgba(249, 250, 251, 1)' }}
                   className="p-4 flex items-center justify-between bg-gradient-to-r from-white to-gray-50/50"
@@ -265,13 +265,12 @@ const Dashboard = () => {
                   </div>
                   <div className="text-right">
                     <p className="font-medium">{currency}{order.deliveryInfos.total.toFixed(2)}</p>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      order.status === 'delivered' 
+                    <span className={`text-xs px-2 py-1 rounded-full ${order.status === 'delivered'
                         ? 'bg-green-50 text-green-700 border border-green-100'
                         : order.status === 'cancelled'
-                        ? 'bg-red-50 text-red-700 border border-red-100'
-                        : 'bg-yellow-50 text-yellow-700 border border-yellow-100'
-                    }`}>
+                          ? 'bg-red-50 text-red-700 border border-red-100'
+                          : 'bg-yellow-50 text-yellow-700 border border-yellow-100'
+                      }`}>
                       {order.status}
                     </span>
                   </div>

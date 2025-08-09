@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext } from "react";
 import { useEffect, useState } from "react";
-import { FiPlus, FiEdit2, FiTrash2, FiSearch, FiPackage  } from "react-icons/fi";
+import { FiPlus, FiEdit2, FiTrash2, FiSearch, FiPackage } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Item from "../components/Item"
@@ -47,7 +47,7 @@ const Products = () => {
                 Products
                 {filteredProducts.length > 0 && (
                   <span className="ml-2 text-sm font-medium text-gray-500 bg-gray-100 px-2.5 py-0.5 rounded-full">
-                    {filteredProducts.length} 
+                    {filteredProducts.length}
                   </span>
                 )}
               </h2>

@@ -7,9 +7,9 @@ import { toast } from 'react-toastify';
 
 const Item = ({ product, currency }) => {
 
-  const [ token, setToken ] = useState( localStorage.getItem('token') ? localStorage.getItem('token') : '' );
+  const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
   const backendUrl = "https://ecom-pro-0qxb.onrender.com";
-  
+
   const [showConfirm, setShowConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -21,7 +21,7 @@ const Item = ({ product, currency }) => {
           Authorization: `Bearer ${token}`
         }
       });
-         
+
       if (response.data.success) {
         toast.success('Product removed successfully', {
           position: 'top-right',
@@ -47,7 +47,7 @@ const Item = ({ product, currency }) => {
     }
   };
 
-  
+
 
   return (
     <div className="relative">
@@ -94,22 +94,22 @@ const Item = ({ product, currency }) => {
           </div>
 
           <div className="my-2 flex items-start">
-              {!product.stock ? (
-                <span className="inline-flex items-center px-2.5 py-2 rounded-full text-xs font-medium bg-red-50 text-red-800">
-                  no products in stock
-                </span> 
-              ) :
-              <span className="inline-flex items-center px-2.5 py-2 rounded-full text-xs font-medium bg-green-50 text-green-800">
-                  in stock ( {product.stock} )
+            {!product.stock ? (
+              <span className="inline-flex items-center px-2.5 py-2 rounded-full text-xs font-medium bg-red-50 text-red-800">
+                no products in stock
               </span>
-              }
+            ) :
+              <span className="inline-flex items-center px-2.5 py-2 rounded-full text-xs font-medium bg-green-50 text-green-800">
+                in stock ( {product.stock} )
+              </span>
+            }
           </div>
         </div>
 
         {/* Action Buttons */}
         <div className="absolute top-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
           <button className="p-2 rounded-full bg-white text-gray-600 hover:text-blue-600 shadow-sm hover:shadow-md cursor-pointer">
-            <FiEdit2 onClick={ () => { getProduct(null, product._id) } } className="w-4 h-4" />
+            <FiEdit2 onClick={() => { getProduct(null, product._id) }} className="w-4 h-4" />
           </button>
           <button
             onClick={() => setShowConfirm(true)}

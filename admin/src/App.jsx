@@ -14,23 +14,23 @@ import Settings from './pages/Settings'
 
 
 const App = () => {
-  
-  const [token, setToken] = useState( localStorage.getItem('token') ? localStorage.getItem('token') : '');
+
+  const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
   const navigate = useNavigate();
-  useEffect( () => {
+  useEffect(() => {
     localStorage.setItem('token', token)
 
     setTimeout(() => {
       localStorage.clear()
       window.location.reload()
     }, 950000);
-  },[token] )
+  }, [token])
 
   return (
     <div>
-      { token === '' || !token
-      ? <Login setToken={setToken} />
-      : 
+      {token === '' || !token
+        ? <Login setToken={setToken} />
+        :
         <>
           <Navbar setToken={setToken} />
           <div className="flex flex-row">
@@ -41,7 +41,7 @@ const App = () => {
             <div className="container">
               <Routes>
                 <Route path='/' element={<Dashbord />} />
-                <Route path='/products' element={<Products token={token}  />} />
+                <Route path='/products' element={<Products token={token} />} />
                 <Route path='/orders' element={<Orders token={token} />} />
                 <Route path='/add' element={<Add token={token} />} />
                 <Route path='/users' element={<Users token={token} />} />

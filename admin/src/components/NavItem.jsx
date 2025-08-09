@@ -6,9 +6,8 @@ const NavItem = ({ href, text, icon: Icon, className, activeClassName }) => {
     <motion.div>
       <NavLink
         to={href}
-        className={({ isActive }) => 
-          `flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${className} ${
-            isActive ? activeClassName : ''
+        className={({ isActive }) =>
+          `flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${className} ${isActive ? activeClassName : ''
           }`
         }
       >

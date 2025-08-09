@@ -4,7 +4,6 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify'
 import { assets } from '../assets/admin_assets/assets';
 
-
 // Back End Api Url
 
 const Add = ({ token }) => {
@@ -21,9 +20,43 @@ const Add = ({ token }) => {
   const [category, setCategory] = useState('Men');
   const [subCategory, setSubCategory] = useState('TopWear');
   const [price, setPrice] = useState('');
-  const [sizes, setSizes] = useState([]);
   const [bestseller, setBestseller] = useState(false);
   const [updatedProduct, setUpdatedProduct] = useState({})
+
+  // Dynamic attributes state
+  const [attributes, setAttributes] = useState({});
+  const [attrName, setAttrName] = useState('');
+  const [attrValue, setAttrValue] = useState('');
+  const [attrValues, setAttrValues] = useState([]);
+
+  // Add value to current attribute
+  const handleAddValue = () => {
+    if (attrValue && !attrValues.includes(attrValue)) {
+      setAttrValues([...attrValues, attrValue]);
+      setAttrValue('');
+    }
+  };
+
+  // Add attribute with its values
+  const handleAddAttribute = () => {
+    if (attrName && attrValues.length > 0) {
+      setAttributes({ ...attributes, [attrName]: attrValues });
+      setAttrName('');
+      setAttrValues([]);
+    }
+  };
+
+  // Remove attribute
+  const handleRemoveAttribute = (name) => {
+    const newAttrs = { ...attributes };
+    delete newAttrs[name];
+    setAttributes(newAttrs);
+  };
+
+  // Remove value from current attribute
+  const handleRemoveValue = (value) => {
+    setAttrValues(attrValues.filter(v => v !== value));
+  };
 
   const addProduct = async () => {
     const formData = new FormData();
@@ -34,11 +67,10 @@ const Add = ({ token }) => {
     formData.append('category', category);
     formData.append('subCategory', subCategory);
     formData.append('price', price);
-    // Append sizes as multiple fields
-    sizes.forEach(size => {
-      formData.append('sizes', size);
-    });
     formData.append('bestseller', bestseller);
+
+    // Append attributes as JSON string
+    formData.append('attributes', JSON.stringify(attributes));
 
     // images
     image1 && formData.append('image1', image1)
@@ -47,7 +79,6 @@ const Add = ({ token }) => {
     image4 && formData.append('image4', image4)
 
     const response = await axios.post(`${backendUrl}/api/product/add`, formData, { headers: token })
-
 
     if (response.data.success) {
       toast.success(response.data.message, {
@@ -73,7 +104,7 @@ const Add = ({ token }) => {
       setImage2(false);
       setImage3(false);
       setImage4(false);
-      setSizes([]);
+      setAttributes({});
       setBestseller(false);
 
     } else {
@@ -102,9 +133,6 @@ const Add = ({ token }) => {
     navigate('/add');
   }
 
-
-  // console.log(updatedProduct)
-
   return (
     <>
       <div className="flex flex-col justify-start shadow-md bg-white px-4 py-6 rounded-lg">
@@ -113,9 +141,8 @@ const Add = ({ token }) => {
 
           <div className="flex flex-col gap-2">
             <h3 className='text-lg font-medium'>Upload Images</h3>
-
             <div className="flex flex-row gap-3 items-center">
-
+              {/* ...image upload code unchanged... */}
               <label htmlFor="image1">
                 <img src={image1
                   ? URL.createObjectURL(image1)
@@ -130,7 +157,6 @@ const Add = ({ token }) => {
                   hidden
                 />
               </label>
-
               <label htmlFor="image2">
                 <img src={image2
                   ? URL.createObjectURL(image2)
@@ -144,7 +170,6 @@ const Add = ({ token }) => {
                   hidden
                 />
               </label>
-
               <label htmlFor="image3">
                 <img src={image3
                   ? URL.createObjectURL(image3)
@@ -158,7 +183,6 @@ const Add = ({ token }) => {
                   hidden
                 />
               </label>
-
               <label htmlFor="image4">
                 <img src={image4
                   ? URL.createObjectURL(image4)
@@ -172,7 +196,6 @@ const Add = ({ token }) => {
                   hidden
                 />
               </label>
-
             </div>
           </div>
 
@@ -199,10 +222,8 @@ const Add = ({ token }) => {
           </div>
 
           <div className="flex flex-row items-center justify-between ">
-
             <div className="flex flex-col gap-2">
               <h3 className='font-medium text-lg'>Product Category</h3>
-
               <select
                 onChange={(e) => setCategory(e.target.value)}
                 value={category}
@@ -211,12 +232,9 @@ const Add = ({ token }) => {
                 <option value="Women">Women</option>
                 <option value="Kids">Kids</option>
               </select>
-
             </div>
-
             <div className="flex flex-col gap-2">
               <h3 className='font-medium text-lg'>Sub Category</h3>
-
               <select
                 onChange={(e) => setSubCategory(e.target.value)}
                 value={subCategory}
@@ -225,9 +243,7 @@ const Add = ({ token }) => {
                 <option value="BottomWear">BottomWear</option>
                 <option value="WinterWear">WinterWear</option>
               </select>
-
             </div>
-
             <div className="flex flex-col gap-2">
               <h3 className='font-medium text-lg'>Product Price</h3>
               <input
@@ -238,7 +254,6 @@ const Add = ({ token }) => {
                 className='border border-grayBorder px-4 py-2 rounded-lg focus:ring-main focus:ring-1 outline-none'
               />
             </div>
-            
             <div className="flex flex-col gap-2">
               <h3 className='font-medium text-lg'>Stock Quantity</h3>
               <input
@@ -249,47 +264,69 @@ const Add = ({ token }) => {
                 className='border border-grayBorder px-4 py-2 rounded-lg focus:ring-main focus:ring-1 outline-none'
               />
             </div>
-
           </div>
 
+          {/* Dynamic Attributes Section */}
           <div className="flex flex-col gap-2">
-            <h3 className='text-lg font-medium'>Product Sizes</h3>
-
-            <div className="flex flex-row gap-3">
-
-              <div
-                onClick={() => setSizes(prev => prev.includes('S') ? prev.filter(item => item !== 'S') : [...prev, "S"])}
-                className={`px-4 py-2 ${sizes.includes('S') ? 'bg-gray-400' : 'bg-gray-200'} cursor-pointer rounded-lg`}>
-                <p className='font-medium text-lg'>S</p>
-              </div>
-
-              <div
-                onClick={() => setSizes(prev => prev.includes('M') ? prev.filter(item => item !== 'M') : [...prev, "M"])}
-                className={`px-4 py-2 ${sizes.includes('M') ? 'bg-gray-400' : 'bg-gray-200'} cursor-pointer rounded-lg`}>
-                <p className='font-medium text-lg'>M</p>
-              </div>
-
-              <div
-                onClick={() => setSizes(prev => prev.includes('L') ? prev.filter(item => item !== 'L') : [...prev, "L"])}
-                className={`px-4 py-2 ${sizes.includes('L') ? 'bg-gray-400' : 'bg-gray-200'} cursor-pointer rounded-lg`}>
-                <p className='font-medium text-lg'>L</p>
-              </div>
-
-              <div
-                onClick={() => setSizes(prev => prev.includes('XL') ? prev.filter(item => item !== 'XL') : [...prev, "XL"])}
-                className={`px-4 py-2 ${sizes.includes('XL') ? 'bg-gray-400' : 'bg-gray-200'} cursor-pointer rounded-lg`}>
-                <p className='font-medium text-lg'>XL</p>
-              </div>
-
-              <div
-                onClick={() => setSizes(prev => prev.includes('XXL') ? prev.filter(item => item !== 'XXL') : [...prev, "XXL"])}
-                className={`px-4 py-2 ${sizes.includes('XXL') ? 'bg-gray-400' : 'bg-gray-200'} cursor-pointer rounded-lg`}>
-                <p className='font-medium text-lg'>XXL</p>
-              </div>
-
-
+            <h3 className='text-lg font-medium'>Product Attributes</h3>
+            <div className="flex flex-row gap-2 mb-2">
+              <input
+                type="text"
+                className="border border-grayBorder px-2 py-1 rounded-lg outline-none"
+                placeholder="Attribute name (e.g. colors)"
+                value={attrName}
+                onChange={e => setAttrName(e.target.value)}
+              />
+              <input
+                type="text"
+                className="border border-grayBorder px-2 py-1 rounded-lg outline-none"
+                placeholder="Value (e.g. red)"
+                value={attrValue}
+                onChange={e => setAttrValue(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), handleAddValue())}
+              />
+              <button
+                type="button"
+                className="bg-gray-200 px-3 py-1 rounded-lg font-medium"
+                onClick={handleAddValue}
+              >
+                Add Value
+              </button>
             </div>
-
+            <div className="flex flex-row gap-2 mb-2">
+              {attrValues.map((val, idx) => (
+                <span key={idx} className="bg-indigo-100 text-indigo-700 px-2 py-1 rounded-lg flex items-center gap-1">
+                  {val}
+                  <button
+                    type="button"
+                    className="text-red-500 ml-1"
+                    onClick={() => handleRemoveValue(val)}
+                  >×</button>
+                </span>
+              ))}
+            </div>
+            <button
+              type="button"
+              className="bg-main text-white px-3 py-1 rounded-lg font-medium w-fit mb-2"
+              onClick={handleAddAttribute}
+              disabled={!attrName || attrValues.length === 0}
+            >
+              Add Attribute
+            </button>
+            {/* List of added attributes */}
+            <div className="flex flex-col gap-1">
+              {Object.entries(attributes).map(([name, values]) => (
+                <div key={name} className="flex flex-row items-center gap-2">
+                  <span className="font-semibold">{name}:</span>
+                  <span>{values.join(', ')}</span>
+                  <button
+                    type="button"
+                    className="text-red-500 ml-2"
+                    onClick={() => handleRemoveAttribute(name)}
+                  >Remove</button>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="flex flex-row gap-2 items-center">

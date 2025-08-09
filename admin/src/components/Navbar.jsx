@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { FiMenu, FiBell, FiSearch, FiUser, FiLogOut } from 'react-icons/fi';
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 
-const Navbar = ({setToken}) => {
+const Navbar = ({ setToken }) => {
   const [scrolled, setScrolled] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
 
@@ -19,8 +19,8 @@ const Navbar = ({setToken}) => {
       <div className="flex items-center justify-between">
         {/* Left section - Logo/Brand */}
         <div className="flex items-center gap-3">
-          
-            {/* <FiMenu className='rounded-full hover:bg-gray-100 transition-colors' /> */}
+
+          {/* <FiMenu className='rounded-full hover:bg-gray-100 transition-colors' /> */}
           <button className="p-2 rounded-full transition-all duration-300 hover:scale-105">
             <div className="w-8 h-8 rounded-full flex items-center justify-center 
               bg-gradient-to-tr from-main to-indigo-600 shadow-md">
@@ -58,7 +58,7 @@ const Navbar = ({setToken}) => {
 
           {/* Profile dropdown */}
           <div className="relative">
-            <button 
+            <button
               onClick={() => setProfileOpen(!profileOpen)}
               className="flex items-center space-x-2 p-1 group transition-all"
             >
@@ -70,19 +70,19 @@ const Navbar = ({setToken}) => {
             </button>
 
 
-              {profileOpen && (
+            {profileOpen && (
               <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-1 z-50 border border-gray-100 overflow-hidden">
                 <div className="px-4 py-3 bg-gradient-to-r from-main/5 to-indigo-600/5 border-b border-gray-100">
                   <p className="text-sm font-medium text-gray-800">Admin User</p>
                   <p className="text-xs text-gray-500">admin@gmail.com</p>
                 </div>
                 <button className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50/95 flex items-center gap-2 transition-colors">
-                  <FiUser className="text-main opacity-80" /> 
+                  <FiUser className="text-main opacity-80" />
                   <span className='cursor-pointer'>Profile Settings</span>
                 </button>
-                <button 
-                onClick={ () => setToken('') }
-                className="w-full cursor-pointer text-left px-4 py-2.5 text-sm text-red-600 hover:bg-gray-50/95 flex items-center gap-2 transition-colors">
+                <button
+                  onClick={() => setToken('')}
+                  className="w-full cursor-pointer text-left px-4 py-2.5 text-sm text-red-600 hover:bg-gray-50/95 flex items-center gap-2 transition-colors">
                   <FiLogOut className="text-red-500 opacity-80" />
                   <span>Logout</span>
                 </button>
