@@ -30,12 +30,23 @@ const Add = ({ token }) => {
   const [attrValues, setAttrValues] = useState([]);
 
   // Add value to current attribute
-  const handleAddValue = () => {
-    if (attrValue && !attrValues.includes(attrValue)) {
+const handleAddValue = () => {
+  if (!attrName) return; // Require attribute name
+  if (attrValue) {
+    // If attribute already exists, add value to it
+    if (attributes[attrName]) {
+      if (!attributes[attrName].includes(attrValue)) {
+        setAttributes({
+          ...attributes,
+          [attrName]: [...attributes[attrName], attrValue]
+        });
+      }
+    } else {
       setAttrValues([...attrValues, attrValue]);
-      setAttrValue('');
     }
-  };
+    setAttrValue('');
+  }
+};
 
   // Add attribute with its values
   const handleAddAttribute = () => {
