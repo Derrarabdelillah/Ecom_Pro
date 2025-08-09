@@ -37,13 +37,13 @@ const Cart = () => {
 
   const itemVariants = {
     hidden: { opacity: 0, x: -50 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
       transition: { duration: 0.3 }
     },
-    exit: { 
-      opacity: 0, 
+    exit: {
+      opacity: 0,
       x: 50,
       transition: { duration: 0.3 }
     }
@@ -123,8 +123,8 @@ const Cart = () => {
                     <div className="md:hidden flex flex-col gap-3">
                       <div className="flex gap-3">
                         <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gray-50 rounded-md overflow-hidden flex-shrink-0">
-                          <img 
-                            src={productData.image[0]} 
+                          <img
+                            src={productData.image[0]}
                             alt={productData.name}
                             className="w-full h-full object-cover"
                           />
@@ -139,7 +139,7 @@ const Cart = () => {
                           </div>
                         </div>
                       </div>
-                      
+
                       <div className="flex justify-between items-center">
                         <div className="flex items-center gap-2">
                           <motion.button
@@ -159,7 +159,7 @@ const Cart = () => {
                             +
                           </motion.button>
                         </div>
-                        
+
                         <div className="flex items-center gap-3">
                           <p className="font-medium text-sm">
                             {(productData.price * product.quantity).toFixed(2)}{currency}
@@ -180,8 +180,8 @@ const Cart = () => {
                     <div className="hidden md:grid grid-cols-12 gap-4 items-center">
                       <div className="col-span-5 flex items-center gap-4">
                         <div className="w-20 h-20 bg-gray-50 rounded-md overflow-hidden flex-shrink-0">
-                          <img 
-                            src={productData.image[0]} 
+                          <img
+                            src={productData.image[0]}
                             alt={productData.name}
                             className="w-full h-full object-cover"
                           />
@@ -243,7 +243,7 @@ const Cart = () => {
           <div className="w-full md:w-1/3">
             <div className="bg-gray-50 p-4 sm:p-6 rounded-xl sticky bottom-0 md:static border-t border-gray-200 md:border-none z-10">
               <TotalCart />
-              
+
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -252,7 +252,7 @@ const Cart = () => {
               >
                 Proceed to Checkout <FiArrowRight />
               </motion.button>
-              
+
               <p className="text-xs text-gray-500 mt-2 sm:mt-4 text-center">
                 Free shipping and returns on all orders
               </p>

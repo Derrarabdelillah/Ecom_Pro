@@ -33,66 +33,66 @@ const Login = () => {
           }
         }
       );
-      
+
       if (response.data.success) {
         const { token, user } = response.data;
 
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
-        
+
 
         toast.success('The User have been login successfuly', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                style: {
-                    fontSize: 'clamp(12px, 3vw, 16px)',
-                    maxWidth: '90vw',
-                    margin: '0 auto',
-                    width: 'auto',
-                },
-            });
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            fontSize: 'clamp(12px, 3vw, 16px)',
+            maxWidth: '90vw',
+            margin: '0 auto',
+            width: 'auto',
+          },
+        });
 
         setTimeout(() => {
           navigate('/');
         }, 3000);
       } else {
-            toast.error('Invialid Data', {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                style: {
-                    fontSize: 'clamp(12px, 3vw, 16px)',
-                    maxWidth: '90vw',
-                    margin: '0 auto',
-                    width: 'auto',
-                },
-            });
+        toast.error('Invialid Data', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          style: {
+            fontSize: 'clamp(12px, 3vw, 16px)',
+            maxWidth: '90vw',
+            margin: '0 auto',
+            width: 'auto',
+          },
+        });
       }
     } catch (error) {
       toast.error('Login Failed! Please try again', {
-                      position: "top-right",
-                      autoClose: 3000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                      style: {
-                          fontSize: 'clamp(12px, 3vw, 16px)',
-                          maxWidth: '90vw',
-                          margin: '0 auto',
-                          width: 'auto',
-                      },
-                  });
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        style: {
+          fontSize: 'clamp(12px, 3vw, 16px)',
+          maxWidth: '90vw',
+          margin: '0 auto',
+          width: 'auto',
+        },
+      });
     } finally {
       setIsLoading(false);
     }

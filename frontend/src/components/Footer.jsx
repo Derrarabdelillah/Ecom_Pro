@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <motion.footer 
+    <motion.footer
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -55,22 +55,22 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact</h3>
             <div className="flex space-x-4">
-              <motion.a 
-                href="https://web.facebook.com/Abdou.Dr.0001" 
+              <motion.a
+                href="https://web.facebook.com/Abdou.Dr.0001"
                 className="w-10 h-10 rounded-full bg-white bg-opacity-70 shadow-sm flex items-center justify-center text-gray-600 hover:text-white hover:bg-main transition"
                 whileHover={{ y: -3 }}
               >
                 <FaFacebookF />
               </motion.a>
-              <motion.a 
-                href="https://www.instagram.com/vegonix/" 
+              <motion.a
+                href="https://www.instagram.com/vegonix/"
                 className="w-10 h-10 rounded-full bg-white bg-opacity-70 shadow-sm flex items-center justify-center text-gray-600 hover:text-white hover:bg-main transition"
                 whileHover={{ y: -3 }}
               >
                 <FaInstagram />
               </motion.a>
-              <motion.a 
-                href="https://dz.linkedin.com/in/abdelillah-derrar-42a81635a" 
+              <motion.a
+                href="https://dz.linkedin.com/in/abdelillah-derrar-42a81635a"
                 className="w-10 h-10 rounded-full bg-white bg-opacity-70 shadow-sm flex items-center justify-center text-gray-600 hover:text-white hover:bg-main transition"
                 whileHover={{ y: -3 }}
               >

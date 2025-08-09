@@ -33,13 +33,13 @@ const Item = ({ product, currency }) => {
 
         {/* Quick Actions */}
         <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 space-y-2">
-          <button 
+          <button
             onClick={() => setIsWishlisted(!isWishlisted)}
             className={`p-2 cursor-pointer rounded-full shadow-md transition-colors ${isWishlisted ? 'bg-main text-white' : 'bg-white text-gray-700 hover:bg-gray-100'}`}
           >
             <FaHeart className="text-sm" />
           </button>
-          <Link 
+          <Link
             to={`/product/${product._id}`}
             className="p-2 bg-white rounded-full shadow-md text-gray-700 hover:bg-gray-100 transition-colors block"
           >
@@ -80,30 +80,15 @@ const Item = ({ product, currency }) => {
 
         {/* Quick Add */}
         <div className="mt-2">
-          {quickAddSize ? (
-            <Link to={`/product/${product._id}`}>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setQuickAddSize(null);
-                }}
-                className="w-full cursor-pointer bg-main hover:bg-main-dark text-white py-2 px-4 rounded-lg font-medium flex items-center justify-center gap-2 transition-colors"
-              >
-                <FaShoppingCart className="text-sm" />
-                Add {quickAddSize}
-              </button>
-            </Link>
-          ) : (
-            <div className="grid grid-cols-4 gap-2">
-              {product.sizes?.slice(0, 4).map((size) => (
-                <button
-                  key={size}
-                  onClick={() => setQuickAddSize(size)}
-                  className="text-xs bg-gray-100 hover:bg-gray-200 py-2 px-1 rounded transition-colors truncate"
-                >
-                  {size}
-                </button>
-              ))}
+          {/* add the the first attribute */}
+          {product.attributes?.[0] && (
+            <div className="flex items-center">
+              <span className="text-sm text-gray-600 mr-2">
+                {product.attributes[0].name}:
+              </span>
+              <span className="font-medium text-gray-900">
+                {product.attributes[0].value}
+              </span>
             </div>
           )}
         </div>

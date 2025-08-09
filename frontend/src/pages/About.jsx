@@ -4,51 +4,51 @@ import { FaFacebookF, FaLinkedinIn } from 'react-icons/fa';
 
 const About = () => {
   const features = [
-    { 
-      icon: <FiSettings size={24} />, 
-      name: 'Admin Dashboard', 
-      description: 'Complete control panel with real-time business metrics' 
+    {
+      icon: <FiSettings size={24} />,
+      name: 'Admin Dashboard',
+      description: 'Complete control panel with real-time business metrics'
     },
-    { 
-      icon: <FiShoppingBag size={24} />, 
-      name: 'Product Management', 
-      description: 'Add, edit, and organize inventory with bulk actions' 
+    {
+      icon: <FiShoppingBag size={24} />,
+      name: 'Product Management',
+      description: 'Add, edit, and organize inventory with bulk actions'
     },
-    { 
-      icon: <FiLayers size={24} />, 
-      name: 'Stock Control', 
-      description: 'Automated inventory tracking with low-stock alerts' 
+    {
+      icon: <FiLayers size={24} />,
+      name: 'Stock Control',
+      description: 'Automated inventory tracking with low-stock alerts'
     },
-    { 
-      icon: <FiUsers size={24} />, 
-      name: 'Order Processing', 
-      description: 'Manage orders, returns, and customer communications' 
+    {
+      icon: <FiUsers size={24} />,
+      name: 'Order Processing',
+      description: 'Manage orders, returns, and customer communications'
     },
-    { 
-      icon: <FiTruck size={24} />, 
-      name: 'Shipping System', 
-      description: 'Integrated carriers with automatic label generation' 
+    {
+      icon: <FiTruck size={24} />,
+      name: 'Shipping System',
+      description: 'Integrated carriers with automatic label generation'
     },
-    { 
-      icon: <FiDollarSign size={24} />, 
-      name: 'Financial Reports', 
-      description: 'Sales analytics, tax calculations, and P&L statements' 
+    {
+      icon: <FiDollarSign size={24} />,
+      name: 'Financial Reports',
+      description: 'Sales analytics, tax calculations, and P&L statements'
     },
-    { 
-      icon: <FiPieChart size={24} />, 
-      name: 'Business Analytics', 
-      description: 'Customizable dashboards with conversion tracking' 
+    {
+      icon: <FiPieChart size={24} />,
+      name: 'Business Analytics',
+      description: 'Customizable dashboards with conversion tracking'
     },
-    { 
-      icon: <FiUsers size={24} />, 
-      name: 'Team Management', 
-      description: 'Role-based permissions and staff performance tracking' 
+    {
+      icon: <FiUsers size={24} />,
+      name: 'Team Management',
+      description: 'Role-based permissions and staff performance tracking'
     }
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6 flex items-center justify-center">
-      <motion.div 
+      <motion.div
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -60,7 +60,7 @@ const About = () => {
             <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-white"></div>
             <div className="absolute bottom-1/3 right-1/4 w-40 h-40 rounded-full bg-white"></div>
           </div>
-          
+
           <motion.div
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
@@ -82,7 +82,7 @@ const About = () => {
             Everything you need to manage your online business efficiently
           </p>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ staggerChildren: 0.1 }}
@@ -117,7 +117,7 @@ const About = () => {
               <p className="text-gray-600 mb-6">
                 Be the first to experience our powerful e-commerce management platform
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
                 <input
                   type="email"
@@ -132,7 +132,7 @@ const About = () => {
                   Request Access <FiArrowRight />
                 </motion.button>
               </div>
-              
+
               <p className="text-xs text-gray-500 mt-4">
                 We respect your privacy. Unsubscribe at any time.
               </p>
@@ -144,7 +144,7 @@ const About = () => {
         <div className="bg-gray-50 px-8 py-6 border-t border-gray-100">
           <div className="flex flex-col items-center">
             {/* Social Links */}
-            <motion.div 
+            <motion.div
               className="flex gap-4 mb-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -159,7 +159,7 @@ const About = () => {
               >
                 <FaFacebookF className="text-lg" />
               </motion.a>
-              
+
               <motion.a
                 href="https://www.linkedin.com/in/abdelillah-derrar-42a81635a"
                 target="_blank"
@@ -170,7 +170,7 @@ const About = () => {
                 <FaLinkedinIn className="text-lg" />
               </motion.a>
             </motion.div>
-            
+
             <p className="text-gray-500 text-sm">
               © {new Date().getFullYear()} Ecom Pro. All rights reserved.
             </p>

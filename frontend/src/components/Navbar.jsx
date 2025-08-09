@@ -43,7 +43,7 @@ const Navbar = () => {
     const logOut = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        setCartItems({}); 
+        setCartItems({});
     }
 
     return (
@@ -127,9 +127,9 @@ const Navbar = () => {
                                         My Orders
                                     </Link>
                                     <button
-                                        onClick={ () => { 
+                                        onClick={() => {
                                             logOut()
-                                        } }
+                                        }}
                                         className="block cursor-pointer w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-main"
                                     >
                                         Logout

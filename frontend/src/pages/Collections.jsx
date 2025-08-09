@@ -165,8 +165,8 @@ const Collections = () => {
                 </svg>
                 <h3 className="mt-4 text-lg font-medium text-gray-900">No products found</h3>
                 <p className="mt-2 text-gray-600">
-                  {search 
-                    ? `No matches for "${search}"` 
+                  {search
+                    ? `No matches for "${search}"`
                     : "Try adjusting your filters"}
                 </p>
                 <button

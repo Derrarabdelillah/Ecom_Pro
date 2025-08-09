@@ -11,8 +11,8 @@ const ProductDisplay = () => {
   // Empty state variants for animation
   const emptyStateVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: { duration: 0.6, ease: "easeOut" }
     }
@@ -93,7 +93,7 @@ const ProductDisplay = () => {
               Fresh arrivals that redefine contemporary style
             </p>
           </motion.div>
-          
+
           <Link to='/collections' >
             <motion.button
               whileHover={{ scale: 1.05 }}

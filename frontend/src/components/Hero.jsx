@@ -8,7 +8,7 @@ const Hero = () => {
         <div className="absolute -right-64 -top-64 w-96 h-96 bg-main/10 rounded-full mix-blend-multiply filter blur-3xl"></div>
         <div className="absolute -left-64 -bottom-64 w-96 h-96 bg-indigo-600/10 rounded-full mix-blend-multiply filter blur-3xl"></div>
       </div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-12">
@@ -29,7 +29,7 @@ const Hero = () => {
             </div>
 
           </div>
-          
+
           <div className="md:w-1/2">
             {/* Abstract placeholder for visual balance */}
             <div className="relative">

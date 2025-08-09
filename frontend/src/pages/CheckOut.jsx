@@ -13,7 +13,7 @@ const CheckOut = () => {
     selectedWilaya,
     algerianWilayas,
     handleWilayaChange,
-    getCartAmount, 
+    getCartAmount,
     delivery_fee,
     getTotalWithDelivery,
     getCartProductsArray,
@@ -22,8 +22,8 @@ const CheckOut = () => {
     user,
     userId,
     token
-  } = useContext(productsContext); 
-  
+  } = useContext(productsContext);
+
   const [deliveryInfos, setDeliveryInfos] = useState({
     firstName: '',
     lastName: '',
@@ -45,7 +45,7 @@ const CheckOut = () => {
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
   const [orderData, setOrderData] = useState(null);
-  
+
   const customer = `${deliveryInfos.firstName} ${deliveryInfos.lastName}`;
   const products = getCartProductsArray();
 
@@ -127,11 +127,11 @@ const CheckOut = () => {
 
   const onChnageHandler = (event) => {
     const { name, value } = event.target;
-    setDeliveryInfos(data => ({...data, [name]: value}));
-    
+    setDeliveryInfos(data => ({ ...data, [name]: value }));
+
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors(prev => ({...prev, [name]: ''}));
+      setErrors(prev => ({ ...prev, [name]: '' }));
     }
   };
 
@@ -156,13 +156,13 @@ const CheckOut = () => {
         })),
         deliveryInfos: deliveryInfos,
       };
-      
+
       const response = await axios.post(`${backendUrl}/api/orders/placeOrder`, orderData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      
+
       if (response.data.success) {
         setOrderData(response.data.order);
         setCartItems({});
@@ -188,13 +188,13 @@ const CheckOut = () => {
       {/* Order Success Modal */}
       <AnimatePresence>
         {orderSuccess && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-gray-200 bg-opacity-50 flex items-center justify-center z-50 p-4"
           >
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               className="bg-white rounded-2xl p-6 max-w-md w-full shadow-xl"
@@ -208,7 +208,7 @@ const CheckOut = () => {
                   Your order <span className="font-semibold">#{orderData?.orderNumber}</span> is confirmed
                 </p>
                 <p className="text-sm text-gray-500 mb-6">We've sent a confirmation to your email</p>
-                
+
                 <div className="border-t border-gray-200 pt-4 mb-6">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-gray-600 flex items-center">
@@ -229,7 +229,7 @@ const CheckOut = () => {
                     <span className="font-medium text-lg">{orderData?.totalAmount} DZD</span>
                   </div>
                 </div>
-                
+
                 <div className="flex gap-3">
                   <button
                     onClick={() => setOrderSuccess(false)}
@@ -244,7 +244,7 @@ const CheckOut = () => {
         )}
       </AnimatePresence>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col lg:flex-row gap-8"
@@ -257,7 +257,7 @@ const CheckOut = () => {
             transition={{ delay: 0.1 }}
           >
             <h2 className="text-2xl font-bold mb-6">Delivery Information</h2>
-            
+
             <div className="bg-white rounded-xl shadow-sm p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
@@ -266,7 +266,7 @@ const CheckOut = () => {
                     onChange={onChnageHandler}
                     name="firstName"
                     value={deliveryInfos.firstName}
-                    type="text" 
+                    type="text"
                     className={`outline-none w-full border ${errors.firstName ? 'border-red-500' : 'border-gray-300'} px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent`}
                     placeholder="John"
                   />
@@ -278,11 +278,11 @@ const CheckOut = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
-                  <input 
+                  <input
                     onChange={onChnageHandler}
                     name="lastName"
                     value={deliveryInfos.lastName}
-                    type="text" 
+                    type="text"
                     className={`outline-none w-full border ${errors.lastName ? 'border-red-500' : 'border-gray-300'} px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent`}
                     placeholder="Doe"
                   />
@@ -296,11 +296,11 @@ const CheckOut = () => {
 
               <div className="mb-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
-                <input 
+                <input
                   onChange={onChnageHandler}
                   name="email"
-                  value={deliveryInfos.email}                  
-                  type="email" 
+                  value={deliveryInfos.email}
+                  type="email"
                   className={`outline-none w-full border ${errors.email ? 'border-red-500' : 'border-gray-300'} px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent`}
                   placeholder="your@email.com"
                 />
@@ -316,8 +316,8 @@ const CheckOut = () => {
                 <input
                   onChange={onChnageHandler}
                   name="street"
-                  value={deliveryInfos.street} 
-                  type="text" 
+                  value={deliveryInfos.street}
+                  type="text"
                   className={`outline-none w-full border ${errors.street ? 'border-red-500' : 'border-gray-300'} px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent`}
                   placeholder="123 Main Street"
                 />
@@ -331,13 +331,13 @@ const CheckOut = () => {
               <div className="grid grid-cols-1 mb-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Wilaya *</label>
-                  <select 
+                  <select
                     className={`outline-none w-full border ${errors.wilaya ? 'border-red-500' : 'border-gray-300'} px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent`}
                     value={selectedWilaya}
                     onChange={(e) => {
                       handleWilayaChange(e.target.value);
                       if (errors.wilaya) {
-                        setErrors(prev => ({...prev, wilaya: ''}));
+                        setErrors(prev => ({ ...prev, wilaya: '' }));
                       }
                     }}
                     required
@@ -360,22 +360,22 @@ const CheckOut = () => {
               <div className="grid grid-cols-1">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     className="outline-none w-full border border-gray-300 px-4 py-3 rounded-lg bg-gray-100"
-                    value="Algeria" 
-                    readOnly 
+                    value="Algeria"
+                    readOnly
                   />
                 </div>
               </div>
 
               <div className="mt-4">
                 <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number *</label>
-                <input 
+                <input
                   onChange={onChnageHandler}
                   name="phone"
-                  value={deliveryInfos.phone} 
-                  type="tel" 
+                  value={deliveryInfos.phone}
+                  type="tel"
                   className={`outline-none w-full border ${errors.phone ? 'border-red-500' : 'border-gray-300'} px-4 py-3 rounded-lg focus:ring-2 focus:ring-main focus:border-transparent`}
                   placeholder="0550123456"
                 />
@@ -396,10 +396,10 @@ const CheckOut = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            
+
             <div className="bg-white rounded-xl shadow-sm p-6">
               <TotalCart widt='w-full' />
-              
+
               <div className="mt-8">
                 <h3 className="text-lg font-bold mb-4">Payment Method</h3>
                 <div className="flex items-center gap-3 p-4 border border-gray-200 rounded-lg bg-gray-50">

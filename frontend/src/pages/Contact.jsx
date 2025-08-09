@@ -5,7 +5,7 @@ import { FaFacebookF, FaLinkedinIn, FaInstagram } from 'react-icons/fa';
 const Contact = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-6 flex items-center justify-center">
-      <motion.div 
+      <motion.div
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -17,7 +17,7 @@ const Contact = () => {
             <div className="absolute top-1/4 left-1/4 w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-white"></div>
             <div className="absolute bottom-1/3 right-1/4 w-28 h-28 sm:w-40 sm:h-40 rounded-full bg-white"></div>
           </div>
-          
+
           <motion.div
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
@@ -43,7 +43,7 @@ const Contact = () => {
           >
             <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-1 sm:mb-2">Get in Touch</h2>
             <p className="text-gray-600 text-sm sm:text-base">
-              Have questions about our platform? Want to discuss partnership opportunities? 
+              Have questions about our platform? Want to discuss partnership opportunities?
               Fill out the form or contact us directly.
             </p>
 
@@ -81,7 +81,7 @@ const Contact = () => {
                 >
                   <FaFacebookF className="text-sm sm:text-base" />
                 </motion.a>
-                
+
                 <motion.a
                   href="https://dz.linkedin.com/in/abdelillah-derrar-42a81635a"
                   target="_blank"
@@ -92,8 +92,8 @@ const Contact = () => {
                   <FaLinkedinIn className="text-sm sm:text-base" />
                 </motion.a>
 
-                <motion.a 
-                  href="https://www.instagram.com/vegonix/" 
+                <motion.a
+                  href="https://www.instagram.com/vegonix/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 hover:bg-main hover:text-white transition-colors text-gray-700 flex items-center justify-center"

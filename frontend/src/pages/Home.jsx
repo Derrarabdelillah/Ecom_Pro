@@ -78,11 +78,11 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-  // Hide loading when products are available
-  if (products && products.length > 0) {
-    setIsLoading(false);
-  }
-}, [products]);
+    // Hide loading when products are available
+    if (products && products.length > 0) {
+      setIsLoading(false);
+    }
+  }, [products]);
 
   // Loading Spinner Component
   const LoadingSpinner = () => (
@@ -93,12 +93,12 @@ const Home = () => {
       className="fixed inset-0 bg-white z-50 flex items-center justify-center"
     >
       <motion.div
-        animate={{ 
+        animate={{
           rotate: 360,
           scale: [1, 1.1, 1]
         }}
-        transition={{ 
-          repeat: Infinity, 
+        transition={{
+          repeat: Infinity,
           duration: 1.5,
           ease: "linear"
         }}
@@ -121,7 +121,7 @@ const Home = () => {
         className="relative"
       >
         <Hero />
-        <motion.div 
+        <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.5, type: "spring" }}
@@ -170,14 +170,14 @@ const Home = () => {
                 bg: "bg-purple-50"
               }
             ].map((item, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 variants={slideUp}
                 whileHover={{ y: -5 }}
                 className={`${item.bg} p-6 rounded-xl hover:shadow-lg transition-all duration-300 cursor-default`}
               >
                 <div className="flex items-start gap-4">
-                  <motion.div 
+                  <motion.div
                     whileHover={{ rotate: 10 }}
                     className={`p-3 rounded-lg ${item.bg.replace('50', '100')}`}
                   >
@@ -206,7 +206,7 @@ const Home = () => {
           <motion.h2 variants={slideUp} className="text-3xl font-bold text-center mb-12 text-gray-900">
             Shop by Category
           </motion.h2>
-          
+
           <Swiper
             slidesPerView={1}
             spaceBetween={20}
@@ -221,31 +221,31 @@ const Home = () => {
             className="mySwiper"
           >
             {[
-              { 
-                name: "Men's Collection", 
+              {
+                name: "Men's Collection",
                 image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
                 link: "/collections"
               },
-              { 
-                name: "Women's Collection", 
+              {
+                name: "Women's Collection",
                 image: "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
                 link: "/collections"
               },
-              { 
-                name: "New Arrivals", 
+              {
+                name: "New Arrivals",
                 image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
                 link: "/collections"
               },
-              { 
-                name: "Bestsellers", 
+              {
+                name: "Bestsellers",
                 image: "https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
                 link: "/collections"
               }
             ].map((category, index) => (
               <SwiperSlide key={index}>
                 <Link to={category.link} className="group relative overflow-hidden rounded-xl aspect-square block">
-                  <motion.img 
-                    src={category.image} 
+                  <motion.img
+                    src={category.image}
                     alt={category.name}
                     className="w-full h-full object-cover"
                     whileHover={{ scale: 1.05 }}
@@ -255,13 +255,13 @@ const Home = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
                     <h3 className="text-white font-medium text-lg">{category.name}</h3>
                   </div>
-                  <motion.div 
+                  <motion.div
                     className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100"
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <motion.button 
+                    <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       className="bg-white text-main px-4 py-2 rounded-lg font-medium hover:bg-gray-100 transition-colors cursor-pointer"
@@ -304,16 +304,16 @@ const Home = () => {
               ))}
             </div>
           </motion.div> */}
-          
+
           <ProductDisplay />
 
-          {productsContext.products ? (          
-            <motion.div 
+          {productsContext.products ? (
+            <motion.div
               variants={slideUp}
               className="text-center mt-8 cursor-pointer"
             >
-              <Link 
-                to="/collections" 
+              <Link
+                to="/collections"
                 className="px-6 py-3 bg-main text-white font-medium rounded-lg hover:bg-main/90 transition-colors flex items-center justify-center gap-2 mx-auto w-fit cursor-pointer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -334,7 +334,7 @@ const Home = () => {
         className="bg-gradient-to-r from-main to-indigo-600 text-white py-12 px-4"
       >
         <div className="max-w-4xl mx-auto text-center">
-          <motion.h2 
+          <motion.h2
             className="text-2xl md:text-3xl font-bold mb-4"
             whileInView={{ scale: [0.9, 1.03, 1] }}
             viewport={{ once: true }}
@@ -342,7 +342,7 @@ const Home = () => {
           >
             Limited Time Offer!
           </motion.h2>
-          <motion.span 
+          <motion.span
             className="text-lg text-gray-200"
             whileInView={{ scale: [0.95, 1] }}
             viewport={{ once: true }}
@@ -350,7 +350,7 @@ const Home = () => {
           >
             Get 20% off your first order with code WELCOME20
           </motion.span>
-          <motion.div 
+          <motion.div
             className="flex items-center justify-center gap-2 my-4"
             variants={staggerContainer}
             initial="hidden"
@@ -358,7 +358,7 @@ const Home = () => {
             viewport={{ once: true }}
           >
             {['02', '14', '45'].map((time, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 variants={slideUp}
                 whileHover={{ y: -5 }}
@@ -371,8 +371,8 @@ const Home = () => {
               </motion.div>
             ))}
           </motion.div>
-          <Link 
-            to="/collections" 
+          <Link
+            to="/collections"
             className="px-6 py-3 bg-white text-main font-medium rounded-lg hover:bg-gray-100 transition-colors inline-block cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -383,7 +383,7 @@ const Home = () => {
       </motion.div>
 
       {/* Enhanced Testimonials Section */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -408,8 +408,8 @@ const Home = () => {
                 className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all"
               >
                 <div className="flex items-center mb-4">
-                  <img 
-                    src={testimonial.image} 
+                  <img
+                    src={testimonial.image}
                     alt={testimonial.name}
                     className="w-12 h-12 rounded-full object-cover mr-4"
                   />
@@ -420,9 +420,9 @@ const Home = () => {
                 </div>
                 <div className="flex mb-3">
                   {[...Array(5)].map((_, i) => (
-                    <FaStar 
-                      key={i} 
-                      className={`${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'} w-5 h-5`} 
+                    <FaStar
+                      key={i}
+                      className={`${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'} w-5 h-5`}
                     />
                   ))}
                 </div>
@@ -437,7 +437,7 @@ const Home = () => {
       </motion.div>
 
       {/* New Minimalist Feature Section */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -445,7 +445,7 @@ const Home = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <motion.h2 
+            <motion.h2
               initial={{ y: 20 }}
               whileInView={{ y: 0 }}
               viewport={{ once: true }}
@@ -504,8 +504,8 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-center mt-12"
           >
-            <Link 
-              to="/register" 
+            <Link
+              to="/register"
               className="inline-flex items-center px-6 py-3 bg-main text-white font-medium rounded-lg hover:bg-main/90 transition-colors"
             >
               Explore All Features <FiArrowRight className="ml-2" />

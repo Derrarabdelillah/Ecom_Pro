@@ -31,7 +31,7 @@ const Profile = () => {
 
         {/* Features Grid */}
         <div className="p-8">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ staggerChildren: 0.1 }}

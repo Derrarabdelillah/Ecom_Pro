@@ -19,7 +19,7 @@ const Orders = () => {
   //       userId: userId
   //     } }
   //   )
-    
+
   //   return console.log(response)
   //   } catch (error) {
   //     console.log( 'orders front end error ' + error)
@@ -32,20 +32,20 @@ const Orders = () => {
   console.log(orders)
   return (
     <div className="container flex flex-col gap-3 my-5" >
-        <h2 className="text-2xl font-bold" >Delivery Informations</h2>
+      <h2 className="text-2xl font-bold" >Delivery Informations</h2>
 
-        <div className="flex flex-col gap-3">
-          
-          {
-            orders.map( (product) => {
-              return (
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between py-4 px-2 border-b border-grayBorder ">
-                  
+      <div className="flex flex-col gap-3">
+
+        {
+          orders.map((product) => {
+            return (
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between py-4 px-2 border-b border-grayBorder ">
+
                 <div className="flex gap-4 items-center">
                   {/* Product Image */}
                   <div className="w-20 h-20 flex-shrink-0 border border-gray-200 rounded-lg overflow-hidden ">
-                    <img 
-                      src={product.image[0]} 
+                    <img
+                      src={product.image[0]}
                       alt={product.name}
                       className="w-full h-full object-cover"
                     />
@@ -54,7 +54,7 @@ const Orders = () => {
                   {/* Product Details */}
                   <div className="flex-1">
                     <h3 className="text-lg font-medium text-gray-900 mb-1">{product.name}</h3>
-                    
+
                     {/* Price and Info */}
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm mb-2">
                       <span className="font-semibold text-gray-800">{product.price}{currency}</span>
@@ -64,7 +64,7 @@ const Orders = () => {
 
                     {/* Order Details */}
                     <div className="flex flex-col gap-1 text-sm">
-                      
+
                       <div>
                         <span className="font-medium text-gray-700">Date: </span>
                         <span className="text-gray-600">Tue, Jul 15, 2025</span>
@@ -76,7 +76,7 @@ const Orders = () => {
                       </div>
 
                     </div>
-                    
+
                   </div>
                 </div>
 
@@ -86,7 +86,7 @@ const Orders = () => {
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                   </span>
                   pending..
-                </div>  
+                </div>
 
                 {/* Modern Track Order Button */}
                 <button className="px-4 py-2 border border-gray-300 rounded-lg font-medium text-sm text-gray-700 flex items-center justify-center gap-2">
@@ -96,12 +96,12 @@ const Orders = () => {
                   </svg>
                   Tracking...
                 </button>
-                </div>
-              )
-            } )
-          }
+              </div>
+            )
+          })
+        }
 
-        </div>
+      </div>
     </div>
   )
 }
