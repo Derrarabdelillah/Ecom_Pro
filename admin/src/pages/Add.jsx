@@ -277,68 +277,72 @@ const handleAddValue = () => {
             </div>
           </div>
 
-          {/* Dynamic Attributes Section */}
-          <div className="flex flex-col gap-2">
-            <h3 className='text-lg font-medium'>Product Attributes</h3>
-            <div className="flex flex-row gap-2 mb-2">
-              <input
-                type="text"
-                className="border border-grayBorder px-2 py-1 rounded-lg outline-none"
-                placeholder="Attribute name (e.g. colors)"
-                value={attrName}
-                onChange={e => setAttrName(e.target.value)}
-              />
-              <input
-                type="text"
-                className="border border-grayBorder px-2 py-1 rounded-lg outline-none"
-                placeholder="Value (e.g. red)"
-                value={attrValue}
-                onChange={e => setAttrValue(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), handleAddValue())}
-              />
-              <button
-                type="button"
-                className="bg-gray-200 px-3 py-1 rounded-lg font-medium"
-                onClick={handleAddValue}
-              >
-                Add Value
-              </button>
-            </div>
-            <div className="flex flex-row gap-2 mb-2">
-              {attrValues.map((val, idx) => (
-                <span key={idx} className="bg-indigo-100 text-indigo-700 px-2 py-1 rounded-lg flex items-center gap-1">
-                  {val}
-                  <button
-                    type="button"
-                    className="text-red-500 ml-1"
-                    onClick={() => handleRemoveValue(val)}
-                  >×</button>
-                </span>
-              ))}
-            </div>
-            <button
-              type="button"
-              className="bg-main text-white px-3 py-1 rounded-lg font-medium w-fit mb-2"
-              onClick={handleAddAttribute}
-              disabled={!attrName || attrValues.length === 0}
-            >
-              Add Attribute
-            </button>
-            {/* List of added attributes */}
-            <div className="flex flex-col gap-1">
-              {Object.entries(attributes).map(([name, values]) => (
-                <div key={name} className="flex flex-row items-center gap-2">
-                  <span className="font-semibold">{name}:</span>
-                  <span>{values.join(', ')}</span>
-                  <button
-                    type="button"
-                    className="text-red-500 ml-2"
-                    onClick={() => handleRemoveAttribute(name)}
-                  >Remove</button>
-                </div>
-              ))}
-            </div>
-          </div>
+{/* Dynamic Attributes Section */}
+<div className="flex flex-col gap-2">
+  <h3 className='text-lg font-medium'>Product Attributes</h3>
+  <div className="flex flex-row gap-2 mb-2">
+    <input
+      type="text"
+      className="border border-grayBorder px-2 py-1 rounded-lg outline-none"
+      placeholder="Attribute name (e.g. colors)"
+      value={attrName}
+      onChange={e => setAttrName(e.target.value)}
+    />
+    <input
+      type="text"
+      className="border border-grayBorder px-2 py-1 rounded-lg outline-none"
+      placeholder="Value (e.g. red)"
+      value={attrValue}
+      onChange={e => setAttrValue(e.target.value)}
+      onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), handleAddValue())}
+    />
+    <button
+      type="button"
+      className="bg-gray-200 hover:bg-main hover:text-white px-3 py-1 rounded-lg font-medium transition"
+      onClick={handleAddValue}
+    >
+      Add Value
+    </button>
+  </div>
+  <div className="flex flex-row gap-2 mb-2 flex-wrap">
+    {attrValues.map((val, idx) => (
+      <span key={idx} className="bg-indigo-100 text-indigo-700 px-2 py-1 rounded-lg flex items-center gap-1">
+        {val}
+        <button
+          type="button"
+          className="text-red-500 ml-1 font-bold"
+          onClick={() => handleRemoveValue(val)}
+        >×</button>
+      </span>
+    ))}
+  </div>
+  <button
+    type="button"
+    className="bg-main text-white px-3 py-1 rounded-lg font-medium w-fit mb-2 hover:bg-indigo-700 transition"
+    onClick={handleAddAttribute}
+    disabled={!attrName || attrValues.length === 0}
+  >
+    Add Attribute
+  </button>
+  {/* List of added attributes */}
+  <div className="flex flex-col gap-2">
+    {Object.entries(attributes).map(([name, values]) => (
+      <div key={name} className="flex flex-row items-center gap-2 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
+        <span className="font-semibold capitalize">{name}:</span>
+        <div className="flex flex-row gap-1 flex-wrap">
+          {values.map((v, i) => (
+            <span key={i} className="bg-indigo-100 text-indigo-700 px-2 py-1 rounded-lg">{v}</span>
+          ))}
+        </div>
+        <button
+          type="button"
+          className="text-red-500 ml-2 font-bold"
+          onClick={() => handleRemoveAttribute(name)}
+        >Remove</button>
+      </div>
+    ))}
+  </div>
+</div>
 
           <div className="flex flex-row gap-2 items-center">
             <input
