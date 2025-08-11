@@ -21,10 +21,10 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem('token', token)
 
-    setTimeout(() => {
-      localStorage.clear()
-      window.location.reload()
-    }, 950000);
+    // setTimeout(() => {
+    //   localStorage.clear()
+    //   window.location.reload()
+    // }, 950000);
   }, [token])
 
   return (
