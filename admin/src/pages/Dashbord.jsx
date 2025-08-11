@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
   const [isLoading, setIsLoading] = useState(true);
   const currency = 'DZD';
-  const backendUrl = "https://ecom-pro-0qxb.onrender.com0";
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
   const navigate = useNavigate();
   const [stats, setStats] = useState({
