@@ -14,12 +14,12 @@ const Cart = () => {
   useEffect(() => {
     const tempData = [];
     for (const items in cartItems) {
-      for (const inSize in cartItems[items]) {
-        if (cartItems[items][inSize] > 0) {
+      for (const attrKey in cartItems[items]) {
+        if (cartItems[items][attrKey] > 0) {
           tempData.push({
             _id: items,
-            size: inSize,
-            quantity: cartItems[items][inSize]
+            attributes: JSON.parse(attrKey),
+            quantity: cartItems[items][attrKey]
           })
         }
       }
@@ -27,13 +27,15 @@ const Cart = () => {
     setCartData(tempData);
   }, [cartItems]);
 
-  const handleRemoveItem = (productId, size) => {
+  const handleRemoveItem = (productId, attributes) => {
     setIsAnimatingOut(true);
     setTimeout(() => {
-      updateQuantity(productId, size, 0);
+      updateQuantity(productId, attributes, 0);
       setIsAnimatingOut(false);
     }, 300);
   };
+
+  console.log(cartData)
 
   const itemVariants = {
     hidden: { opacity: 0, x: -50 },
@@ -112,7 +114,7 @@ const Cart = () => {
 
                 return (
                   <motion.div
-                    key={`${product._id}-${product.size}`}
+                    key={`${product._id}`}
                     variants={itemVariants}
                     initial="hidden"
                     animate="visible"
@@ -130,21 +132,23 @@ const Cart = () => {
                           />
                         </div>
                         <div className="flex-1">
-                          <h3 className="font-medium text-sm sm:text-base">{productData.name}</h3>
-                          <p className="text-gray-500 text-sm">{productData.price}{currency}</p>
-                          <div className="mt-1">
-                            <span className="px-2 py-1 border rounded-md text-xs bg-white border-gray-200">
-                              Size: {product.size}
-                            </span>
-                          </div>
+                          {Object.entries(product.attributes).map(([name, values]) => (
+                            <div className="border rounded-md text-sm bg-white border-gray-200 px-3 py-1 my-1" key={Math.random()}>
+                              <span className="text-gray-500">{name.toLowerCase()}: </span>
+                              <span className="text-gray-500">
+                                {values}
+                              </span>
+                            </div>
+                          ))}
                         </div>
+                        
                       </div>
 
                       <div className="flex justify-between items-center">
                         <div className="flex items-center gap-2">
                           <motion.button
                             whileTap={{ scale: 0.9 }}
-                            onClick={() => updateQuantity(product._id, product.size, product.quantity - 1)}
+                            onClick={() => updateQuantity(product._id, product.attributes, product.quantity - 1)}
                             className="w-6 h-6 flex items-center justify-center border rounded-md hover:bg-gray-50 text-sm"
                             disabled={product.quantity <= 1}
                           >
@@ -153,7 +157,7 @@ const Cart = () => {
                           <span className="w-8 text-center text-sm">{product.quantity}</span>
                           <motion.button
                             whileTap={{ scale: 0.9 }}
-                            onClick={() => updateQuantity(product._id, product.size, product.quantity + 1)}
+                            onClick={() => updateQuantity(product._id, product.attributes, product.quantity + 1)}
                             className="w-6 h-6 flex items-center justify-center border rounded-md hover:bg-gray-50 text-sm"
                           >
                             +
@@ -167,7 +171,7 @@ const Cart = () => {
                           <motion.button
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
-                            onClick={() => handleRemoveItem(product._id, product.size)}
+                            onClick={() => handleRemoveItem(product._id, product.attributes)}
                             className="text-gray-400 hover:text-red-500 transition-colors"
                           >
                             <FiTrash2 className="w-4 h-4" />
@@ -193,8 +197,14 @@ const Cart = () => {
                       </div>
 
                       <div className="col-span-2">
-                        <span className="px-3 py-1 border rounded-md text-sm bg-white border-gray-200">
-                          {product.size}
+                        <span className="">
+                          {Object.entries(product.attributes).map(([name, values]) => (
+                            <div className="flex flex-col" key={Math.random()}>
+                              <span className="text-gray-500 my-1 px-3 py-1 border rounded-md text-sm bg-white border-gray-200">
+                              {name.toLowerCase()}: {values}
+                              </span>
+                            </div>
+                          ))}
                         </span>
                       </div>
 
@@ -202,7 +212,7 @@ const Cart = () => {
                         <div className="flex items-center gap-2">
                           <motion.button
                             whileTap={{ scale: 0.9 }}
-                            onClick={() => updateQuantity(product._id, product.size, product.quantity - 1)}
+                            onClick={() => updateQuantity(product._id, product.attributes, product.quantity - 1)}
                             className="w-8 h-8 flex items-center justify-center border rounded-md hover:bg-gray-50"
                             disabled={product.quantity <= 1}
                           >
@@ -211,7 +221,7 @@ const Cart = () => {
                           <span className="w-12 text-center">{product.quantity}</span>
                           <motion.button
                             whileTap={{ scale: 0.9 }}
-                            onClick={() => updateQuantity(product._id, product.size, product.quantity + 1)}
+                            onClick={() => updateQuantity(product._id, product.attributes, product.quantity + 1)}
                             className="w-8 h-8 flex items-center justify-center border rounded-md hover:bg-gray-50"
                           >
                             +
@@ -226,7 +236,7 @@ const Cart = () => {
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
-                          onClick={() => handleRemoveItem(product._id, product.size)}
+                          onClick={() => handleRemoveItem(product._id, product.attributes)}
                           className="text-gray-400 hover:text-red-500 transition-colors"
                         >
                           <FiTrash2 />

@@ -18,6 +18,7 @@ const CheckOut = () => {
     getTotalWithDelivery,
     getCartProductsArray,
     backendUrl,
+    cartItems,
     setCartItems,
     user,
     userId,
@@ -135,6 +136,7 @@ const CheckOut = () => {
     }
   };
 
+  
   const placeOrder = async () => {
     if (!validateForm()) {
       return;
@@ -150,10 +152,11 @@ const CheckOut = () => {
           name: item.name,
           price: item.price,
           quantity: item.quantity,
-          size: item.size,
           image: item.image[0],
-          category: item.category
+          category: item.category,
+          attributes: item.attributes
         })),
+
         deliveryInfos: deliveryInfos,
       };
 

@@ -11,6 +11,14 @@ const Product = () => {
   const [image, setImage] = useState('');
   const [size, setSize] = useState('');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [selectedAttributes, setSelectedAttributes] = useState({})
+
+  const handlAddAttributeSelect = (attrName, value) => {
+    setSelectedAttributes( prev => ( {
+      ...prev,
+      [attrName]: value
+    } ) )
+  }
 
   // get product by her ID
   const fetchProductData = async () => {
@@ -50,7 +58,9 @@ const Product = () => {
 
   // add items to cart
   const handleAddToCart = () => {
-    addToCart(productData._id, size);
+    addToCart(productData._id, selectedAttributes);
+    console.log(selectedAttributes);
+    
   };
 
   return productData ? (
@@ -160,21 +170,36 @@ const Product = () => {
           </div>
 
           <p className="text-gray-700 mb-6">{productData.description}</p>
+          {/* Dynamic Attributes Section */}
+          {productData.attributes.length > 0 && (
+            <div className="mb-6">
+              {productData.attributes.map((attr, idx) => (
 
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-2">Size</h3>
-            <div className="flex flex-wrap gap-2">
-              {productData.sizes.map((item, index) => (
-                <button
-                  key={index}
-                  className={`px-4 py-2 border rounded-md ${size === item ? 'bg-main text-white border-main' : 'bg-white border-gray-300 hover:bg-gray-50'}`}
-                  onClick={() => setSize(item)}
-                >
-                  {item}
-                </button>
+                <div key={attr.name || idx} className="mb-4">
+                  <h3 className="text-lg font-semibold mb-2">{attr.name ? (attr.name).toLowerCase() : ''}</h3>
+
+                  <div className="flex flex-wrap gap-2">
+                    {Array.isArray(attr.values) && attr.values.map((val, vIdx) => (
+                      <button
+                        key={vIdx}
+                        className={`px-4 py-2 border rounded-md ${
+                          selectedAttributes[attr.name] === val
+                            ? 'bg-main text-white border-main'
+                            : 'bg-white border-gray-300 hover:bg-gray-50'
+                        }`}
+                        onClick={() => handlAddAttributeSelect(attr.name, val)}
+                        type="button"
+                      >
+                        {val}
+                      </button>
+                    ))}
+                  </div>
+
+                </div>
+
               ))}
             </div>
-          </div>
+          )}
           {/* 
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-2">Quantity</h3>

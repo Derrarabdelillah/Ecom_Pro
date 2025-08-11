@@ -68,7 +68,7 @@ const algerianWilayas = [
 ];
 
 const ProductsContext = ({ children }) => {
-    const backendUrl = "https://ecom-pro-0qxb.onrender.com";
+    const backendUrl = "https://ecom-pro-0qxb.onrender.com0";
     const currency = 'DZD'; // Changed from '$' to 'DZD' for Algerian context
     const [deliveryFee, setDeliveryFee] = useState(0);
     const [selectedWilaya, setSelectedWilaya] = useState("");
@@ -93,9 +93,9 @@ const ProductsContext = ({ children }) => {
         }
     };
 
-    const addToCart = async (itemId, size) => {
-        if (!size) {
-            toast.error('Please Select The Size', {
+    const addToCart = async (itemId, selectedAttributes) => {
+        if (!selectedAttributes) {
+            toast.error('Please select product attributes', {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -132,16 +132,18 @@ const ProductsContext = ({ children }) => {
             }, 3000);
         }
 
+        // convert array of attributes to string
+        const attrKey = JSON.stringify(selectedAttributes)
         let cartData = structuredClone(cartItems);
         if (cartData[itemId]) {
-            if (cartData[itemId][size]) {
-                cartData[itemId][size] += 1;
+            if (cartData[itemId][attrKey]) {
+                cartData[itemId][attrKey] += 1;
             } else {
-                cartData[itemId][size] = 1;
+                cartData[itemId][attrKey] = 1;
             }
         } else {
             cartData[itemId] = {};
-            cartData[itemId][size] = 1;
+            cartData[itemId][attrKey] = 1;
         }
         setCartItems(cartData);
 
@@ -156,7 +158,11 @@ const ProductsContext = ({ children }) => {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
                     },
-                }, { userId, itemId, size },
+                }, {
+                    userId,
+                    itemId,
+                    attributes: selectedAttributes
+                },
 
                 )
 
@@ -169,9 +175,10 @@ const ProductsContext = ({ children }) => {
         }
     };
 
-    const updateQuantity = async (itemId, size, quantity) => {
+    const updateQuantity = async (itemId, attributes, quantity) => {
+        const attrKey = JSON.stringify(attributes);
         let cartData = structuredClone(cartItems);
-        cartData[itemId][size] = quantity;
+        cartData[itemId][attrKey] = quantity;
         setCartItems(cartData);
 
         const user = JSON.parse(localStorage.getItem('user'));
@@ -179,7 +186,7 @@ const ProductsContext = ({ children }) => {
 
         if (token) {
             try {
-                const response = await axios.put(`${backendUrl}/api/cart/update`, { userId, itemId, size, quantity },
+                const response = await axios.put(`${backendUrl}/api/cart/update`, { userId, itemId, attributes, quantity },
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -228,8 +235,8 @@ const ProductsContext = ({ children }) => {
     const getCartCount = () => {
         let totalCount = 0;
         for (const productId in cartItems) {
-            for (const size in cartItems[productId]) {
-                totalCount += cartItems[productId][size];
+            for (const attributes in cartItems[productId]) {
+                totalCount += cartItems[productId][attributes];
             }
         }
         return totalCount;
@@ -274,13 +281,18 @@ const ProductsContext = ({ children }) => {
 
     // Transform CartItems Object to an Array
     const getCartProductsArray = () => {
-        return Object.entries(cartItems).flatMap(([productId, sizes]) =>
-            Object.entries(sizes).map(([size, quantity]) => ({
-                productId,
-                size,
-                quantity,
-                ...products.find(p => p._id === productId) // Spread product details
-            }))
+        return Object.entries(cartItems).flatMap(([productId, variants]) =>
+            Object.entries(variants).map(([attributesJson, quantity]) => {
+                const attributes = JSON.parse(attributesJson);
+                const product = products.find(p => p._id === productId);
+
+                return {
+                    _id: productId,
+                    ...product,
+                    quantity,
+                    attributes: Object.entries(attributes).map(([name, value]) => ({ name, value }))
+                };
+            })
         );
     };
 
