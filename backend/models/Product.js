@@ -14,12 +14,7 @@ const ProductSchema = new Schema({
         type: Number,
     },
     attributes: {
-        type: [
-            {
-                name: String,
-                values: [String]
-            }
-        ],
+        type: Array,  // Using Array type for attributes
         default: []
     },
     price: {

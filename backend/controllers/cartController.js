@@ -6,13 +6,13 @@ const addToCart = async (req, res) => {
     try {
 
         const user = await User.findById(req.userId);
-        const { itemId, size } = req.body;
+        const { itemId, attributes } = req.body;
 
         // Validate required fields
-        if (!itemId || !size) {
+        if (!itemId || !attributes) {
             return res.status(400).json({
                 success: false,
-                message: "Item ID and size are required"
+                message: "Item ID and attributes are required"
             });
         }
 
@@ -27,10 +27,10 @@ const addToCart = async (req, res) => {
         }
 
         // Initialize or increment quantity
-        if (!user.cartData[itemId][size]) {
-            user.cartData[itemId][size] = 1;
+        if (!user.cartData[itemId][attributes]) {
+            user.cartData[itemId][attributes] = 1;
         } else {
-            user.cartData[itemId][size] += 1;
+            user.cartData[itemId][attributes] += 1;
         }
 
         user.markModified('cartData');
@@ -53,13 +53,13 @@ const updateCart = async (req, res) => {
     try {
 
         const user = await User.findById(req.userId);
-        const { itemId, size, quantity } = req.body;
+        const { itemId, attributes, quantity } = req.body;
 
         // 1. Validate input
-        if (!itemId || !size || quantity === undefined || quantity < 0) {
+        if (!itemId || !attributes || quantity === undefined || quantity < 0) {
             return res.status(400).json({
                 success: false,
-                message: "Missing item ID, size, or invalid quantity"
+                message: "Missing item ID, attributes, or invalid quantity"
             });
         }
 
@@ -71,7 +71,7 @@ const updateCart = async (req, res) => {
             });
         }
 
-        user.cartData[itemId][size] = quantity
+        user.cartData[itemId][attributes] = quantity
 
 
         user.markModified('cartData');

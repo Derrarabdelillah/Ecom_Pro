@@ -13,7 +13,7 @@ const addProduct = async (req, res) => {
         const subCategory = req.body?.subCategory;
         const bestseller = req.body?.bestseller;
         const stock = req.body?.stock;
-        const attributes = req.body?.attributes; 
+        const attributes = req.body?.attributes ? JSON.parse(req.body.attributes) : [];
 
         // images
         const image1 = req.files?.image1 && req.files.image1[0];
@@ -28,7 +28,7 @@ const addProduct = async (req, res) => {
             images.map(async (img) => {
                 let response = await cloudinary.uploader.upload(img.path, {
                     resource_type: 'image',
-                    format: 'avif',          // Force WebP conversion
+                    format: 'avif',          // Force avif conversion
                     quality: 'auto:good',    // Balances quality & file size
                     crop: 'limit'            // Prevents stretching
                 });
@@ -59,7 +59,7 @@ const addProduct = async (req, res) => {
         });
 
     } catch (error) {
-        console.log(error);
+        res.status(400).json({message: error.message})
     };
 }
 
@@ -71,62 +71,92 @@ const allProducts = async (req, res) => {
 
 // Remove Product Function
 const removeProduct = async (req, res) => {
-    const { productId } = req.params;
-    const product = await Product.findByIdAndDelete(productId);
+    const { id } = req.params;
+    const product = await Product.findByIdAndDelete(id);
     return res.status(200).json({ success: true, product });
 }
 
 // Single Product info Function
 const singleProduct = async (req, res) => {
-    const { productId } = req.params;
-    const product = await Product.findById(productId);
+    const { id } = req.params;
+    const product = await Product.findById(id);
     return res.status(200).json({ success: true, product });
 };
 
 const updateProduct = async (req, res) => {
-    const { productId } = req.params;
-    
-    const name = req.body?.name;
-    const description = req.body?.description;
-    const price = req.body?.price;
-    const category = req.body?.category;
-    const subCategory = req.body?.subCategory;
-    const sizes = req.body?.sizes;
-    const bestseller = req.body?.bestseller;
+    try {
+        const { id } = req.params;
+        const product = await Product.findById(id);
 
-    // images
-    const image1 = req.files?.image1 && req.files.image1[0];
-    const image2 = req.files?.image2 && req.files.image2[0];
-    const image3 = req.files?.image3 && req.files.image3[0];
-    const image4 = req.files?.image4 && req.files.image4[0];
-    const images = [image1, image2, image3, image4].filter((img) => img !== undefined);
+        if (!product) {
+            return res.status(404).json({ success: false, message: 'Product not found' });
+        }
 
-    let imagesUrl = await Promise.all(
-        images.map(async (img) => {
-            let response = await cloudinary.uploader.upload(img.path, {
-                resource_type: 'image',
-                format: 'avif',          // Force WebP conversion
-                quality: 'auto:good',    // Balances quality & file size
-                crop: 'limit'            // Prevents stretching
-            });
-            return response.secure_url;
-        })
-    )
 
-    const updatedProduct = {
-        name,
-        description,
-        price,
-        category,
-        subCategory,
-        sizes,
-        bestseller: bestseller === "true" ? true : false,
-        image: imagesUrl,
-        date: Date.now()
+        const name = req.body?.name;
+        const description = req.body?.description;
+        const price = req.body?.price;
+        const category = req.body?.category;
+        const subCategory = req.body?.subCategory;
+        const bestseller = req.body?.bestseller;
+        const stock = req.body?.stock;
+        const attributes = req.body?.attributes ? JSON.parse(req.body.attributes) : [];
+
+        // Get existing Images
+        let existingImages = product.image || [];
+
+        // images
+        const image1 = req.files?.image1 && req.files.image1[0];
+        const image2 = req.files?.image2 && req.files.image2[0];
+        const image3 = req.files?.image3 && req.files.image3[0];
+        const image4 = req.files?.image4 && req.files.image4[0];
+        const newImages = [image1, image2, image3, image4].filter((img) => img !== undefined);
+
+        let newImagesUrls = [];
+        if (newImages.length > 0) {
+            newImagesUrls = await Promise.all(
+                newImages.map(async (img) => {
+                    let response = await cloudinary.uploader.upload(img.path, {
+                        resource_type: 'image',
+                        format: 'avif',          // Force avif conversion
+                        quality: 'auto:good',    // Balances quality & file size
+                        crop: 'limit'            // Prevents stretching
+                    });
+                    return response.secure_url;
+                })
+            );
+        }
+
+        // Combine existing and new images (replace at corresponding positions)
+        const updatedImages = [...existingImages];
+        if (image1) updatedImages[0] = newImagesUrls[0];
+        if (image2) updatedImages[1] = newImagesUrls[1];
+        if (image3) updatedImages[2] = newImagesUrls[2];
+        if (image4) updatedImages[3] = newImagesUrls[3];
+
+        const updatedProduct = {
+            name,
+            description,
+            stock,
+            category,
+            price,
+            subCategory,
+            bestseller: bestseller === "true" ? true : false,
+            attributes,
+            image: updatedImages.filter((img) => img !== undefined),
+            date: Date.now()
+        };
+
+        const updatedProductF = await Product.findByIdAndUpdate(id, updatedProduct, { new: true });
+
+        return res.status(200).json({
+            success: true,
+            message: 'Product updated successfully',
+            product: updatedProductF
+        });
+    } catch (error) {
+        return res.status(500).json({ success: false, message: 'Server Error' });
     }
-
-    const product = await Product.findByIdAndUpdate(productId, updatedProduct, { new: true });
-    return res.status(200).json({ success: true, product });
 }
 
 module.exports = {

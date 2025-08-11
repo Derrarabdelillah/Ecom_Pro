@@ -11,11 +11,6 @@ const connectToCloudinary  = require('./config/cloudinary');
 // dotenv
 require('dotenv').config()
 
-// const allowedOrigins = [
-//   "https://f-ecompro.onrender.com",
-//   "https://admin-ecompro.onrender.com"
-// ];
-
 // CORS Configuration
 const corsOptions = {
   origin: ['https://admin-ecompro.onrender.com', 'https://f-ecompro.onrender.com'],
