@@ -3,13 +3,11 @@ import axios from "axios";
 import { FiEdit2, FiTrash2, FiX, FiAlertTriangle } from "react-icons/fi";
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-toastify';
-
+import { Link } from 'react-router-dom';
 
 const Item = ({ product, currency }) => {
-
-  const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
-  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
-
+  const [token] = useState(localStorage.getItem('token') || '');
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com0";
   const [showConfirm, setShowConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -17,20 +15,11 @@ const Item = ({ product, currency }) => {
     setIsDeleting(true);
     try {
       const response = await axios.delete(`${backendUrl}/api/product/remove/${productId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+        headers: { Authorization: `Bearer ${token}` }
       });
-
       if (response.data.success) {
         toast.success('Product removed successfully', {
           position: 'top-right',
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
           className: 'bg-green-50 text-green-800',
           progressClassName: 'bg-green-200'
         });
@@ -47,18 +36,18 @@ const Item = ({ product, currency }) => {
     }
   };
 
-
-
   return (
-    <div className="relative">
-      <div className="group relative bg-white rounded-lg border border-grayBorder overflow-hidden shadow-sm hover:shadow-md  h-110 transition-shadow duration-200">
-        {/* Product Image */}
-        <div className="aspect-square bg-gray-50 overflow-hidden">
+    <div className="relative w-full">
+      {/* Product Card */}
+      <div className="group relative bg-white rounded-lg border border-grayBorder overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col h-full">
+        {/* Product Image - Fixed Aspect Ratio */}
+        <div className="aspect-square bg-gray-50 overflow-hidden relative">
           {product.image?.[0] ? (
             <img
               src={product.image[0]}
               alt={product.name}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-400">
@@ -67,50 +56,54 @@ const Item = ({ product, currency }) => {
           )}
         </div>
 
-        {/* Product Info */}
-        <div className="p-4">
+        {/* Product Info - Flex-grow to take remaining space */}
+        <div className="p-4 flex flex-col flex-grow">
           <div className="flex justify-between items-start">
-            <h3 className="text-lg font-medium text-gray-900 truncate">
+            <h3 className="text-lg font-medium text-gray-900 line-clamp-2">
               {product.name}
             </h3>
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 whitespace-nowrap ml-2">
               {currency}{product.price}
             </span>
           </div>
 
-          <p className="mt-1 text-sm text-gray-500 line-clamp-2">
+          <p className="mt-1 text-sm text-gray-500 line-clamp-2 flex-grow">
             {product.description}
           </p>
 
           <div className="mt-3 flex justify-between items-center">
-            <span className="text-xs font-medium text-gray-500">
+            <span className="text-xs font-medium text-gray-500 truncate">
               {product.category} • {product.subCategory}
             </span>
             {product.bestseller && (
-              <span className="text-xs font-medium text-amber-600 bg-amber-50 px-2 py-1 rounded-full">
+              <span className="text-xs font-medium text-amber-600 bg-amber-50 px-2 py-1 rounded-full whitespace-nowrap">
                 Bestseller
               </span>
             )}
           </div>
 
-          <div className="my-2 flex items-start">
+          <div className="mt-2">
             {!product.stock ? (
-              <span className="inline-flex items-center px-2.5 py-2 rounded-full text-xs font-medium bg-red-50 text-red-800">
-                no products in stock
+              <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-red-50 text-red-800">
+                Out of stock
               </span>
-            ) :
-              <span className="inline-flex items-center px-2.5 py-2 rounded-full text-xs font-medium bg-green-50 text-green-800">
-                in stock ( {product.stock} )
+            ) : (
+              <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800">
+                In stock ({product.stock})
               </span>
-            }
+            )}
           </div>
         </div>
 
         {/* Action Buttons */}
         <div className="absolute top-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-          <button className="p-2 rounded-full bg-white text-gray-600 hover:text-blue-600 shadow-sm hover:shadow-md cursor-pointer">
-            <FiEdit2 onClick={() => { getProduct(null, product._id) }} className="w-4 h-4" />
-          </button>
+          <Link to={`/update/${product._id}`}>
+            <button
+              //  onClick={() => { handleProductEdit(product._id) } }
+              className="p-2 rounded-full bg-white text-gray-600 hover:text-blue-600 shadow-sm hover:shadow-md cursor-pointer">
+              <FiEdit2 className="w-4 h-4" />
+            </button>
+          </Link>
           <button
             onClick={() => setShowConfirm(true)}
             className="p-2 rounded-full bg-white text-gray-600 hover:text-red-600 shadow-sm hover:shadow-md cursor-pointer">

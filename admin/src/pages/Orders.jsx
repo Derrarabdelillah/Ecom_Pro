@@ -24,7 +24,7 @@ const Orders = () => {
 
   const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
   const currency = 'DZD';
-  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com0";
 
   // Status configuration
   const statusConfig = {
@@ -408,11 +408,18 @@ const Orders = () => {
                                 </div>
                                 <div className="flex-1 min-w-0">
                                   <p className="font-medium truncate">{product.name}</p>
+
                                   <div className="flex flex-wrap gap-x-3 gap-y-1 text-gray-600">
                                     <span>Qty: {product.quantity}</span>
-                                    <span>Size: {product.size}</span>
+                                    {product.attributes?.map(attr => (
+                                      <span key={attr.name}>
+                                        {attr.name ? (attr.name).toLowerCase() : ''}:
+                                        <span className="font-medium px-2 py-1 rounded-full bg-blue-50 text-sm mx-1">{attr.value}</span>
+                                      </span>
+                                    ))}
                                     <span>{formatPrice(product.price)} {currency}</span>
                                   </div>
+
                                 </div>
                               </div>
                             ))}

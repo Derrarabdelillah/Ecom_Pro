@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
   const [isLoading, setIsLoading] = useState(true);
   const currency = 'DZD';
-  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com0";
 
   const navigate = useNavigate();
   const [stats, setStats] = useState({
@@ -266,10 +266,10 @@ const Dashboard = () => {
                   <div className="text-right">
                     <p className="font-medium">{currency}{order.deliveryInfos.total.toFixed(2)}</p>
                     <span className={`text-xs px-2 py-1 rounded-full ${order.status === 'delivered'
-                        ? 'bg-green-50 text-green-700 border border-green-100'
-                        : order.status === 'cancelled'
-                          ? 'bg-red-50 text-red-700 border border-red-100'
-                          : 'bg-yellow-50 text-yellow-700 border border-yellow-100'
+                      ? 'bg-green-50 text-green-700 border border-green-100'
+                      : order.status === 'cancelled'
+                        ? 'bg-red-50 text-red-700 border border-red-100'
+                        : 'bg-yellow-50 text-yellow-700 border border-yellow-100'
                       }`}>
                       {order.status}
                     </span>

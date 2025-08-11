@@ -3,12 +3,13 @@ import { useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify'
 import { assets } from '../assets/admin_assets/assets';
+import { useParams } from 'react-router-dom';
 
 // Back End Api Url
 
 const Add = ({ token }) => {
 
-  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com0";
   const [image1, setImage1] = useState('');
   const [image2, setImage2] = useState('');
   const [image3, setImage3] = useState('');
@@ -21,7 +22,7 @@ const Add = ({ token }) => {
   const [subCategory, setSubCategory] = useState('TopWear');
   const [price, setPrice] = useState('');
   const [bestseller, setBestseller] = useState(false);
-  const [updatedProduct, setUpdatedProduct] = useState({})
+
 
   const [attributes, setAttributes] = useState([]);
   const [attrName, setAttrName] = useState('');
@@ -125,11 +126,6 @@ const Add = ({ token }) => {
 
   }
 
-  const getProduct = async (product, productId) => {
-    const response = await axios.get(`${backendUrl}/api/product/single/${productId}`)
-    setUpdatedProduct(response.data.product);
-    navigate('/add');
-  }
 
   return (
     <>
@@ -144,8 +140,7 @@ const Add = ({ token }) => {
               <label htmlFor="image1">
                 <img src={image1
                   ? URL.createObjectURL(image1)
-                  : updatedProduct?.image?.[0]
-                  || assets.upload_area}
+                  : assets.upload_area}
                   className={`w-22 rounded-lg ${image1 ? 'w-33 h-33 object-contain' : ''}`} alt="" />
                 <input
                   onChange={(e) => setImage1(e.target.files[0])}
@@ -158,8 +153,7 @@ const Add = ({ token }) => {
               <label htmlFor="image2">
                 <img src={image2
                   ? URL.createObjectURL(image2)
-                  : updatedProduct?.image?.[1]
-                  || assets.upload_area} className={`w-22 rounded-lg ${image2 ? 'w-33 h-33 object-contain' : ''}`} alt="" />
+                  : assets.upload_area} className={`w-22 rounded-lg ${image2 ? 'w-33 h-33 object-contain' : ''}`} alt="" />
                 <input
                   onChange={(e) => setImage2(e.target.files[0])}
                   type="file"
@@ -171,8 +165,7 @@ const Add = ({ token }) => {
               <label htmlFor="image3">
                 <img src={image3
                   ? URL.createObjectURL(image3)
-                  : updatedProduct?.image?.[2]
-                  || assets.upload_area} className={`w-22 rounded-lg ${image3 ? 'w-33 h-33 object-contain' : ''}`} alt="" />
+                  : assets.upload_area} className={`w-22 rounded-lg ${image3 ? 'w-33 h-33 object-contain' : ''}`} alt="" />
                 <input
                   onChange={(e) => setImage3(e.target.files[0])}
                   type="file"
@@ -184,8 +177,7 @@ const Add = ({ token }) => {
               <label htmlFor="image4">
                 <img src={image4
                   ? URL.createObjectURL(image4)
-                  : updatedProduct?.image?.[3]
-                  || assets.upload_area} className={`w-22 rounded-lg ${image4 ? 'w-33 h-33 object-contain' : ''}`} alt="" />
+                  : assets.upload_area} className={`w-22 rounded-lg ${image4 ? 'w-33 h-33 object-contain' : ''}`} alt="" />
                 <input
                   onChange={(e) => setImage4(e.target.files[0])}
                   type="file"
