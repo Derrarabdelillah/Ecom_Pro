@@ -14,7 +14,7 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState(null);
   // const { backendUrl } = useContext(productsContext);
-  const backendUrl = "https://ecom-pro-0qxb.onrender.com0";
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
 
   const handleSubmit = async (e) => {

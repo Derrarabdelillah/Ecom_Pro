@@ -14,7 +14,7 @@ const Login = () => {
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState(null);
-  const backendUrl = "https://ecom-pro-0qxb.onrender.com0";
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
