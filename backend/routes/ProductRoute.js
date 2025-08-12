@@ -12,7 +12,7 @@ const {
 } = require('../controllers/productController');
 
 const upload = require('../middleware/multer');
-const adminAuth = require('../middleware/adminAuth');
+const { adminAuth } = require('../middleware/adminAuth');
 
 router.post('/add', adminAuth, upload.fields([
     {
