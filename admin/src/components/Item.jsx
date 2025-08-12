@@ -7,8 +7,7 @@ import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 const Item = ({ product, currency }) => {
-  const cookies = new Cookies();
-  const [token] = useState(cookies.get('token') || '');
+  const [token] = useState(Cookies.get('token') || '');
   const backendUrl = "https://ecom-pro-0qxb.onrender.com";
   const [showConfirm, setShowConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);

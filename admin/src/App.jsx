@@ -14,15 +14,13 @@ import Update from './pages/Update'
 import Cookies from 'js-cookie';
 
 const App = () => {
-  const cookies = new Cookies();
-
-  const [token, setToken] = useState(cookies.get('token') ? cookies.get('token') : '');
+  const [token, setToken] = useState(Cookies.get('token') || '');
   const navigate = useNavigate();
   useEffect(() => {
-    cookies.set('token', token);
+    Cookies.set('token', token);
 
     setTimeout(() => {
-      cookies.remove('token');
+      Cookies.remove('token');
       window.location.reload();
     }, 950000);
   }, [token])
