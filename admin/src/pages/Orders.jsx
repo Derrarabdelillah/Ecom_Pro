@@ -9,7 +9,7 @@ import {
 } from "react-icons/fi";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Cookies from 'universal-cookie'
+import Cookies from 'js-cookie';
 const Orders = () => {
   const cookies = new Cookies();
 

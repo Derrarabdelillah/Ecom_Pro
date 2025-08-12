@@ -4,7 +4,7 @@ import { FiEdit2, FiTrash2, FiX, FiAlertTriangle } from "react-icons/fi";
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import Cookies from 'universal-cookie'
+import Cookies from 'js-cookie';
 
 const Item = ({ product, currency }) => {
   const cookies = new Cookies();

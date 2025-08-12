@@ -11,7 +11,7 @@ import Login from './components/Login'
 import Users from './pages/Users'
 import Settings from './pages/Settings'
 import Update from './pages/Update'
-import Cookies from 'universal-cookie'
+import Cookies from 'js-cookie';
 
 const App = () => {
   const cookies = new Cookies();
@@ -41,7 +41,7 @@ const App = () => {
 
             <div className="container">
               <Routes>
-                <Route path='/' element={<Dashbord  token={token} />} />
+                <Route path='/' element={<Dashbord token={token} />} />
                 <Route path='/products' element={<Products token={token} />} />
                 <Route path='/orders' element={<Orders token={token} />} />
                 <Route path='/add' element={<Add token={token} />} />
