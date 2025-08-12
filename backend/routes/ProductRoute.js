@@ -50,6 +50,8 @@ router.put('/update/:id', upload.fields([
         maxCount: 3
     },
     {
+
+        
         name: 'image4',
         maxCount: 4
     },
