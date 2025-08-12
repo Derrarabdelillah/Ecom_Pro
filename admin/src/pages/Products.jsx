@@ -16,7 +16,13 @@ const Products = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const { data } = await axios.get(`${backendUrl}/api/product/all`);
+        const { data } = await axios.get(`${backendUrl}/api/product/all`, 
+      { 
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+
+      });
         setProducts(data);
       } catch (error) {
         console.error("Error fetching products:", error);

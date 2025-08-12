@@ -32,7 +32,14 @@ const Dashboard = () => {
           axios.get(`${backendUrl}/api/orders/adminOrders`, {
             headers: { Authorization: `Bearer ${token}` }
           }),
-          axios.get(`${backendUrl}/api/product/all`)
+          axios.get(`${backendUrl}/api/product/all`, 
+          { 
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+            
+          }
+          )
         ]);
 
         const totalRevenue = ordersRes.data.orders.reduce(
