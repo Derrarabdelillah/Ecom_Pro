@@ -116,6 +116,7 @@ const updateProduct = async (req, res) => {
         if (newImages.length > 0) {
             newImagesUrls = await Promise.all(
                 newImages.map(async (img) => {
+                    // upload images on cloudinary
                     let response = await cloudinary.uploader.upload(img.path, {
                         resource_type: 'image',
                         format: 'avif',          // Force avif conversion
