@@ -8,23 +8,23 @@ import Orders from './pages/Orders'
 import Add from './pages/Add';
 import { useEffect, useState } from 'react'
 import Login from './components/Login'
-import { ToastContainer, toast } from 'react-toastify'
 import Users from './pages/Users'
 import Settings from './pages/Settings'
 import Update from './pages/Update'
-
+import Cookies from 'universal-cookie'
 
 const App = () => {
+  const cookies = new Cookies();
 
-  const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
+  const [token, setToken] = useState(cookies.get('token') ? cookies.get('token') : '');
   const navigate = useNavigate();
   useEffect(() => {
-    localStorage.setItem('token', token)
+    cookies.set('token', token);
 
-    // setTimeout(() => {
-    //   localStorage.clear()
-    //   window.location.reload()
-    // }, 950000);
+    setTimeout(() => {
+      cookies.remove('token');
+      window.location.reload();
+    }, 950000);
   }, [token])
 
   return (
@@ -41,7 +41,7 @@ const App = () => {
 
             <div className="container">
               <Routes>
-                <Route path='/' element={<Dashbord />} />
+                <Route path='/' element={<Dashbord  token={token} />} />
                 <Route path='/products' element={<Products token={token} />} />
                 <Route path='/orders' element={<Orders token={token} />} />
                 <Route path='/add' element={<Add token={token} />} />

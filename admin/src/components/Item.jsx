@@ -4,9 +4,11 @@ import { FiEdit2, FiTrash2, FiX, FiAlertTriangle } from "react-icons/fi";
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import Cookies from 'universal-cookie'
 
 const Item = ({ product, currency }) => {
-  const [token] = useState(localStorage.getItem('token') || '');
+  const cookies = new Cookies();
+  const [token] = useState(cookies.get('token') || '');
   const backendUrl = "https://ecom-pro-0qxb.onrender.com";
   const [showConfirm, setShowConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);

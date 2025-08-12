@@ -9,8 +9,10 @@ import {
 } from "react-icons/fi";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import Cookies from 'universal-cookie'
 const Orders = () => {
+  const cookies = new Cookies();
+
   const [orders, setOrders] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,7 +24,7 @@ const Orders = () => {
   const [statusChangeData, setStatusChangeData] = useState({ orderId: null, newStatus: null });
 
 
-  const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
+  const [token, setToken] = useState(cookies.get('token') || '');
   const currency = 'DZD';
   const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
