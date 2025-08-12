@@ -11,7 +11,7 @@ import Login from './components/Login'
 import Users from './pages/Users'
 import Settings from './pages/Settings'
 import Update from './pages/Update'
-import { Cookies } from 'js-cookie';
+import Cookies from 'js-cookie';
 
 const App = () => {
   const cookies = new Cookies();
