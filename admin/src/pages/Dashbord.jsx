@@ -10,7 +10,8 @@ import { Bar } from 'react-chartjs-2';
 // Register ChartJS components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const Dashboard = ({token}) => {
+const Dashboard = () => {
+  const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
   const [isLoading, setIsLoading] = useState(true);
   const currency = 'DZD';
   const backendUrl = "https://ecom-pro-0qxb.onrender.com";
@@ -31,14 +32,7 @@ const Dashboard = ({token}) => {
           axios.get(`${backendUrl}/api/orders/adminOrders`, {
             headers: { Authorization: `Bearer ${token}` }
           }),
-          axios.get(`${backendUrl}/api/product/all`, 
-          { 
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-            
-          }
-          )
+          axios.get(`${backendUrl}/api/product/all`)
         ]);
 
         const totalRevenue = ordersRes.data.orders.reduce(

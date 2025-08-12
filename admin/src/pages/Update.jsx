@@ -142,14 +142,7 @@ const Update = ({ token }) => {
         if (image4) formData.append('image4', image4);
 
         try {
-            const response = await axios.put(`${backendUrl}/api/product/update/${id}`, formData, 
-            { 
-                headers: {
-                Authorization: `Bearer ${token}`
-                }
-                
-            }
-            );
+            const response = await axios.put(`${backendUrl}/api/product/update/${id}`, formData);
 
             if (response.data.success) {
                 toast.success("Product updated successfully", {
@@ -194,14 +187,11 @@ const Update = ({ token }) => {
         if (id) {
             const getProduct = async () => {
                 try {
-                    const response = await axios.get(`${backendUrl}/api/product/single/${id}`,
-                    { 
+                    const response = await axios.get(`${backendUrl}/api/product/single/${id}`, {
                         headers: {
-                        Authorization: `Bearer ${token}`
+                            'Authorization': `Bearer ${token}`
                         }
-                        
-                    }
-                    );
+                    });
                     const product = response.data.product;
                     setUpdatedProduct({
                         name: product.name || '',

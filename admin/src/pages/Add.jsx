@@ -77,14 +77,7 @@ const Add = ({ token }) => {
     image3 && formData.append('image3', image3)
     image4 && formData.append('image4', image4)
 
-    const response = await axios.post(`${backendUrl}/api/product/add`, formData, 
-      { 
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-        
-      }
-    )
+    const response = await axios.post(`${backendUrl}/api/product/add`, formData, { headers: token })
 
     if (response.data.success) {
       toast.success(response.data.message, {

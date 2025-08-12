@@ -14,9 +14,7 @@ const Item = ({ product, currency }) => {
   const removeProduct = async (productId) => {
     setIsDeleting(true);
     try {
-      const response = await axios.delete(`${backendUrl}/api/product/remove/${productId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      const response = await axios.delete(`${backendUrl}/api/product/remove/${productId}`);
       if (response.data.success) {
         toast.success('Product removed successfully', {
           position: 'top-right',

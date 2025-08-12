@@ -80,11 +80,7 @@ const Orders = () => {
   useEffect(() => {
     const getOrders = async () => {
       try {
-        const response = await axios.get(`${backendUrl}/api/orders/adminOrders`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        const response = await axios.get(`${backendUrl}/api/orders/adminOrders`);
         if (response.data.success) {
           setOrders(response.data.orders);
         }

@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import Item from "../components/Item"
 
 
-const Products = ({token}) => {
+const Products = () => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const currency = 'DZD';
@@ -16,11 +16,7 @@ const Products = ({token}) => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const { data } = await axios.get(`${backendUrl}/api/product/all`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        const { data } = await axios.get(`${backendUrl}/api/product/all`);
         setProducts(data);
       } catch (error) {
         console.error("Error fetching products:", error);
