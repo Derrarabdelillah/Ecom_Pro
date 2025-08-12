@@ -14,7 +14,7 @@ require('dotenv').config()
 // CORS Configuration
 const corsOptions = {
   origin: ['https://admin-ecompro.onrender.com', 'https://f-ecompro.onrender.com'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Add OPTIONS here
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 };
