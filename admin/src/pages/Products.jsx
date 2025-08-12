@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import Item from "../components/Item"
 
 
-const Products = () => {
+const Products = ({token}) => {
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const currency = 'DZD';
