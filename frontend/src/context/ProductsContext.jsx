@@ -68,7 +68,7 @@ const algerianWilayas = [
 ];
 
 const ProductsContext = ({ children }) => {
-    const backendUrl = "http://localhost:3000";
+    const backendUrl = "https://ecom-pro-0qxb.onrender.com";
     const currency = 'DZD'; // Changed from '$' to 'DZD' for Algerian context
     const [deliveryFee, setDeliveryFee] = useState(0);
     const [selectedWilaya, setSelectedWilaya] = useState("");
