@@ -21,9 +21,13 @@ const Navbar = ({ setToken }) => {
 
 
   const getUserById = async () => {
-    const userById = await axios.get(`${backendUrl}/api/users/admin/6a2d9650c19cc7fe9b497843`);
+    const userById = await axios.get(`${backendUrl}/api/users/admin/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      }
+    });
 
-    if ( userById.data.success) {
+    if (userById.data.success) {
       setUser(userById.data.admin);
     } else {
       toast.error('Failed to fetch user data.', {
@@ -33,7 +37,8 @@ const Navbar = ({ setToken }) => {
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined, }
+        progress: undefined,
+      }
       );
     }
   }
@@ -97,8 +102,8 @@ const Navbar = ({ setToken }) => {
             {profileOpen && (
               <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-1 z-50 border border-gray-100 overflow-hidden">
                 <div className="px-4 py-3 bg-gradient-to-r from-main/5 to-indigo-600/5 border-b border-gray-100">
-                  <p className="text-sm font-medium text-gray-800"> {user.username} </p>
-                  <p className="text-xs text-gray-500"> {user.role} </p>
+                  <p className="text-sm font-medium text-gray-800"> {user?.username || "Guest User"} </p>
+                  <p className="text-xs text-gray-500"> {user?.role || "User"} </p>
                 </div>
                 <button className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50/95 flex items-center gap-2 transition-colors">
                   <FiUser className="text-main opacity-80" />
