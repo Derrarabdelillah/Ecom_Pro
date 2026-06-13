@@ -22,8 +22,20 @@ const Navbar = ({ setToken }) => {
 
   const getUserById = async () => {
     const userById = await axios.get(`${backendUrl}/api/users/admin/6a2d9650c19cc7fe9b497843`);
-    
-    userById && setUser(userById.data.admin);
+
+    if ( userById.data.success) {
+      setUser(userById.data.admin);
+    } else {
+      toast.error('Failed to fetch user data.', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined, }
+      );
+    }
   }
 
   return (
