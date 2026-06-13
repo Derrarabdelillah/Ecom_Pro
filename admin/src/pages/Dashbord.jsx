@@ -16,7 +16,7 @@ const Dashboard = ({userRole}) => {
   const currency = 'DZD';
   const backendUrl = "http://localhost:3000";
 
-  console.log(userRole)
+  // console.log(userRole)
 
   const navigate = useNavigate();
   const [stats, setStats] = useState({
