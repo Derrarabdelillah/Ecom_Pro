@@ -21,7 +21,7 @@ const App = () => {
   const navigate = useNavigate();
   useEffect(() => {
     localStorage.setItem('token', token)
-    localStorage.setItem('userRole', userRole.role);
+    localStorage.setItem('userRole', userRole);
 
     // setTimeout(() => {
     //   localStorage.clear()
