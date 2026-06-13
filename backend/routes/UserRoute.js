@@ -86,15 +86,6 @@ router.post('/api/users/admin/create', authLimiter, async (req, res) => {
 
         console.log('req.body:', req.body);
 
-        // Check if username exists in req.body
-        
-        if ( req.body.username ) {
-            return res.status(400).json({
-                success: true,
-                message: "Username is required"
-            })
-        }
-
         // username Taken lets check it if is true
         const username = await Admin.findOne({ username: req.body.username })
 
