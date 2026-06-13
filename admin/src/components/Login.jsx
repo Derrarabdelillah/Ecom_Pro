@@ -3,24 +3,24 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { motion } from 'framer-motion';
-import { FiMail, FiLock, FiArrowRight } from 'react-icons/fi';
+import { FiMail, FiLock, FiArrowRight, FiUser } from 'react-icons/fi';
 
 
-const Login = ({ setToken }) => {
+const Login = ({ setToken, setUserRole }) => {
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const backendUrl = "https://ecom-pro-0qxb.onrender.com";
+    const backendUrl = "http://localhost:3000";
 
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
             setIsLoading(true);
-            const response = await axios.post(backendUrl + '/api/users/admin', user);
+            const response = await axios.post(`${backendUrl}/api/users/admin/login`, user);
             const token = response.data.token;
-
             if (response.data.success) {
                 setToken(token);
+                setUserRole(response.data.user);
                 toast.success(response.data.message, {
                     position: "top-right",
                     autoClose: 3000,
@@ -97,13 +97,13 @@ const Login = ({ setToken }) => {
                         <div className="space-y-4">
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <FiMail className="text-gray-400" />
+                                    <FiUser className="text-gray-400" />
                                 </div>
                                 <input
-                                    onChange={(e) => setUser({ ...user, email: e.target.value })}
-                                    type="email"
+                                    onChange={(e) => setUser({ ...user, username: e.target.value })}
+                                    type="text"
                                     className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-main focus:border-transparent transition-all"
-                                    placeholder="Admin Email"
+                                    placeholder="username"
                                     required
                                 />
                             </div>

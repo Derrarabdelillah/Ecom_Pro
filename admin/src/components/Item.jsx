@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 const Item = ({ product, currency }) => {
   const [token] = useState(localStorage.getItem('token') || '');
-  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
+  const backendUrl = "http://localhost:3000";
   const [showConfirm, setShowConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 

@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 
 const Add = ({ token }) => {
 
-  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
+  const backendUrl = "http://localhost:3000";
   const [image1, setImage1] = useState('');
   const [image2, setImage2] = useState('');
   const [image3, setImage3] = useState('');

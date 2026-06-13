@@ -12,14 +12,14 @@ const connectToCloudinary  = require('./config/cloudinary');
 require('dotenv').config()
 
 // CORS Configuration
-const corsOptions = {
-  origin: ['https://admin-ecompro.onrender.com', 'https://f-ecompro.onrender.com'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Add OPTIONS here
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-};
+// const corsOptions = {
+//   origin: ['https://admin-ecompro.onrender.com', 'https://f-ecompro.onrender.com'],
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Add OPTIONS here
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+//   credentials: true
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json()); // For JSON bodies
 app.use(express.urlencoded({ extended: true })); // For form data
 app.use(cookieParse());

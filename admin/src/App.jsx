@@ -17,20 +17,22 @@ import Update from './pages/Update'
 const App = () => {
 
   const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
+  const [userRole, setUserRole] = useState(localStorage.getItem('userRole'));
   const navigate = useNavigate();
   useEffect(() => {
     localStorage.setItem('token', token)
+    localStorage.setItem('userRole', userRole.role);
 
     // setTimeout(() => {
     //   localStorage.clear()
     //   window.location.reload()
     // }, 950000);
-  }, [token])
+  }, [token, userRole])
 
   return (
     <div>
       {token === '' || !token
-        ? <Login setToken={setToken} />
+        ? <Login setToken={setToken} setUserRole={setUserRole} />
         :
         <>
           <Navbar setToken={setToken} />
@@ -41,7 +43,7 @@ const App = () => {
 
             <div className="container">
               <Routes>
-                <Route path='/' element={<Dashbord />} />
+                <Route path='/' element={<Dashbord userRole={userRole} />} />
                 <Route path='/products' element={<Products token={token} />} />
                 <Route path='/orders' element={<Orders token={token} />} />
                 <Route path='/add' element={<Add token={token} />} />

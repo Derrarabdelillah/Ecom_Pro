@@ -6,7 +6,7 @@ import { assets } from '../assets/admin_assets/assets';
 import { useParams } from 'react-router-dom';
 
 const Update = ({ token }) => {
-    const backendUrl = "https://ecom-pro-0qxb.onrender.com";
+    const backendUrl = "http://localhost:3000";
     const { id } = useParams();
 
     // Loading states

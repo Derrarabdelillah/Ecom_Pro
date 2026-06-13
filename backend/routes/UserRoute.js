@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
+const Admin = require("../models/Admin");
 
 // dotenv
 require('dotenv').config()
@@ -23,9 +24,8 @@ router.post('/api/users/login', async (req, res) => {
             let confirmation = await bcrypt.compare(req.body.password, user.password);
 
             if (confirmation) {
-                const token = await createToken(user._id); // Explicitly convert to string
                 return res.status(200).json({
-                    success: true, token, user:
+                    success: true, user:
                     {
                         id: user._id,
                         username: user.username,
@@ -61,6 +61,117 @@ router.post('/api/users', async (req, res) => {
 
 });
 
+// Create ( Editor... )
+router.post('/api/users/admin/create', async (req, res) => {
+    try {
+        // Check if req.body exists
+        if (!req.body) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Request body is missing or invalid' 
+            });
+        }
+
+        console.log('req.body:', req.body);
+
+        // Check if username exists in req.body
+        
+        if ( req.body.username ) {
+            return res.status(400).json({
+                success: true,
+                message: "Username is required"
+            })
+        }
+
+        // username Taken lets check it if is true
+        const username = await Admin.findOne({ username: req.body.username })
+
+         
+        
+        // Check if username exists in req.body
+        if (!req.body.username) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Username is required' 
+            });
+        }
+
+        const usernameTaken = await Admin.findOne({ username: req.body.username });
+        
+        if (usernameTaken) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Username already taken' 
+            });
+        } else {
+            const user = await Admin.create(req.body);
+            const token = await createToken(user._id); // Explicitly convert to string
+            console.log('user:', user, token);
+
+            return res.status(201).json({ 
+                success: true, 
+                token: token,
+                admin: {
+                    id: user._id,
+                    username: user.username,
+                    role: user.role
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Error creating admin:', error);
+        return res.status(500).json({ 
+            success: false, 
+            message: 'Internal server error: ' + error.message 
+        });
+    }
+});
+
+// Login Editor, confirmateur...
+router.post('/api/users/admin/login', async (req, res) => {
+    const user = await Admin.findOne({ username: req.body.username });
+
+    try {
+
+        if (user) {
+            let confirmation = await bcrypt.compare(req.body.password, user.password);
+
+            if (confirmation) {
+                const token = await createToken(user._id); // Explicitly convert to string
+                return res.status(200).json({
+                    success: true, token, user:
+                    {
+                        id: user._id,
+                        username: user.username,
+                        role: user.role
+                    }
+                })
+            } else {
+                res.status(401).json({ success: false, message: 'Incorrect Password' })
+            } return
+
+        } else {
+            return res.status(400).json({ success: false, message: 'User Not Found!' });
+        }
+
+    }
+    catch (error) {
+        console.log(error)
+        res.json({ success: false, message: error.message });
+
+    }
+});
+
+// get Admins Users
+router.get('/api/users/admin', async (req, res) => {
+    try {
+        const admins = await Admin.find();
+        res.status(200).json({ success: true, admins });
+    } catch (error) {
+        console.error('Error fetching admins:', error);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+});
 
 // Admin Login
 router.post('/api/users/admin', async (req, res) => {
@@ -69,7 +180,7 @@ router.post('/api/users/admin', async (req, res) => {
         const password = req.body.password;
         if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
             const token = jwt.sign({ email, password }, JWT_SECRET, { expiresIn: '1h' });
-            res.json({ success: true, token })
+            res.json({ success: true, token, user: { email, role: "admin" } })
         } else {
             res.json({ success: false, message: 'Invalid Credentials' })
         }

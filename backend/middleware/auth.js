@@ -33,7 +33,7 @@ const authUser = async (req, res, next) => {
                 message: 'Invalid token payload'
             });
         }
-
+        
         // 5. Attach user ID to request
         req.userId = decoded._id;
         next();
