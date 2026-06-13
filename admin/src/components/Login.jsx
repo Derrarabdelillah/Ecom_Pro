@@ -21,6 +21,7 @@ const Login = ({ setToken, setUserRole }) => {
             if (response.data.success) {
                 setToken(token);
                 setUserRole(response.data.user.role);
+                console.log(response.data.user.role)
                 toast.success(response.data.message, {
                     position: "top-right",
                     autoClose: 3000,
