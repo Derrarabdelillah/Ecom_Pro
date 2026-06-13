@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { FiMenu, FiBell, FiSearch, FiUser, FiLogOut } from 'react-icons/fi';
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { useParams } from 'react-router-dom';
 
 const Navbar = ({ setToken }) => {
   const [scrolled, setScrolled] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,6 +15,16 @@ const Navbar = ({ setToken }) => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+
+  const { id } = useParams();
+
+
+  const getUserById = () => {
+    const userById = await axios.get(`${backendUrl}/api/users/admin/${id}`);
+    
+    userById && setUser(userById.data.admin);
+  }
 
   return (
     <header className={`sticky w-full py-6 px-4  z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-sm py-2' : 'bg-white/90 backdrop-blur-sm py-1'}`}>
@@ -73,8 +85,8 @@ const Navbar = ({ setToken }) => {
             {profileOpen && (
               <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-1 z-50 border border-gray-100 overflow-hidden">
                 <div className="px-4 py-3 bg-gradient-to-r from-main/5 to-indigo-600/5 border-b border-gray-100">
-                  <p className="text-sm font-medium text-gray-800">Admin User</p>
-                  <p className="text-xs text-gray-500">admin@gmail.com</p>
+                  <p className="text-sm font-medium text-gray-800"> {user.username} </p>
+                  <p className="text-xs text-gray-500"> {user.role} </p>
                 </div>
                 <button className="w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50/95 flex items-center gap-2 transition-colors">
                   <FiUser className="text-main opacity-80" />

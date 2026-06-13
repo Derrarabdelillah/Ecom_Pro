@@ -53,7 +53,7 @@ const Users = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [id]);
 
   // Filter users based on search and role filter
   useEffect(() => {
