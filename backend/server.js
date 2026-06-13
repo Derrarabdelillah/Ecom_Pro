@@ -41,7 +41,7 @@ const PORT = process.env.PORT || 3000;
 
 
 // api endpoints
-app.use(UserRoute); // Apply rate limiter to auth routes
+app.use(UserRoute); 
 app.use('/api/product', ProductRoute);
 app.use('/api/cart', CartRoute);
 app.use('/api/orders', OrderRoute);

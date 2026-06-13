@@ -176,6 +176,23 @@ router.get('/api/users/admin', async (req, res) => {
     }
 });
 
+// Next Task: is to create a route to get a single admin user by ID, 
+// and also implement a route to update an admin user's details. Additionally, 
+// we should consider adding a route to delete an admin user if necessary.
+// Create RBAC ( Role-Based Access Control ) for admin users, allowing different levels of access based on their roles (e.g., administrator, editor, Confirmateur).
+
+router.get('/api/users/admin/:id', async ( req, res ) => {
+    
+    try {
+        const admin = await Admin.findById(req.params.id);
+        res.status(200).json({ success: true, admin })
+
+    } catch ( error ) {
+        res.status(500).json({ success: false, error: error, message: 'Error on fetching Admin data' });
+    }
+
+} )
+
 // Admin Login
 router.post('/api/users/admin', authLimiter, async (req, res) => {
     try {
