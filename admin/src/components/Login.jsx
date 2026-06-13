@@ -20,7 +20,7 @@ const Login = ({ setToken, setUserRole }) => {
             const token = response.data.token;
             if (response.data.success) {
                 setToken(token);
-                setUserRole(response.data.user);
+                setUserRole(response.data.user.role);
                 toast.success(response.data.message, {
                     position: "top-right",
                     autoClose: 3000,

@@ -123,7 +123,7 @@ const Users = () => {
     setFormLoading(true);
 
     try {
-      // This is where you would call your backend API
+      // Create user via API
       const response = await axios.post(`${backendUrl}/api/users/admin/create`, newUser);
       const data = await response.data;
 
