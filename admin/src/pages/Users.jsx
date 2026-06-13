@@ -177,7 +177,7 @@ const Users = () => {
     switch (role) {
       case 'Administrator': return 'bg-red-100 text-red-800';
       case 'Editor': return 'bg-blue-100 text-blue-800';
-      case 'Contributor': return 'bg-purple-100 text-purple-800';
+      case 'Confirmateur': return 'bg-purple-100 text-purple-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
@@ -236,7 +236,7 @@ const Users = () => {
                   <option value="all">All Roles</option>
                   <option value="admin">Administrator</option>
                   <option value="editor">Editor</option>
-                  <option value="contributor">Contributor</option>
+                  <option value="Confirmateur">Confirmateur</option>
                 </select>
               </div>
             </div>
@@ -301,7 +301,7 @@ const Users = () => {
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-main"
                   >
                     <option value="Editor">Editor</option>
-                    <option value="Contributor">Contributor</option>
+                    <option value="Confirmateur">Confirmateur</option>
                     <option value="Administrator">Administrator</option>
                   </select>
                 </div>
