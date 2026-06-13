@@ -34,6 +34,7 @@ const createOrder = async (req, res) => {
     };
 };
 
+
 // Admin: Update Status
 const updateStatus = async (req, res) => {
     try {
@@ -75,7 +76,6 @@ const getAdminOrders = async (req, res) => {
 
 module.exports = {
     createOrder,
-    // getUserOrders,
     updateStatus,
     getAdminOrders
 }
