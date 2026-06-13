@@ -20,7 +20,7 @@ const Navbar = ({ setToken }) => {
   const { id } = useParams();
 
 
-  const getUserById = () => {
+  const getUserById = async () => {
     const userById = await axios.get(`${backendUrl}/api/users/admin/${id}`);
     
     userById && setUser(userById.data.admin);
