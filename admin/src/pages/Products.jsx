@@ -12,7 +12,7 @@ const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const currency = 'DZD';
 
-  const backendUrl = "http://localhost:3000";
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
   useEffect(() => {
     const getProducts = async () => {
       try {

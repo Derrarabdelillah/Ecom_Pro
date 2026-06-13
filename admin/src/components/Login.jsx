@@ -10,7 +10,7 @@ const Login = ({ setToken, setUserRole }) => {
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const backendUrl = "http://localhost:3000";
+    const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
     const handleSubmit = async (e) => {
         try {

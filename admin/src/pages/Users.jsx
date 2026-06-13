@@ -28,7 +28,7 @@ const Users = () => {
   const [roleFilter, setRoleFilter] = useState('all');
   const [loading, setLoading] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
-  const backendUrl = "http://localhost:3000";
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
   // Fetch users from backend
   const fetchUsers = async () => {

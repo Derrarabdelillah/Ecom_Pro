@@ -10,11 +10,11 @@ import { Bar } from 'react-chartjs-2';
 // Register ChartJS components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const Dashboard = ({userRole}) => {
+const Dashboard = ({ userRole }) => {
   const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
   const [isLoading, setIsLoading] = useState(true);
   const currency = 'DZD';
-  const backendUrl = "http://localhost:3000";
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
   // console.log(userRole)
 

@@ -24,7 +24,7 @@ const Orders = () => {
 
   const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : '');
   const currency = 'DZD';
-  const backendUrl = "http://localhost:3000";
+  const backendUrl = "https://ecom-pro-0qxb.onrender.com";
 
   // Status configuration
   const statusConfig = {
