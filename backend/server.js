@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const cookieParse = require('cookie-parser');
-const rateLimit = require('express-rate-limit')
 
 // DB
 const connectDB = require('./config/connect');
@@ -20,16 +19,6 @@ const corsOptions = {
   credentials: true
 };
 
-const authLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5, // each IP can only make 5 requests to auth endpoints per windowMs
-    message: {
-      success: false,
-      message: 'Too many login attempts from this IP, please try again after 15 minutes'
-    },
-    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-})
 
 app.use(cors(corsOptions));
 app.use(express.json()); // For JSON bodies

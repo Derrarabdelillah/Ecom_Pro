@@ -4,6 +4,7 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const Admin = require("../models/Admin");
+const rateLimit = require('express-rate-limit')
 
 // dotenv
 require('dotenv').config()
@@ -14,8 +15,19 @@ const createToken = async (id) => {
 }
 
 
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // each IP can only make 5 requests to auth endpoints per windowMs
+    message: {
+      success: false,
+      message: 'Too many login attempts from this IP, please try again after 15 minutes'
+    },
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
 // Login
-router.post('/api/users/login', async (req, res) => {
+router.post('/api/users/login', authLimiter, async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
 
     try {
@@ -49,7 +61,7 @@ router.post('/api/users/login', async (req, res) => {
 });
 
 // Create a new user - post method
-router.post('/api/users', async (req, res) => {
+router.post('/api/users', authLimiter, async (req, res) => {
     const EmailTaken = await User.findOne({ email: req.body.email });
 
     if (EmailTaken) {
@@ -62,7 +74,7 @@ router.post('/api/users', async (req, res) => {
 });
 
 // Create ( Editor... )
-router.post('/api/users/admin/create', async (req, res) => {
+router.post('/api/users/admin/create', authLimiter, async (req, res) => {
     try {
         // Check if req.body exists
         if (!req.body) {
@@ -128,7 +140,7 @@ router.post('/api/users/admin/create', async (req, res) => {
 });
 
 // Login Editor, confirmateur...
-router.post('/api/users/admin/login', async (req, res) => {
+router.post('/api/users/admin/login', authLimiter, async (req, res) => {
     const user = await Admin.findOne({ username: req.body.username });
 
     try {
@@ -174,7 +186,7 @@ router.get('/api/users/admin', async (req, res) => {
 });
 
 // Admin Login
-router.post('/api/users/admin', async (req, res) => {
+router.post('/api/users/admin', authLimiter, async (req, res) => {
     try {
         const email = req.body.email;
         const password = req.body.password;
