@@ -234,7 +234,7 @@ const Users = () => {
                   className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-main"
                 >
                   <option value="all">All Roles</option>
-                  <option value="admin">Administrator</option>
+                  <option value="Administrator">Administrator</option>
                   <option value="editor">Editor</option>
                   <option value="Confirmateur">Confirmateur</option>
                 </select>
